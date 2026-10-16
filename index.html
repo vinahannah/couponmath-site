@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Coupon Math</title><meta name="description" content="Plan your shopping trips in minutes.">
+<title>Hannah Vina · Coupon Math</title><meta name="description" content="Plan your shopping trips in minutes.">
 <link rel="icon" href="/icon.png"><link rel="apple-touch-icon" href="/icon.png">
 <meta property="og:title" content="Coupon Math"><meta property="og:description" content="Plan your shopping trips in minutes."><meta property="og:image" content="https://couponmath.com/icon.png">
 <style>*{box-sizing:border-box;margin:0;padding:0}
@@ -38,32 +38,131 @@ h2{font-size:26px;font-weight:800;margin-bottom:8px}
 .sh{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--line);font-weight:800;font-size:17px}
 .x{width:32px;height:32px;border-radius:16px;background:#F1F3F5;border:0;font-size:16px;color:#4B5563;cursor:pointer}
 iframe{flex:1;width:100%;border:0}
+
+main{padding-top:36px}
+.me{width:132px;height:132px;border-radius:30px;object-fit:cover;box-shadow:0 8px 22px rgba(0,0,0,.14);background:#E5E7EB}
+.name{font-size:28px;font-weight:800;margin-top:14px}
+.sub{color:var(--muted);font-size:16px;margin-top:3px}
+.box{background:#fff;border:1px solid var(--line);border-radius:20px;padding:20px 18px;margin-top:20px}
+.upd h3{text-align:center;font-size:16px;font-weight:800;margin-bottom:10px}
+.upd p{font-size:15px;line-height:1.55;color:#374151;margin-bottom:10px;white-space:pre-line}
+.upd a{font-weight:600;cursor:pointer}
+.sig{text-align:center;font-weight:700;font-size:15px;margin-top:4px}
+.appc{text-align:center}
+.appicon{width:64px;height:64px;border-radius:15px}
+.appc h2{font-size:22px;margin:8px 0 0}
+.appc .tag{font-size:14.5px;margin-top:2px}
+.appc .blurb{font-size:14.5px;margin:12px auto 16px}
+.appc .btn{margin-bottom:10px}
+.btn.notify{background:var(--blue);border-color:var(--blue);color:#fff}
+.note{font-size:12.5px;color:var(--muted);line-height:1.45;text-wrap:balance}
+.sec{font-size:19px;font-weight:800;text-align:center;margin:28px 0 4px}
+.secsub{font-size:13px;color:var(--muted);text-align:center;margin-bottom:12px}
+.car{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -20px;padding:0 20px 4px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.car::-webkit-scrollbar{display:none}
+.car img{width:84%;flex-shrink:0;scroll-snap-align:center;border-radius:18px;border:1px solid var(--line);background:#fff;height:auto}
+.dots{text-align:center;margin-top:10px}.dots span{display:inline-block;width:7px;height:7px;border-radius:4px;background:#CBD5E1;margin:0 3px;transition:all .2s}.dots span.on{background:var(--blue);width:18px}
+.ec p{font-size:15px;line-height:1.55;color:#374151;margin-bottom:14px;text-align:center}
+.ec img{width:100%;border-radius:14px;display:block;height:auto}
+.soc{display:flex;justify-content:center;gap:16px;margin-top:34px}
+.soc a{width:46px;height:46px;border-radius:23px;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 3px 8px rgba(0,0,0,.15);overflow:hidden}
+.soc svg{width:46px;height:46px}
+footer{padding-top:14px}
 </style></head><body>
-<main class="center">
-<img class="icon" src="/icon.png" alt="Coupon Math app icon">
-<h1>Coupon Math</h1>
+<main>
+<div class="center">
+<img class="me" id="photo" src="/hannah.jpg" alt="Hannah Vina">
+<div class="name">Hannah Vina</div>
+<div class="sub">Coupon Math</div>
+</div>
+
+<div class="box upd" id="update" style="display:none">
+<h3 id="updTitle"></h3>
+<div id="updMsg"></div>
+<div class="sig" id="updSig"></div>
+</div>
+
+<div class="box appc">
+<img class="appicon" src="/icon.png" alt="Coupon Math app icon">
+<h2>Coupon Math</h2>
 <div class="tag">Every deal has a little math.</div>
 <p class="blurb">Plan your shopping trips in minutes. Browse weekly deals, organize them into transactions, and see estimated totals and rewards before you shop.</p>
-<!-- BEFORE LAUNCH: "Get notified" button. AFTER LAUNCH: set LAUNCHED to true in the script at the bottom. -->
-<button class="btn notify" id="notifyBtn" type="button"><svg viewBox="0 0 24 24"><path d="M12 22a2 2 0 0 0 2-2h-4a2 2 0 0 0 2 2zm6-6V11a6 6 0 0 0-5-5.9V4a1 1 0 0 0-2 0v1.1A6 6 0 0 0 6 11v5l-2 2v1h16v-1l-2-2z" fill="#0071E3"/></svg>Get notified when it's available</button>
+<button class="btn notify" id="notifyBtn" type="button"><svg viewBox="0 0 24 24"><path d="M12 22a2 2 0 0 0 2-2h-4a2 2 0 0 0 2 2zm6-6V11a6 6 0 0 0-5-5.9V4a1 1 0 0 0-2 0v1.1A6 6 0 0 0 6 11v5l-2 2v1h16v-1l-2-2z" fill="#fff"/></svg>Get notified when it's available</button>
 <a class="btn primary" id="storeBtn" href="https://apps.apple.com/app/id6812436686" style="display:none"><svg viewBox="0 0 24 24"><path fill="#fff" d="M16.4 12.6c0-2.4 2-3.5 2-3.6-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.2-2.8.8-3.5.8s-1.9-.8-3.1-.8a4.6 4.6 0 0 0-3.9 2.4c-1.7 2.9-.4 7.2 1.2 9.6.8 1.2 1.7 2.5 3 2.4 1.2 0 1.6-.8 3.1-.8s1.8.8 3.1.8c1.3 0 2.1-1.2 2.9-2.4a10 10 0 0 0 1.3-2.7c0 0-2.6-1-2.7-3.9zM14 5.5c.7-.8 1.1-1.9 1-3-1 0-2.1.7-2.8 1.5-.6.7-1.2 1.8-1 2.9 1 .1 2.1-.6 2.8-1.4z"/></svg>Download on the App Store</a>
-<a class="btn" href="https://www.tiktok.com/@hannah.vina" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#010101"/><path d="M15.6 5.5c.4 1.3 1.4 2.3 2.7 2.6v2.3c-1 0-2-.3-2.8-.8v4.6a4 4 0 1 1-4-4c.2 0 .4 0 .6.1v2.4a1.7 1.7 0 1 0 1.1 1.6V5.5h2.4z" fill="#fff"/></svg>TikTok</a>
-<a class="btn" href="https://www.instagram.com/hannahvina_/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><defs><linearGradient id="g" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#F58529"/><stop offset=".5" stop-color="#DD2A7B"/><stop offset="1" stop-color="#8134AF"/></linearGradient></defs><rect width="24" height="24" rx="6" fill="url(#g)"/><rect x="6" y="6" width="12" height="12" rx="3.5" fill="none" stroke="#fff" stroke-width="1.6"/><circle cx="12" cy="12" r="2.9" fill="none" stroke="#fff" stroke-width="1.6"/><circle cx="15.6" cy="8.4" r=".9" fill="#fff"/></svg>Instagram</a>
+<div class="note" id="iphoneNote">At this time, Coupon Math will launch on iPhone only.</div>
+</div>
+
+<div class="sec">A sneak peek of Coupon Math</div>
+<div class="secsub">Swipe to see more →</div>
+<div class="car" id="car">
+<img src="/preview1.jpg" alt="Coupon Math deals screen" loading="lazy">
+<img src="/preview2.jpg" alt="Coupon Math planner screen" loading="lazy">
+<img src="/preview3.jpg" alt="Coupon Math custom deal screen" loading="lazy">
+</div>
+<div class="dots" id="dots"><span class="on"></span><span></span><span></span></div>
+
+<div class="sec">Extra Cart</div>
+<div class="box ec" style="margin-top:10px">
+<p>Extra Cart is a webpage that I created to make coupon planning easier. I am now converting it into an app (Coupon Math) with bigger and better features!</p>
+<img src="/extracart.jpg" alt="Extra Cart" loading="lazy">
+</div>
+
+<div class="soc">
+<a href="https://www.tiktok.com/@hannah.vina" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24"><rect width="24" height="24" rx="12" fill="#010101"/><path d="M15.6 5.5c.4 1.3 1.4 2.3 2.7 2.6v2.3c-1 0-2-.3-2.8-.8v4.6a4 4 0 1 1-4-4c.2 0 .4 0 .6.1v2.4a1.7 1.7 0 1 0 1.1 1.6V5.5h2.4z" fill="#fff"/></svg></a>
+<a href="https://www.instagram.com/hannahvina_/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24"><defs><linearGradient id="g" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#F58529"/><stop offset=".5" stop-color="#DD2A7B"/><stop offset="1" stop-color="#8134AF"/></linearGradient></defs><rect width="24" height="24" rx="12" fill="url(#g)"/><rect x="6" y="6" width="12" height="12" rx="3.5" fill="none" stroke="#fff" stroke-width="1.6"/><circle cx="12" cy="12" r="2.9" fill="none" stroke="#fff" stroke-width="1.6"/><circle cx="15.6" cy="8.4" r=".9" fill="#fff"/></svg></a>
+</div>
 </main>
 <footer><a href="/support">Support</a> · <a href="/privacy">Privacy Policy</a> · <a href="/terms">Terms &amp; Conditions</a></footer>
+
 <div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Get notified">
   <div class="sheet"><div class="sh">Get notified<button class="x" id="closeBtn" type="button" aria-label="Close">✕</button></div>
-  <iframe id="formFrame" title="Get notified form" loading="lazy"></iframe></div>
+  <iframe id="formFrame" title="Get notified form"></iframe></div>
 </div>
+
 <script>
 var LAUNCHED = false; // change to true once the app is on the App Store
 var FORM = "https://docs.google.com/forms/d/e/1FAIpQLSd6IwvllFzn-b_amQvd1D0dQmz3m3E_ejZ-zOZYL_YsbBzPGw/viewform?embedded=true";
 var modal = document.getElementById('modal'), frame = document.getElementById('formFrame');
-if (LAUNCHED) { document.getElementById('notifyBtn').style.display = 'none'; document.getElementById('storeBtn').style.display = 'flex'; }
-document.getElementById('notifyBtn').onclick = function () { if (!frame.src) frame.src = FORM; modal.classList.add('open'); document.body.style.overflow = 'hidden'; };
+if (LAUNCHED) {
+  document.getElementById('notifyBtn').style.display = 'none';
+  document.getElementById('storeBtn').style.display = 'flex';
+  document.getElementById('iphoneNote').textContent = 'Available for iPhone.';
+}
+function openForm() { if (!frame.src) frame.src = FORM; modal.classList.add('open'); document.body.style.overflow = 'hidden'; }
 function closeModal() { modal.classList.remove('open'); document.body.style.overflow = ''; }
+document.getElementById('notifyBtn').onclick = openForm;
 document.getElementById('closeBtn').onclick = closeModal;
 modal.onclick = function (e) { if (e.target === modal) closeModal(); };
 document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeModal(); });
+
+// Carousel dots follow the swipe
+var car = document.getElementById('car'), dots = document.getElementById('dots').children;
+car.addEventListener('scroll', function () {
+  var i = Math.round(car.scrollLeft / (car.scrollWidth - car.clientWidth || 1) * (dots.length - 1));
+  for (var k = 0; k < dots.length; k++) dots[k].className = k === i ? 'on' : '';
+}, { passive: true });
+
+// Photo and update card: set in the app (Admin → Website)
+function esc(t) { return t.replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+function showUpdate(u) {
+  if (!u || u.show === false || !(u.message || '').trim()) return;
+  document.getElementById('updTitle').textContent = u.title ? '– ' + u.title + ' –' : '';
+  var html = esc(u.message.trim()).split(/\n\s*\n/).map(function (p) { return '<p>' + p + '</p>'; }).join('');
+  html = html.replace(/fill out the form/i, function (m) { return '<a role="button" tabindex="0" onclick="openForm()">' + m + '</a>'; });
+  document.getElementById('updMsg').innerHTML = html;
+  document.getElementById('updSig').textContent = u.signature ? '– ' + u.signature : '';
+  document.getElementById('update').style.display = '';
+}
+var DEFAULT_UPDATE = { show: true, title: 'Update October 12th', signature: 'Hannah Vina ❤️',
+  message: "Coupon Math is in beta testing! If you'd like to be notified when it's available on the App Store, you can fill out the form below.\n\nThank you to everyone who has shared such positive feedback about the app. Updates coming soon! 😊" };
+fetch("https://noylxdmcugembxnwpipb.supabase.co/rest/v1/app_content?key=eq.website&select=content", { headers: { apikey: "sb_publishable_Til6cvd0tAebF5CKhA9qWw_Lx4ygo6P", Authorization: "Bearer sb_publishable_Til6cvd0tAebF5CKhA9qWw_Lx4ygo6P" } })
+  .then(function (r) { return r.json(); })
+  .then(function (rows) {
+    var c = null; try { c = rows && rows[0] && JSON.parse(rows[0].content); } catch (e) {}
+    if (!c) { showUpdate(DEFAULT_UPDATE); return; }
+    if (c.photo_url) document.getElementById('photo').src = c.photo_url;
+    showUpdate(c.update);
+  })
+  .catch(function () { showUpdate(DEFAULT_UPDATE); });
 </script>
 </body></html>
