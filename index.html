@@ -170,6 +170,13 @@ var ME = false, VISITOR = null;
 try {
   if (/[?&]me\b/.test(location.search)) localStorage.setItem('cm_me', '1'); // this phone isn't counted
   ME = localStorage.getItem('cm_me') === '1';
+  if (/[?&]me\b/.test(location.search)) {
+    // Show that it worked
+    var n = document.createElement('div');
+    n.textContent = ME ? '✓ Visits from this browser are no longer counted' : 'Could not turn off counting in this browser (Private Browsing?)';
+    n.style.cssText = 'position:fixed;left:12px;right:12px;top:12px;z-index:20;background:' + (ME ? '#2E7D32' : '#C62828') + ';color:#fff;font-weight:700;font-size:14px;text-align:center;padding:12px;border-radius:12px;box-shadow:0 4px 14px rgba(0,0,0,.2)';
+    document.body.appendChild(n); setTimeout(function () { n.remove(); }, 5000);
+  }
   VISITOR = localStorage.getItem('cm_vid');
   if (!VISITOR) { VISITOR = Math.random().toString(36).slice(2) + Date.now().toString(36); localStorage.setItem('cm_vid', VISITOR); }
 } catch (e) {}
@@ -189,6 +196,21 @@ function track(ev) {
   } catch (e) {}
 }
 track('view');
+// Hidden switch for any browser (TikTok/Instagram's built-in one too): tap the photo 5 times quickly
+(function () {
+  var taps = 0, timer = null;
+  document.getElementById('photo').addEventListener('click', function () {
+    taps++; clearTimeout(timer); timer = setTimeout(function () { taps = 0; }, 1500);
+    if (taps < 5) return;
+    taps = 0;
+    var ok = false; try { localStorage.setItem('cm_me', '1'); ok = localStorage.getItem('cm_me') === '1'; } catch (e) {}
+    ME = ME || ok;
+    var n = document.createElement('div');
+    n.textContent = ok ? '✓ Visits from this browser are no longer counted' : 'Could not turn off counting in this browser';
+    n.style.cssText = 'position:fixed;left:12px;right:12px;top:12px;z-index:20;background:' + (ok ? '#2E7D32' : '#C62828') + ';color:#fff;font-weight:700;font-size:14px;text-align:center;padding:12px;border-radius:12px;box-shadow:0 4px 14px rgba(0,0,0,.2)';
+    document.body.appendChild(n); setTimeout(function () { n.remove(); }, 5000);
+  });
+})();
 document.querySelector('.soc a[aria-label="TikTok"]').addEventListener('click', function () { track('tiktok'); });
 document.querySelector('.soc a[aria-label="Instagram"]').addEventListener('click', function () { track('instagram'); });
 </script>
