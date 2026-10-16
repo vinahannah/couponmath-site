@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Privacy Policy · Coupon Math</title><meta name="description" content="Plan your shopping trips in minutes.">
+<link rel="icon" href="/icon.png"><link rel="apple-touch-icon" href="/icon.png">
+<meta property="og:title" content="Coupon Math"><meta property="og:description" content="Plan your shopping trips in minutes."><meta property="og:image" content="https://couponmath.com/icon.png">
+<style>*{box-sizing:border-box;margin:0;padding:0}
+:root{--blue:#0071E3;--text:#1C1C1E;--muted:#6B7280;--line:#E5E7EB;--bg:#F5F7FA}
+html{-webkit-text-size-adjust:100%}
+body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column}
+main{flex:1;width:100%;max-width:480px;margin:0 auto;padding:40px 20px 24px}
+a{color:var(--blue);text-decoration:none}
+.center{text-align:center}
+.icon{width:96px;height:96px;border-radius:22px;box-shadow:0 6px 18px rgba(0,113,227,.25)}
+h1{font-size:28px;font-weight:800;margin-top:14px}
+.tag{color:var(--muted);font-size:16px;margin-top:4px}
+.blurb{font-size:15px;color:#374151;margin:18px auto 24px;line-height:1.5;max-width:400px;text-wrap:balance}
+.btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;border-radius:14px;padding:16px;font-weight:700;font-size:16px;margin-bottom:12px;background:#fff;border:1px solid var(--line);color:var(--text);cursor:pointer;font-family:inherit}
+.btn:active{opacity:.8}
+.btn.primary{background:var(--blue);border-color:var(--blue);color:#fff}
+.btn.notify{background:#E8F2FC;border-color:#B5D5F5;color:var(--blue)}
+.btn svg{width:24px;height:24px;flex-shrink:0}
+footer{text-align:center;font-size:13px;color:var(--muted);padding:18px 16px 28px}
+footer a{margin:0 6px;font-weight:600;display:inline-block;padding:4px 0}
+.back{display:inline-block;font-weight:600;font-size:15px;margin-bottom:16px}
+h2{font-size:26px;font-weight:800;margin-bottom:8px}
+.p{font-size:15px;color:#374151;line-height:1.55;margin-bottom:16px}
+.h3{font-weight:800;font-size:16px;margin:18px 0 8px}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.mail{font-weight:700;font-size:16px}
+.li{padding:12px 0;border-bottom:1px solid #F1F3F5}.li:last-child{border:0}
+.li b{display:block;font-size:15.5px}.li span{font-size:14px;color:#4B5563}
+.legal{white-space:pre-wrap;font-size:15px;line-height:1.6;color:#374151}
+.muted{color:var(--muted);font-size:14px}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;align-items:flex-end;justify-content:center;z-index:10}
+.modal.open{display:flex}
+.sheet{background:#fff;width:100%;max-width:560px;height:88vh;border-radius:18px 18px 0 0;display:flex;flex-direction:column;overflow:hidden}
+@media(min-width:640px){.modal{align-items:center}.sheet{border-radius:18px;height:80vh}}
+.sh{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--line);font-weight:800;font-size:17px}
+.x{width:32px;height:32px;border-radius:16px;background:#F1F3F5;border:0;font-size:16px;color:#4B5563;cursor:pointer}
+iframe{flex:1;width:100%;border:0}
+</style></head><body>
+<main>
+<a class="back" href="/">‹ Coupon Math</a>
+<h2>Privacy Policy</h2>
+<p class="muted" id="updated"></p>
+<div class="legal" id="text"><span class="muted">Loading…</span></div>
+<div class="h3">Contact</div>
+<p class="p"><a href="mailto:support@couponmath.com">support@couponmath.com</a></p>
+</main>
+<footer><a href="/">Home</a> · <a href="/support">Support</a> · <a href="/terms">Terms &amp; Conditions</a></footer>
+<script>
+// Same text as in the app (edited in the app's admin), loaded live
+fetch("https://noylxdmcugembxnwpipb.supabase.co/rest/v1/app_content?key=eq.privacy_policy&select=content,updated_at", { headers: { apikey: "sb_publishable_Til6cvd0tAebF5CKhA9qWw_Lx4ygo6P", Authorization: "Bearer sb_publishable_Til6cvd0tAebF5CKhA9qWw_Lx4ygo6P" } })
+  .then(function (r) { return r.json(); })
+  .then(function (rows) {
+    var row = rows && rows[0];
+    var el = document.getElementById('text');
+    if (!row || !row.content) { el.innerHTML = '<span class="muted">Not available right now. Please try again later.</span>'; return; }
+    el.textContent = row.content;
+    if (row.updated_at) document.getElementById('updated').textContent = 'Last updated ' + new Date(row.updated_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+  })
+  .catch(function () { document.getElementById('text').innerHTML = '<span class="muted">Could not load. Please refresh the page.</span>'; });
+</script>
+</body></html>
