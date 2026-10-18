@@ -73,13 +73,10 @@ footer{padding-top:14px}
 <div class="center">
 <img class="me" id="photo" src="/hannah.jpg" alt="Hannah Vina">
 <div class="name">Hannah Vina</div>
-<div class="sub">Coupon Math</div>
+<div class="sub" id="subtitle">Coupon Math</div>
 </div>
 
-<div class="box upd" id="update" style="display:none">
-<h3 id="updTitle"></h3>
-<div id="updMsg"></div>
-<div class="sig" id="updSig"></div>
+<div id="updates"></div>
 </div>
 
 <div class="sec">A sneak peek of Coupon Math</div>
@@ -144,14 +141,16 @@ car.addEventListener('scroll', function () {
 
 // Photo and update card: set in the app (Admin → Website)
 function esc(t) { return t.replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
-function showUpdate(u) {
-  if (!u || u.show === false || !(u.message || '').trim()) return;
-  document.getElementById('updTitle').textContent = u.title ? '– ' + u.title + ' –' : '';
-  var html = esc(u.message.trim()).split(/\n\s*\n/).map(function (p) { return '<p>' + p + '</p>'; }).join('');
-  html = html.replace(/fill out the form/i, function (m) { return '<a role="button" tabindex="0" onclick="openForm()">' + m + '</a>'; });
-  document.getElementById('updMsg').innerHTML = html;
-  document.getElementById('updSig').textContent = u.signature ? '– ' + u.signature : '';
-  document.getElementById('update').style.display = '';
+function showUpdates(list) {
+  var box = document.getElementById('updates'); box.innerHTML = '';
+  (list || []).forEach(function (u) {
+    if (!u || u.show === false || !(u.message || '').trim()) return;
+    var d = document.createElement('div'); d.className = 'box upd';
+    var html = esc(u.message.trim()).split(/\n\s*\n/).map(function (p) { return '<p>' + p + '</p>'; }).join('');
+    html = html.replace(/fill out the form/i, function (m) { return '<a role="button" tabindex="0" onclick="openForm()">' + m + '</a>'; });
+    d.innerHTML = (u.title ? '<h3>– ' + esc(u.title) + ' –</h3>' : '') + html + (u.signature ? '<div class="sig">– ' + esc(u.signature) + '</div>' : '');
+    box.appendChild(d);
+  });
 }
 var DEFAULT_UPDATE = { show: true, title: 'Update October 12th', signature: 'Hannah Vina ❤️',
   message: "Coupon Math is in beta testing! If you'd like to be notified when it's available on the App Store, you can fill out the form below.\n\nThank you to everyone who has shared such positive feedback about the app. Updates coming soon! 😊" };
@@ -159,11 +158,12 @@ fetch("https://noylxdmcugembxnwpipb.supabase.co/rest/v1/app_content?key=eq.websi
   .then(function (r) { return r.json(); })
   .then(function (rows) {
     var c = null; try { c = rows && rows[0] && JSON.parse(rows[0].content); } catch (e) {}
-    if (!c) { showUpdate(DEFAULT_UPDATE); return; }
+    if (!c) { showUpdates([DEFAULT_UPDATE]); return; }
     if (c.photo_url) document.getElementById('photo').src = c.photo_url;
-    showUpdate(c.update);
+    if (typeof c.subtitle === 'string') document.getElementById('subtitle').textContent = c.subtitle;
+    showUpdates(c.updates || (c.update ? [c.update] : []));
   })
-  .catch(function () { showUpdate(DEFAULT_UPDATE); });
+  .catch(function () { showUpdates([DEFAULT_UPDATE]); });
 
 // ── Visit counts (shown in the app: Admin → Website → Visits). No cookies, nothing personal. ──
 var ME = false, VISITOR = null;
