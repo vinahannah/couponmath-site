@@ -205,9 +205,14 @@ fetch("https://noylxdmcugembxnwpipb.supabase.co/rest/v1/app_content?key=eq.websi
 
 // ── Visit counts (shown in the app: Admin → Website → Visits). No cookies, nothing personal. ──
 var ME = false, VISITOR = null;
+// "Not me" is kept two ways (some apps' built-in browsers clear one of them)
+function cookie(k) { var m = document.cookie.match(new RegExp('(?:^|; )' + k + '=([^;]*)')); return m ? m[1] : null; }
+function setCookie(k, v) { try { document.cookie = k + '=' + v + '; max-age=315360000; path=/; SameSite=Lax; Secure'; } catch (e) {} }
+function keep(k, v) { try { localStorage.setItem(k, v); } catch (e) {} setCookie(k, v); }
+function read(k) { var v = null; try { v = localStorage.getItem(k); } catch (e) {} return v || cookie(k); }
 try {
-  if (/[?&]me\b/.test(location.search)) localStorage.setItem('cm_me', '1'); // this phone isn't counted
-  ME = localStorage.getItem('cm_me') === '1';
+  if (/[?&]me\b/.test(location.search)) keep('cm_me', '1'); // this phone isn't counted
+  ME = read('cm_me') === '1';
   if (/[?&]me\b/.test(location.search)) {
     // Show that it worked
     var n = document.createElement('div');
@@ -215,9 +220,10 @@ try {
     n.style.cssText = 'position:fixed;left:12px;right:12px;top:12px;z-index:20;background:' + (ME ? '#2E7D32' : '#C62828') + ';color:#fff;font-weight:700;font-size:14px;text-align:center;padding:12px;border-radius:12px;box-shadow:0 4px 14px rgba(0,0,0,.2)';
     document.body.appendChild(n); setTimeout(function () { n.remove(); }, 5000);
   }
-  VISITOR = localStorage.getItem('cm_vid');
-  if (!VISITOR) { VISITOR = Math.random().toString(36).slice(2) + Date.now().toString(36); localStorage.setItem('cm_vid', VISITOR); }
 } catch (e) {}
+VISITOR = read('cm_vid');
+if (!VISITOR) VISITOR = Math.random().toString(36).slice(2) + Date.now().toString(36);
+keep('cm_vid', VISITOR);
 var SRC = (function () {
   var q = (location.search.match(/[?&]src=([a-z]+)/i) || [])[1];
   var ua = navigator.userAgent || '', ref = document.referrer || '';
@@ -226,13 +232,14 @@ var SRC = (function () {
   return 'other';
 })();
 function track(ev) {
-  if (ME) return;
+  if (ME && ev !== 'me') return;
   try {
     fetch("https://noylxdmcugembxnwpipb.supabase.co/rest/v1/site_events", { method: 'POST', keepalive: true,
       headers: { apikey: "sb_publishable_Til6cvd0tAebF5CKhA9qWw_Lx4ygo6P", Authorization: "Bearer sb_publishable_Til6cvd0tAebF5CKhA9qWw_Lx4ygo6P", 'Content-Type': 'application/json', Prefer: 'return=minimal' },
       body: JSON.stringify({ event: ev, visitor: VISITOR, source: SRC }) }).catch(function () {});
   } catch (e) {}
 }
+if (/[?&]me\b/.test(location.search)) track('me');
 track('view');
 // Hidden switch for any browser (TikTok/Instagram's built-in one too): tap the photo 5 times quickly
 (function () {
@@ -241,8 +248,17 @@ track('view');
     taps++; clearTimeout(timer); timer = setTimeout(function () { taps = 0; }, 1500);
     if (taps < 5) return;
     taps = 0;
-    var ok = false; try { localStorage.setItem('cm_me', '1'); ok = localStorage.getItem('cm_me') === '1'; } catch (e) {}
-    ME = ME || ok; // no message on purpose, so nobody notices it
+    keep('cm_me', '1');
+    ME = true;
+    track('me'); // also takes this browser's earlier visits out of the totals
+    // A tiny check on the photo, so you know it worked
+    var c = document.createElement('div');
+    c.textContent = '✓';
+    c.style.cssText = 'position:absolute;width:22px;height:22px;border-radius:11px;background:#2E7D32;color:#fff;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;pointer-events:none;transition:opacity .4s';
+    var r = this.getBoundingClientRect();
+    c.style.left = (r.right + window.scrollX - 16) + 'px'; c.style.top = (r.top + window.scrollY - 6) + 'px';
+    document.body.appendChild(c);
+    setTimeout(function () { c.style.opacity = '0'; }, 1200); setTimeout(function () { c.remove(); }, 1700);
   });
 })();
 document.querySelector('.soc a[aria-label="TikTok"]').addEventListener('click', function () { track('tiktok'); });
