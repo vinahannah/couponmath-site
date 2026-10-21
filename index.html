@@ -50,6 +50,12 @@ main{padding-top:36px}
 .mename{font-size:19px;font-weight:800}
 .mesub{font-size:14px;color:var(--muted);margin-top:2px}
 .why{font-size:15px;line-height:1.55;color:#374151;margin-top:12px;white-space:pre-line}
+.meswipe{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;margin-top:20px;align-items:stretch}
+.meswipe::-webkit-scrollbar{display:none}
+.meswipe>.box{flex:0 0 100%;scroll-snap-align:start;margin-top:0}
+.aboutphoto{width:40px;height:40px;border-radius:12px;object-fit:cover;background:#E5E7EB;flex-shrink:0}
+.about{font-size:15px;line-height:1.55;color:#374151;margin-top:10px}.about p{margin:0 0 10px}.about p:last-child{margin:0}.about ul{margin:0 0 10px;padding-left:20px}
+#meDots span{cursor:pointer}
 main{position:relative}
 .shareIcon{position:absolute;top:14px;right:16px;width:42px;height:42px;border-radius:21px;background:#fff;border:1px solid var(--line);box-shadow:0 2px 8px rgba(0,0,0,.08);display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0}
 .shareIcon svg{width:22px;height:22px}
@@ -107,10 +113,17 @@ footer{padding-top:14px}
 </div>
 
 <!-- 2 · Who made it and why (set in the app: Admin → Website) -->
+<div class="meswipe" id="meSwipe">
 <div class="box mecard">
 <div class="mehead"><img class="mephoto" id="photo" src="/hannah.jpg" alt="Hannah Vina"><div><div class="mename">Hi, I'm Hannah</div><div class="mesub" id="subtitle">Creator of Coupon Math</div></div></div>
 <p class="why" id="why" style="display:none"></p>
 </div>
+<div class="box mecard" id="aboutCard" style="display:none">
+<div class="mehead" style="gap:10px"><img class="aboutphoto" id="photo2" src="/hannah.jpg" alt="Hannah Vina"><div class="mename" id="aboutTitle">A little about me</div></div>
+<div class="about" id="aboutText"></div>
+</div>
+</div>
+<div class="dots" id="meDots" style="display:none"><span class="on"></span><span></span></div>
 
 <!-- 3 · See it -->
 <div class="sec" id="peekTitle">A sneak peek of Coupon Math</div>
@@ -179,6 +192,13 @@ modal.onclick = function (e) { if (e.target === modal) closeModal(); };
 document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeModal(); });
 
 // Carousel dots follow the swipe
+// "Hi, I'm Hannah" ⇄ "A little about me": swipe, or tap a dot
+var meSwipe = document.getElementById('meSwipe'), meDots = document.getElementById('meDots').children;
+meSwipe.addEventListener('scroll', function () {
+  var i = meSwipe.scrollLeft > meSwipe.clientWidth / 2 ? 1 : 0;
+  for (var k = 0; k < meDots.length; k++) meDots[k].className = k === i ? 'on' : '';
+}, { passive: true });
+for (var mk = 0; mk < meDots.length; mk++) (function (k) { meDots[k].onclick = function () { meSwipe.scrollTo({ left: k * meSwipe.scrollWidth, behavior: 'smooth' }); }; })(mk);
 var car = document.getElementById('car'), dots = document.getElementById('dots').children;
 car.addEventListener('scroll', function () {
   var i = Math.round(car.scrollLeft / (car.scrollWidth - car.clientWidth || 1) * (dots.length - 1));
@@ -237,6 +257,13 @@ fetch("https://noylxdmcugembxnwpipb.supabase.co/rest/v1/app_content?key=eq.websi
     // Older saves had "Coupon Math" under the name; the card now says who you are
     if (typeof c.subtitle === 'string' && c.subtitle.trim() && c.subtitle.trim() !== 'Coupon Math') document.getElementById('subtitle').textContent = c.subtitle;
     if (c.why && c.why.trim()) { var w = document.getElementById('why'); w.textContent = c.why.trim(); w.style.display = 'block'; }
+    if (c.photo_url) document.getElementById('photo2').src = c.photo_url;
+    if (typeof c.about_me === 'string' && c.about_me.trim()) {
+      document.getElementById('aboutText').innerHTML = fmt(c.about_me);
+      setText('aboutTitle', c.about_title);
+      document.getElementById('aboutCard').style.display = '';
+      document.getElementById('meDots').style.display = '';
+    }
     showUpdates(c.updates || (c.update ? [c.update] : []));
     var h = c.hero || {};
     if (h.icon_url && /^https:\/\//.test(h.icon_url)) document.getElementById('heroIcon').src = h.icon_url;
