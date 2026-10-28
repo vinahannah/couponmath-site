@@ -98,6 +98,21 @@ main{position:relative}
 .soc svg{width:46px;height:46px}
 footer{padding-top:14px}
 
+
+/* Printables (Coupon Trip Planner) */
+.pr img{width:100%;border-radius:14px;display:block;height:auto}
+.pr .eck{text-align:center}.pr h3{text-align:center;font-size:19px;font-weight:800;margin:2px 0 8px}
+.pr p{font-size:15px;line-height:1.55;color:#374151;text-align:center;margin:12px 0 14px}
+.pr .btn{margin:0}.pr .note{text-align:center;margin-top:8px}
+@media (min-width:900px){
+  .dpr{padding:24px 0 24px;scroll-margin-top:72px}
+  .dpr .box{margin-top:0;border-radius:24px;padding:32px;display:grid;grid-template-columns:1.15fr 1fr;gap:40px;align-items:center}
+  .dpr img{width:100%;border-radius:16px;display:block}
+  .dpr h3{font-size:30px;font-weight:800;letter-spacing:-.4px;margin:4px 0 10px}.dpr p{font-size:17px;line-height:1.6;color:#374151;margin-bottom:20px}
+  .dpr ul{list-style:none;margin:0 0 22px}.dpr li{font-size:16px;font-weight:600;margin-bottom:8px;display:flex;gap:10px;align-items:center}
+  .dpr li span{width:22px;height:22px;border-radius:11px;background:#2F9E44;color:#fff;font-size:12px;display:inline-flex;align-items:center;justify-content:center}
+  .dpr .dnote{margin-top:10px}
+}
 /* ═══ Computer layout (screens 900px and wider). Phones keep the layout above. ═══ */
 .d-only{display:none}
 @media (min-width:900px){
@@ -141,7 +156,7 @@ footer{padding-top:14px}
 <!-- ═══ Computer layout (shown on wide screens only; phones use <main> below) ═══ -->
 <div class="d-only" id="desk">
 <nav class="dnav"><div class="in"><a class="dbrand" href="/"><img src="/icon.png" alt="">Coupon Math</a>
-<div class="dlinks"><a href="#peekD">Sneak peek</a><a href="#aboutD">About</a><a href="/support">Support</a>
+<div class="dlinks"><a href="#peekD">Sneak peek</a><a href="#aboutD">About</a><a href="#printablesD">Printables</a><a href="/support">Support</a>
 <button class="dbtn sm" id="notifyBtnNav" type="button">Get notified</button><a class="dbtn sm" id="storeBtnNav" href="https://apps.apple.com/app/id6812436686" style="display:none">Download</a></div></div></nav>
 <section class="dhero"><div class="dw"><div>
 <div class="dbadge"><img id="heroIconD" src="/icon.png" alt="Coupon Math app icon"><span class="pill" id="soonPillD">Coming soon to iPhone</span></div>
@@ -156,6 +171,11 @@ footer{padding-top:14px}
 <section class="dme" id="aboutD"><div class="dw"><div class="card2 noabout" id="meCardD"><img id="photoD" src="/hannah.jpg" alt="Hannah Vina">
 <div><h3>Hi, I'm Hannah</h3><div class="s" id="subtitleD">Creator of Coupon Math</div><p class="why2" id="whyD" style="display:none"></p></div>
 <div id="aboutColD" style="display:none"><h4 id="aboutTitleD">A little about me</h4><div class="about" id="aboutTextD"></div></div></div></div></section>
+<section class="dpr" id="printablesD"><div class="dw"><div class="box"><img src="/planner.jpg" alt="Coupon Trip Planner fillable PDF" loading="lazy">
+<div><div class="eck" style="text-align:left">PRINTABLES</div><h3>Coupon Trip Planner</h3>
+<p>Prefer planning on paper or in a PDF? Plan every transaction with this fillable trip planner.</p>
+<ul><li><span>✓</span>Totals add up automatically</li><li><span>✓</span>Check off items as you shop</li><li><span>✓</span>1, 2, 3 and 4 transaction versions</li></ul>
+<a class="dbtn buyPlanner" href="https://vinah.gumroad.com/l/couponplanner" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path fill="#fff" d="M7 18a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm10 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zM5.2 4H2V2h4.6l.9 2H21l-3.6 7.5a2 2 0 0 1-1.8 1.1H8.1L7.2 14H19v2H6.5a1.5 1.5 0 0 1-1.3-2.2L6.6 11 3.9 4H5.2z"/></svg>Get the planner</a><div class="dnote">Instant download · Fillable PDF</div></div></div></div></section>
 <section class="dlow"><div class="dw"><div id="updatesD"></div>
 <div class="box ec dec"><div><div class="eck">WHERE IT STARTED</div><h3>Extra Cart</h3><span class="ecdate">May 8, 2026 – Sept. 13, 2026</span>
 <p>Coupon Math started as Extra Cart, a webpage I made to make coupon planning easier. I've now converted it into an app with bigger and better features!</p></div>
@@ -207,6 +227,14 @@ footer{padding-top:14px}
 
 <!-- 5 · Updates (set in the app: Admin → Website) -->
 <div id="updates"></div>
+
+<div class="box pr" id="printables">
+<div class="eck">PRINTABLES</div><h3>Coupon Trip Planner</h3>
+<img src="/planner.jpg" alt="Coupon Trip Planner fillable PDF" loading="lazy">
+<p>Prefer planning on paper or in a PDF? A fillable trip planner with automatic totals, check-off boxes and a trip summary. Includes 1, 2, 3 and 4 transaction versions.</p>
+<a class="btn primary buyPlanner" href="https://vinah.gumroad.com/l/couponplanner" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path fill="#fff" d="M7 18a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm10 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zM5.2 4H2V2h4.6l.9 2H21l-3.6 7.5a2 2 0 0 1-1.8 1.1H8.1L7.2 14H19v2H6.5a1.5 1.5 0 0 1-1.3-2.2L6.6 11 3.9 4H5.2z"/></svg>Get the planner</a>
+<div class="note">Instant download · Fillable PDF</div>
+</div>
 
 <div class="box ec">
 <div class="eck">WHERE IT STARTED</div>
@@ -418,6 +446,7 @@ track('view');
   document.getElementById('photo').addEventListener('click', onTap);
   document.getElementById('photoD').addEventListener('click', onTap);
 })();
+document.querySelectorAll('.buyPlanner').forEach(function (a) { a.addEventListener('click', function () { track('planner'); }); });
 document.querySelectorAll('a[aria-label="TikTok"]').forEach(function (a) { a.addEventListener('click', function () { track('tiktok'); }); });
 document.querySelectorAll('a[aria-label="Instagram"]').forEach(function (a) { a.addEventListener('click', function () { track('instagram'); }); });
 </script>
