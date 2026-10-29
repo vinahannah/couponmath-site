@@ -113,6 +113,20 @@ footer{padding-top:14px}
   .dpr li span{width:22px;height:22px;border-radius:11px;background:#2F9E44;color:#fff;font-size:12px;display:inline-flex;align-items:center;justify-content:center}
   .dpr .dnote{margin-top:10px}
 }
+/* Trip Check (personal service) */
+.tc .eck{text-align:center}.tc h3{text-align:center;font-size:19px;font-weight:800;margin:2px 0 8px}
+.tc img{width:100%;border-radius:14px;display:block;height:auto}
+.tc p{font-size:15px;line-height:1.55;color:#374151;text-align:center;margin:12px 0 14px}
+.tc .btn{margin:0}.tc .note{text-align:center;margin-top:8px}
+@media (min-width:900px){
+  .dtc{padding:0 0 24px;scroll-margin-top:72px}
+  .dtc .box{margin-top:0;border-radius:24px;padding:32px;display:grid;grid-template-columns:1fr 1.15fr;gap:40px;align-items:center}
+  .dtc img{width:100%;border-radius:16px;display:block}
+  .dtc h3{font-size:30px;font-weight:800;letter-spacing:-.4px;margin:4px 0 10px}.dtc p{font-size:17px;line-height:1.6;color:#374151;margin-bottom:20px}
+  .dtc ul{list-style:none;margin:0 0 22px}.dtc li{font-size:16px;font-weight:600;margin-bottom:8px;display:flex;gap:10px;align-items:center}
+  .dtc li span{width:22px;height:22px;border-radius:11px;background:#0071E3;color:#fff;font-size:12px;display:inline-flex;align-items:center;justify-content:center}
+  .dtc .dnote{margin-top:10px}
+}
 /* ═══ Computer layout (screens 900px and wider). Phones keep the layout above. ═══ */
 .d-only{display:none}
 @media (min-width:900px){
@@ -156,7 +170,7 @@ footer{padding-top:14px}
 <!-- ═══ Computer layout (shown on wide screens only; phones use <main> below) ═══ -->
 <div class="d-only" id="desk">
 <nav class="dnav"><div class="in"><a class="dbrand" href="/"><img src="/icon.png" alt="">Coupon Math</a>
-<div class="dlinks"><a href="#peekD">Sneak peek</a><a href="#aboutD">About</a><a href="#printablesD">Printables</a><a href="/support">Support</a>
+<div class="dlinks"><a href="#peekD">Sneak peek</a><a href="#aboutD">About</a><a href="#printablesD">Printables</a><a href="#tripcheckD">Trip Check</a><a href="/support">Support</a>
 <button class="dbtn sm" id="notifyBtnNav" type="button">Get notified</button><a class="dbtn sm" id="storeBtnNav" href="https://apps.apple.com/app/id6812436686" style="display:none">Download</a></div></div></nav>
 <section class="dhero"><div class="dw"><div>
 <div class="dbadge"><img id="heroIconD" src="/icon.png" alt="Coupon Math app icon"><span class="pill" id="soonPillD">Coming soon to iPhone</span></div>
@@ -176,6 +190,11 @@ footer{padding-top:14px}
 <p>Prefer planning on paper or in a PDF? Plan every transaction with this fillable trip planner.</p>
 <ul><li><span>✓</span>Totals add up automatically</li><li><span>✓</span>Check off items as you shop</li><li><span>✓</span>1, 2, 3 and 4 transaction versions</li></ul>
 <a class="dbtn buyPlanner" href="https://vinahannah.gumroad.com/l/couponplanner"><svg viewBox="0 0 24 24"><path fill="#fff" d="M7 18a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm10 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zM5.2 4H2V2h4.6l.9 2H21l-3.6 7.5a2 2 0 0 1-1.8 1.1H8.1L7.2 14H19v2H6.5a1.5 1.5 0 0 1-1.3-2.2L6.6 11 3.9 4H5.2z"/></svg>Get the planner</a><div class="dnote">Instant download · Fillable PDF</div></div></div></div></section>
+<section class="dtc" id="tripcheckD"><div class="dw"><div class="box"><div><div class="eck" style="text-align:left">PERSONAL HELP</div><h3>CVS Trip Check</h3>
+<p>Planned your CVS trip? Email it to me and I'll check it before you shop.</p>
+<ul><li><span>✓</span>Transactions and coupon stacking</li><li><span>✓</span>ExtraBucks Rewards and tips</li><li><span>✓</span>Feedback within 48 hours</li></ul>
+<a class="dbtn buyTripCheck" href="https://vinahannah.gumroad.com/l/checkmytrip"><svg viewBox="0 0 24 24"><path fill="#fff" d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>Check my trip</a><div class="dnote">CVS trips only · Notes app, document or handwritten list</div></div>
+<img src="/tripcheck.jpg" alt="CVS Trip Check by Hannah Vina" loading="lazy"></div></div></section>
 <section class="dlow"><div class="dw"><div id="updatesD"></div>
 <div class="box ec dec"><div><div class="eck">WHERE IT STARTED</div><h3>Extra Cart</h3><span class="ecdate">May 8, 2026 – Sept. 13, 2026</span>
 <p>Coupon Math started as Extra Cart, a webpage I made to make coupon planning easier. I've now converted it into an app with bigger and better features!</p></div>
@@ -234,6 +253,14 @@ footer{padding-top:14px}
 <p>Prefer planning on paper or in a PDF? A fillable trip planner with automatic totals, check-off boxes and a trip summary. Includes 1, 2, 3 and 4 transaction versions.</p>
 <a class="btn primary buyPlanner" href="https://vinahannah.gumroad.com/l/couponplanner"><svg viewBox="0 0 24 24"><path fill="#fff" d="M7 18a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm10 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zM5.2 4H2V2h4.6l.9 2H21l-3.6 7.5a2 2 0 0 1-1.8 1.1H8.1L7.2 14H19v2H6.5a1.5 1.5 0 0 1-1.3-2.2L6.6 11 3.9 4H5.2z"/></svg>Get the planner</a>
 <div class="note">Instant download · Fillable PDF</div>
+</div>
+
+<div class="box tc" id="tripcheck">
+<div class="eck">PERSONAL HELP</div><h3>CVS Trip Check</h3>
+<img src="/tripcheck.jpg" alt="CVS Trip Check by Hannah Vina" loading="lazy">
+<p>Planned your CVS trip? Email it to me and I'll check your transactions, coupon stacking and ExtraBucks Rewards before you shop. Feedback within 48 hours.</p>
+<a class="btn primary buyTripCheck" href="https://vinahannah.gumroad.com/l/checkmytrip"><svg viewBox="0 0 24 24"><path fill="#fff" d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>Check my trip</a>
+<div class="note">CVS trips only</div>
 </div>
 
 <div class="box ec">
@@ -446,6 +473,7 @@ track('view');
   document.getElementById('photo').addEventListener('click', onTap);
   document.getElementById('photoD').addEventListener('click', onTap);
 })();
+document.querySelectorAll('.buyTripCheck').forEach(function (a) { a.addEventListener('click', function () { track('tripcheck'); }); });
 document.querySelectorAll('.buyPlanner').forEach(function (a) { a.addEventListener('click', function () { track('planner'); }); });
 document.querySelectorAll('a[aria-label="TikTok"]').forEach(function (a) { a.addEventListener('click', function () { track('tiktok'); }); });
 document.querySelectorAll('a[aria-label="Instagram"]').forEach(function (a) { a.addEventListener('click', function () { track('instagram'); }); });
