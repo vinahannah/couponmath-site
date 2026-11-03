@@ -102,7 +102,7 @@ footer{padding-top:14px}
 /* Printables (Coupon Trip Planner) */
 /* Picture ↔ video slides: swipe on phones, arrows or dots on computers */
 .pcar{position:relative}
-.track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;align-items:flex-start;border-radius:14px;transition:height .3s}
+.track{display:flex;overflow-x:auto;overflow-y:hidden;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;align-items:flex-start;border-radius:14px;transition:height .3s}
 .track::-webkit-scrollbar{display:none}
 .sl{flex:0 0 100%;scroll-snap-align:center}
 .pr .sl img,.dpr .sl img{width:100%;display:block;border-radius:14px;height:auto}
