@@ -530,7 +530,14 @@ document.querySelectorAll('.pcar').forEach(function(car){
     fit();
     if(i===1){video.preload='auto';var p=video.play();if(p&&p.catch)p.catch(function(){});}else{video.pause();}
   }
-  var t; track.addEventListener('scroll',function(){clearTimeout(t);t=setTimeout(update,90);});
+  // Get the video ready before they swipe: when the planner comes into view, or the moment a swipe starts
+  function ready(){if(video.preload!=='auto'){video.preload='auto';video.load();}}
+  if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){if(es[0].isIntersecting){ready();io.disconnect();}},{rootMargin:'300px'});io.observe(car);}
+  track.addEventListener('touchstart',ready,{passive:true});
+  // Start playing as soon as the video slide is a third of the way in (don't wait for the swipe to finish)
+  var t; track.addEventListener('scroll',function(){
+    if(track.scrollLeft>track.clientWidth*0.3&&video.paused){ready();var p=video.play();if(p&&p.catch)p.catch(function(){});}
+    clearTimeout(t);t=setTimeout(update,90);});
   dots.forEach(function(d,k){d.addEventListener('click',function(){go(k);});});
   car.querySelector('.prev').addEventListener('click',function(){go(Math.max(0,idx()-1));});
   car.querySelector('.next').addEventListener('click',function(){go(Math.min(slides.length-1,idx()+1));});
