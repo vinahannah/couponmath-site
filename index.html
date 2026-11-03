@@ -100,6 +100,21 @@ footer{padding-top:14px}
 
 
 /* Printables (Coupon Trip Planner) */
+/* Picture ↔ video slides: swipe on phones, arrows or dots on computers */
+.pcar{position:relative}
+.track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;align-items:flex-start;border-radius:14px;transition:height .3s}
+.track::-webkit-scrollbar{display:none}
+.sl{flex:0 0 100%;scroll-snap-align:center}
+.pr .sl img,.dpr .sl img{width:100%;display:block;border-radius:14px;height:auto}
+.vw{position:relative;width:72%;margin:0 auto;aspect-ratio:9/16;border-radius:14px;overflow:hidden;background:#0B63CE}
+.vw video{width:100%;height:100%;object-fit:cover;display:block}
+.snd{position:absolute;right:8px;bottom:8px;border:0;background:rgba(0,0,0,.55);color:#fff;border-radius:14px;font:600 12px/1 inherit;padding:6px 10px;cursor:pointer}
+.cnav{display:none}
+.cdots{display:flex;justify-content:center;gap:8px;margin-top:10px}
+.cdots button{width:8px;height:8px;border-radius:4px;border:0;padding:0;background:#C9D2DE;cursor:pointer}
+.cdots button.on{background:#0071E3}
+.chint{text-align:center;font-size:12.5px;color:#868EA4;margin-top:4px}
+.chint.gone{visibility:hidden}
 .pr img{width:100%;border-radius:14px;display:block;height:auto}
 .pr .eck{text-align:center}.pr h3{text-align:center;font-size:19px;font-weight:800;margin:2px 0 8px}
 .pr p{font-size:15px;line-height:1.55;color:#374151;text-align:center;margin:12px 0 14px}
@@ -107,7 +122,11 @@ footer{padding-top:14px}
 @media (min-width:900px){
   .dpr{padding:24px 0 24px;scroll-margin-top:72px}
   .dpr .box{margin-top:0;border-radius:24px;padding:32px;display:grid;grid-template-columns:1.15fr 1fr;gap:40px;align-items:center}
-  .dpr img{width:100%;border-radius:16px;display:block}
+  .dpr .sl img{border-radius:16px}
+  .dpr .vs{aspect-ratio:1672/941;background:linear-gradient(160deg,#0B63CE,#1C7ED6 45%,#2F9E44);border-radius:16px;display:flex;align-items:center;justify-content:center}
+  .dpr .vw{width:auto;height:100%;border-radius:0}
+  .dpr .cnav{display:flex;position:absolute;top:50%;transform:translateY(-50%);width:34px;height:34px;border-radius:17px;border:0;background:rgba(255,255,255,.92);color:#0071E3;font-size:24px;font-weight:800;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.15);padding-bottom:3px}
+  .dpr .cnav.prev{left:10px}.dpr .cnav.next{right:10px}
   .dpr h3{font-size:30px;font-weight:800;letter-spacing:-.4px;margin:4px 0 10px}.dpr p{font-size:17px;line-height:1.6;color:#374151;margin-bottom:20px}
   .dpr ul{list-style:none;margin:0 0 22px}.dpr li{font-size:16px;font-weight:600;margin-bottom:8px;display:flex;gap:10px;align-items:center}
   .dpr li span{width:22px;height:22px;border-radius:11px;background:#2F9E44;color:#fff;font-size:12px;display:inline-flex;align-items:center;justify-content:center}
@@ -188,7 +207,14 @@ footer{padding-top:14px}
 <section class="dme" id="aboutD"><div class="dw"><div class="card2 noabout" id="meCardD"><img id="photoD" src="/hannah.jpg" alt="Hannah Vina">
 <div><h3>Hi, I'm Hannah</h3><div class="s" id="subtitleD">Creator of Coupon Math</div><p class="why2" id="whyD" style="display:none"></p></div>
 <div id="aboutColD" style="display:none"><h4 id="aboutTitleD">A little about me</h4><div class="about" id="aboutTextD"></div></div></div></div></section>
-<section class="dpr" id="printablesD"><div class="dw"><div class="box"><img src="/planner.jpg" alt="Coupon Trip Planner fillable PDF" loading="lazy">
+<section class="dpr" id="printablesD"><div class="dw"><div class="box"><div><div class="pcar">
+<div class="track">
+<div class="sl"><img src="/planner.jpg" alt="Coupon Trip Planner fillable PDF" loading="lazy"></div>
+<div class="sl vs"><div class="vw"><video src="/planner-video.mp4" poster="/planner-video.jpg" muted loop playsinline preload="none"></video><button class="snd" type="button" aria-label="Turn sound on">🔇 Tap for sound</button></div></div>
+</div>
+<button class="cnav prev" type="button" aria-label="Previous">‹</button><button class="cnav next" type="button" aria-label="Next">›</button>
+</div>
+<div class="cdots"><button type="button" class="on" aria-label="Picture"></button><button type="button" aria-label="Video"></button></div></div>
 <div><div class="eck" style="text-align:left">PRINTABLES</div><h3>Coupon Trip Planner</h3>
 <p>Prefer planning on paper or in a PDF? Plan every transaction with this fillable trip planner.</p>
 <ul><li><span>✓</span>Totals add up automatically</li><li><span>✓</span>Check off items as you shop</li><li><span>✓</span>1, 2, 3 and 4 transaction versions</li></ul>
@@ -252,7 +278,15 @@ footer{padding-top:14px}
 
 <div class="box pr" id="printables">
 <div class="eck">PRINTABLES</div><h3>Coupon Trip Planner</h3>
-<img src="/planner.jpg" alt="Coupon Trip Planner fillable PDF" loading="lazy">
+<div class="pcar">
+<div class="track">
+<div class="sl"><img src="/planner.jpg" alt="Coupon Trip Planner fillable PDF" loading="lazy"></div>
+<div class="sl vs"><div class="vw"><video src="/planner-video.mp4" poster="/planner-video.jpg" muted loop playsinline preload="none"></video><button class="snd" type="button" aria-label="Turn sound on">🔇 Tap for sound</button></div></div>
+</div>
+<button class="cnav prev" type="button" aria-label="Previous">‹</button><button class="cnav next" type="button" aria-label="Next">›</button>
+</div>
+<div class="cdots"><button type="button" class="on" aria-label="Picture"></button><button type="button" aria-label="Video"></button></div>
+<div class="chint">Swipe to watch the video →</div>
 <p>Prefer planning on paper or in a PDF? A fillable trip planner with automatic totals, check-off boxes and a trip summary. Includes 1, 2, 3 and 4 transaction versions.</p>
 <a class="btn primary buyPlanner" href="https://vinahannah.gumroad.com/l/couponplanner"><svg viewBox="0 0 24 24"><path fill="#fff" d="M7 18a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm10 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zM5.2 4H2V2h4.6l.9 2H21l-3.6 7.5a2 2 0 0 1-1.8 1.1H8.1L7.2 14H19v2H6.5a1.5 1.5 0 0 1-1.3-2.2L6.6 11 3.9 4H5.2z"/></svg>Get the planner</a>
 <div class="note">Instant download · Fillable PDF</div>
@@ -482,5 +516,30 @@ document.querySelectorAll('a[aria-label="TikTok"]').forEach(function (a) { a.add
 document.querySelectorAll('a[aria-label="Instagram"]').forEach(function (a) { a.addEventListener('click', function () { track('instagram'); }); });
 </script>
 <!-- Gumroad: the planner listing opens right on this page (no "open in browser" step) -->
+<script>
+// Printables slides: picture, then the video (plays muted when it's in view; tap for sound)
+document.querySelectorAll('.pcar').forEach(function(car){
+  var track=car.querySelector('.track'), slides=track.children, dots=car.nextElementSibling.querySelectorAll('button');
+  var hint=car.parentNode.querySelector('.chint'), video=car.querySelector('video'), snd=car.querySelector('.snd');
+  function idx(){return Math.round(track.scrollLeft/track.clientWidth);}
+  function fit(){track.style.height=slides[idx()].offsetHeight+'px';}
+  function go(i){track.scrollTo({left:i*track.clientWidth,behavior:'smooth'});}
+  function update(){
+    var i=idx(); dots.forEach(function(d,k){d.classList.toggle('on',k===i);});
+    if(hint&&i>0)hint.classList.add('gone');
+    fit();
+    if(i===1){video.preload='auto';var p=video.play();if(p&&p.catch)p.catch(function(){});}else{video.pause();}
+  }
+  var t; track.addEventListener('scroll',function(){clearTimeout(t);t=setTimeout(update,90);});
+  dots.forEach(function(d,k){d.addEventListener('click',function(){go(k);});});
+  car.querySelector('.prev').addEventListener('click',function(){go(Math.max(0,idx()-1));});
+  car.querySelector('.next').addEventListener('click',function(){go(Math.min(slides.length-1,idx()+1));});
+  function sound(){video.muted=!video.muted;snd.textContent=video.muted?'🔇 Tap for sound':'🔊 Sound on';if(!video.muted){var p=video.play();if(p&&p.catch)p.catch(function(){});}}
+  snd.addEventListener('click',function(e){e.stopPropagation();sound();});
+  video.addEventListener('click',sound);
+  window.addEventListener('resize',fit);
+  var img=slides[0].querySelector('img'); if(img.complete)fit(); else img.addEventListener('load',fit);
+});
+</script>
 <script src="https://gumroad.com/js/gumroad.js"></script>
 </body></html>
