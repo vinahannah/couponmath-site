@@ -399,7 +399,7 @@ function setSlogan(v) {
   h.innerHTML = esc(top) + (mid ? '<br>' + esc(mid) + ' ' : ' ') + '<span>' + esc(last) + '</span>';
 }
 // The app video always comes first in the sneak peek (plays on its own, muted)
-function peekVideo() {
+function peekVideo() { // (also used for videos added in the app)
   var v = document.createElement('video'); v.className = 'peekv'; v.src = '/peek-video.mp4?v=2'; v.poster = '/peek-video.jpg?v=2';
   v.muted = true; v.autoplay = true; v.loop = true; v.playsInline = true; v.setAttribute('playsinline', ''); v.setAttribute('webkit-playsinline', ''); v.setAttribute('disablepictureinpicture', ''); v.setAttribute('muted', ''); v.preload = 'auto';
   return v;
@@ -428,7 +428,7 @@ function showPeek(media) {
   media.forEach(function (m) {
     if (!m || !m.url || !/^https:\/\//.test(m.url)) return;
     var el;
-    if (m.type === 'video') { el = document.createElement('video'); el.src = m.url; el.muted = true; el.loop = true; el.playsInline = true; el.setAttribute('playsinline', ''); el.controls = true; el.preload = 'metadata'; }
+    if (m.type === 'video') { el = peekVideo(); el.src = m.url; el.removeAttribute('poster'); } // same as the app video: plays in place, tap to pause/play
     else { el = document.createElement('img'); el.src = m.url; el.loading = 'lazy'; el.alt = 'Coupon Math screen'; }
     car.appendChild(el);
   });
