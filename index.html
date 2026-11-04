@@ -68,6 +68,10 @@ main{position:relative}
 .upd p{font-size:15px;line-height:1.55;color:#374151;margin-bottom:10px;white-space:pre-line}
 .upd a{font-weight:600;cursor:pointer}
 .upd ul{margin:0 0 10px 20px;font-size:15px;line-height:1.55;color:#374151}
+video.peekv{cursor:pointer;-webkit-touch-callout:none}
+.car,.drow{position:relative}
+.peekb{position:absolute;transform:translate(-50%,-50%);width:64px;height:64px;border-radius:32px;background:rgba(0,0,0,.45);color:#fff;font-size:24px;display:flex;align-items:center;justify-content:center;pointer-events:none;animation:pk .65s ease forwards}
+@keyframes pk{0%{opacity:0;transform:translate(-50%,-50%) scale(.8)}25%{opacity:1;transform:translate(-50%,-50%) scale(1)}100%{opacity:0}}
 .car video{width:92%;flex-shrink:0;scroll-snap-align:center;border-radius:18px;background:#F2F7FD;border:1px solid var(--line);height:auto;aspect-ratio:900/1124}
 .sig{text-align:center;font-weight:700;font-size:15px;margin-top:4px}
 .appc{text-align:center}
@@ -208,7 +212,7 @@ setTimeout(function () { document.documentElement.classList.remove('cmw'); }, 25
 <div class="dnote" id="iphoneNoteD">At this time, Coupon Math will launch on iPhone only.</div>
 </div><div class="dstack" id="stackD"><img class="a" src="/preview2.jpg" alt="Coupon Math planner screen"><img class="b" src="/preview1.jpg" alt="Coupon Math deals screen"></div></div></section>
 <section class="dpeek" id="peekD"><div class="dw"><h2 id="peekTitleD">A sneak peek of Coupon Math</h2><div class="sub2">Everything you need to plan your trip, in one place.</div>
-<div class="drow" id="rowD"><video class="peekv" src="/peek-video.mp4" poster="/peek-video.jpg" muted autoplay loop playsinline preload="auto"></video><img src="/preview1.jpg" alt="Coupon Math deals screen" loading="lazy"><img src="/preview2.jpg" alt="Coupon Math planner screen" loading="lazy"><img src="/preview3.jpg" alt="Coupon Math custom deal screen" loading="lazy"></div></div></section>
+<div class="drow" id="rowD"><video class="peekv" src="/peek-video.mp4" poster="/peek-video.jpg" muted autoplay loop playsinline webkit-playsinline disablepictureinpicture preload="auto"></video><img src="/preview1.jpg" alt="Coupon Math deals screen" loading="lazy"><img src="/preview2.jpg" alt="Coupon Math planner screen" loading="lazy"><img src="/preview3.jpg" alt="Coupon Math custom deal screen" loading="lazy"></div></div></section>
 <section class="dupd"><div class="dw"><div id="updatesD"></div></div></section>
 <section class="dme" id="aboutD"><div class="dw"><div class="card2 noabout" id="meCardD"><img id="photoD" src="/hannah.jpg" alt="Hannah Vina">
 <div><h3>Hi, I'm Hannah</h3><div class="s" id="subtitleD">Creator of Coupon Math</div><p class="why2" id="whyD" style="display:none"></p></div>
@@ -266,7 +270,7 @@ setTimeout(function () { document.documentElement.classList.remove('cmw'); }, 25
 <div class="sec" id="peekTitle">A sneak peek of Coupon Math</div>
 <div class="secsub" id="peekSub">Swipe to see more →</div>
 <div class="car" id="car">
-<video class="peekv" src="/peek-video.mp4" poster="/peek-video.jpg" muted autoplay loop playsinline preload="auto"></video>
+<video class="peekv" src="/peek-video.mp4" poster="/peek-video.jpg" muted autoplay loop playsinline webkit-playsinline disablepictureinpicture preload="auto"></video>
 <img src="/preview1.jpg" alt="Coupon Math deals screen" loading="lazy">
 <img src="/preview2.jpg" alt="Coupon Math planner screen" loading="lazy">
 <img src="/preview3.jpg" alt="Coupon Math custom deal screen" loading="lazy">
@@ -397,10 +401,23 @@ function setSlogan(v) {
 // The app video always comes first in the sneak peek (plays on its own, muted)
 function peekVideo() {
   var v = document.createElement('video'); v.className = 'peekv'; v.src = '/peek-video.mp4'; v.poster = '/peek-video.jpg';
-  v.muted = true; v.autoplay = true; v.loop = true; v.playsInline = true; v.setAttribute('playsinline', ''); v.setAttribute('muted', ''); v.preload = 'auto';
+  v.muted = true; v.autoplay = true; v.loop = true; v.playsInline = true; v.setAttribute('playsinline', ''); v.setAttribute('webkit-playsinline', ''); v.setAttribute('disablepictureinpicture', ''); v.setAttribute('muted', ''); v.preload = 'auto';
   return v;
 }
-function playPeek() { document.querySelectorAll('video.peekv').forEach(function (v) { v.muted = true; var p = v.play(); if (p && p.catch) p.catch(function () {}); }); }
+var peekPaused = false; // paused by a tap: don't restart it on its own
+function playPeek() { if (peekPaused) return; document.querySelectorAll('video.peekv').forEach(function (v) { v.muted = true; var p = v.play(); if (p && p.catch) p.catch(function () {}); }); }
+// Tap the video to pause / play it; it stays in its spot on the page (never opens full screen)
+document.addEventListener('click', function (e) {
+  var v = e.target && e.target.closest ? e.target.closest('video.peekv') : null;
+  if (!v) return;
+  e.preventDefault();
+  if (v.paused) { peekPaused = false; var p = v.play(); if (p && p.catch) p.catch(function () {}); } else { peekPaused = true; v.pause(); }
+  var w = v.parentNode, b = document.createElement('div'); b.className = 'peekb'; b.textContent = v.paused ? '❚❚' : '▶';
+  var r = v.getBoundingClientRect(), pr = w.getBoundingClientRect();
+  b.style.left = (r.left - pr.left + w.scrollLeft + r.width / 2) + 'px'; b.style.top = (r.top - pr.top + r.height / 2) + 'px';
+  w.appendChild(b); setTimeout(function () { b.remove(); }, 650);
+});
+document.addEventListener('webkitbeginfullscreen', function (e) { try { e.target.webkitExitFullscreen(); } catch (x) {} }, true);
 document.addEventListener('DOMContentLoaded', playPeek); window.addEventListener('load', playPeek);
 // Some phones only start it after the first touch: start it then
 document.addEventListener('touchstart', playPeek, { once: true, passive: true });
