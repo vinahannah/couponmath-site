@@ -175,8 +175,10 @@ footer{padding-top:14px}
   .dslide{position:relative;margin-top:30px;padding:0 30px}
   .drow{display:flex;gap:0;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none;padding:10px 0 46px}
   .drow::-webkit-scrollbar{display:none}
+  .drow{transition:height .35s ease;align-items:flex-start}
   .drow>.dpage{flex:0 0 100%;width:100%;min-width:0;scroll-snap-align:start;display:flex;justify-content:center;align-items:flex-start;gap:22px;padding:0 40px;box-sizing:border-box}
   .dpage>*{flex:0 0 calc((100% - 124px)/3);width:calc((100% - 124px)/3)!important;min-width:0}
+  .dpage.solo>*{flex:0 0 min(54%,560px);width:min(54%,560px)!important}
   .darr{position:absolute;top:calc(50% - 18px);transform:translateY(-50%);width:50px;height:50px;border-radius:25px;border:1px solid var(--line);background:#fff;box-shadow:0 8px 22px rgba(15,40,80,.14);display:flex;align-items:center;justify-content:center;cursor:pointer;color:#0071E3;font-size:26px;font-weight:700;line-height:1;transition:opacity .2s}
   .darr:hover{background:#F2F7FE}.darr.off{opacity:0;pointer-events:none}
   .darr.l{left:0}.darr.r{right:0}
@@ -463,7 +465,7 @@ function showPeek(media) {
     var vids = items.filter(function (c) { return c.tagName === 'VIDEO'; }), pics = items.filter(function (c) { return c.tagName !== 'VIDEO'; });
     row.innerHTML = '';
     var first = vids.shift(); var pg;
-    if (first) { pg = document.createElement('div'); pg.className = 'dpage'; pg.appendChild(first); row.appendChild(pg); }
+    if (first) { pg = document.createElement('div'); pg.className = 'dpage solo'; pg.appendChild(first); row.appendChild(pg); }
     var rest = vids.concat(pics);
     for (var i = 0; i < rest.length; i += 3) { pg = document.createElement('div'); pg.className = 'dpage'; rest.slice(i, i + 3).forEach(function (c) { pg.appendChild(c); }); row.appendChild(pg); }
     if (typeof playPeek === 'function') playPeek();
@@ -477,6 +479,8 @@ function showPeek(media) {
     var n = pages(), i = Math.round(row.scrollLeft / step());
     if (dd.children.length !== n) { dd.innerHTML = ''; for (var k = 0; k < n; k++) { (function (k) { var sp = document.createElement('span'); sp.onclick = function () { row.scrollTo({ left: k * step() }); }; dd.appendChild(sp); })(k); } }
     for (var j = 0; j < dd.children.length; j++) dd.children[j].className = j === Math.min(i, n - 1) ? 'on' : '';
+    // The slider is as tall as the page showing (the video page is taller than the photos)
+    var cur = row.children[Math.min(i, n - 1)]; if (cur) row.style.height = (cur.scrollHeight + 56) + 'px';
     dd.style.display = n > 1 ? 'flex' : 'none';
   }
   prev.onclick = function () { row.scrollBy({ left: -step() }); };
