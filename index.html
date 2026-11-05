@@ -172,7 +172,15 @@ footer{padding-top:14px}
   .dstack .a{left:0;top:40px;transform:rotate(-4deg)}.dstack .b{right:0;top:0;transform:rotate(3deg);z-index:2}
   .dpeek{padding:60px 0;background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line);scroll-margin-top:72px}
   .dpeek h2{text-align:center;font-size:34px;letter-spacing:-.4px;margin:0}.dpeek .sub2{text-align:center;font-size:17px;color:#4B5563;margin-top:8px}
-  .drow{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:30px}
+  .dslide{position:relative;margin-top:30px;padding:0 64px}
+  .drow{display:flex;gap:22px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none;padding:10px 0 46px}
+  .drow::-webkit-scrollbar{display:none}
+  .drow>*{flex:0 0 calc((100% - 44px)/3);width:calc((100% - 44px)/3)!important;min-width:0;scroll-snap-align:start}
+  .darr{position:absolute;top:calc(50% - 18px);transform:translateY(-50%);width:50px;height:50px;border-radius:25px;border:1px solid var(--line);background:#fff;box-shadow:0 8px 22px rgba(15,40,80,.14);display:flex;align-items:center;justify-content:center;cursor:pointer;color:#0071E3;font-size:26px;font-weight:700;line-height:1;transition:opacity .2s}
+  .darr:hover{background:#F2F7FE}.darr.off{opacity:0;pointer-events:none}
+  .darr.l{left:0}.darr.r{right:0}
+  .ddots{display:flex;justify-content:center;gap:8px;margin-top:-26px}
+  .ddots span{width:8px;height:8px;border-radius:4px;background:#C9D6E8;cursor:pointer;transition:all .2s}.ddots span.on{width:22px;background:#0071E3}
   .drow img,.drow video{width:100%;display:block;border-radius:20px;background:#fff;border:1px solid var(--line);box-shadow:0 18px 40px rgba(15,40,80,.12)}
   .dupd{padding:70px 0 0}.dupd .box{margin-top:0;border-radius:24px;padding:32px}.dupd #updatesD .box+.box{margin-top:24px}
   .dupd .upd{text-align:center}.dupd .upd h3{text-align:center;font-size:22px}.dupd .upd p{font-size:17px;text-align:center}.dupd .upd ul{font-size:17px;display:inline-block;text-align:left}.dupd .sig{text-align:center}
@@ -212,7 +220,7 @@ setTimeout(function () { document.documentElement.classList.remove('cmw'); }, 25
 <div class="dnote" id="iphoneNoteD">At this time, Coupon Math will launch on iPhone only.</div>
 </div><div class="dstack" id="stackD"><img class="a" src="/preview2.jpg" alt="Coupon Math planner screen"><img class="b" src="/preview1.jpg" alt="Coupon Math deals screen"></div></div></section>
 <section class="dpeek" id="peekD"><div class="dw"><h2 id="peekTitleD">A sneak peek of Coupon Math</h2><div class="sub2">Everything you need to plan your trip, in one place.</div>
-<div class="drow" id="rowD"><video class="peekv" src="/peek-video.mp4?v=2" poster="/peek-video.jpg?v=2" muted autoplay loop playsinline webkit-playsinline disablepictureinpicture preload="auto"></video><img src="/preview1.jpg" alt="Coupon Math deals screen" loading="lazy"><img src="/preview2.jpg" alt="Coupon Math planner screen" loading="lazy"><img src="/preview3.jpg" alt="Coupon Math custom deal screen" loading="lazy"></div></div></section>
+<div class="dslide"><button class="darr l off" id="dPrev" aria-label="Previous">&#8249;</button><div class="drow" id="rowD"><video class="peekv" src="/peek-video.mp4?v=2" poster="/peek-video.jpg?v=2" muted autoplay loop playsinline webkit-playsinline disablepictureinpicture preload="auto"></video><img src="/preview1.jpg" alt="Coupon Math deals screen" loading="lazy"><img src="/preview2.jpg" alt="Coupon Math planner screen" loading="lazy"><img src="/preview3.jpg" alt="Coupon Math custom deal screen" loading="lazy"></div><button class="darr r" id="dNext" aria-label="Next">&#8250;</button><div class="ddots" id="dDots"></div></div></div></section>
 <section class="dupd"><div class="dw"><div id="updatesD"></div></div></section>
 <section class="dme" id="aboutD"><div class="dw"><div class="card2 noabout" id="meCardD"><img id="photoD" src="/hannah.jpg" alt="Hannah Vina">
 <div><h3>Hi, I'm Hannah</h3><div class="s" id="subtitleD">Creator of Coupon Math</div><p class="why2" id="whyD" style="display:none"></p></div>
@@ -442,6 +450,28 @@ function showPeek(media) {
   var imgs = media.filter(function (m) { return m && m.type !== 'video' && /^https:\/\//.test(m.url || ''); });
   if (imgs.length >= 2) { var st = document.getElementById('stackD').children; st[1].src = imgs[0].url; st[0].src = imgs[1].url; }
 }
+// Desktop sneak peek: video first, then the photos; arrows (and dots) move one at a time
+(function () {
+  var row = document.getElementById('rowD'), prev = document.getElementById('dPrev'), next = document.getElementById('dNext'), dd = document.getElementById('dDots');
+  if (!row || !prev || !next) return;
+  function step() { var c = row.children[0]; return c ? c.getBoundingClientRect().width + 22 : row.clientWidth; }
+  function pages() { return Math.max(1, row.children.length - 2); } // 3 show at once
+  function upd() {
+    var max = row.scrollWidth - row.clientWidth - 8;
+    prev.classList.toggle('off', row.scrollLeft <= 8);
+    next.classList.toggle('off', row.scrollLeft >= max);
+    var n = pages(), i = Math.round(row.scrollLeft / step());
+    if (dd.children.length !== n) { dd.innerHTML = ''; for (var k = 0; k < n; k++) { (function (k) { var sp = document.createElement('span'); sp.onclick = function () { row.scrollTo({ left: k * step() }); }; dd.appendChild(sp); })(k); } }
+    for (var j = 0; j < dd.children.length; j++) dd.children[j].className = j === Math.min(i, n - 1) ? 'on' : '';
+    dd.style.display = n > 1 ? 'flex' : 'none';
+  }
+  prev.onclick = function () { row.scrollBy({ left: -step() }); };
+  next.onclick = function () { row.scrollBy({ left: step() }); };
+  row.addEventListener('scroll', function () { window.requestAnimationFrame(upd); });
+  window.addEventListener('resize', upd);
+  new MutationObserver(function () { row.scrollLeft = 0; upd(); }).observe(row, { childList: true });
+  upd();
+})();
 function showUpdates(list) {
   var box = document.getElementById('updates'); box.innerHTML = '';
   var boxD = document.getElementById('updatesD'); boxD.innerHTML = '';
@@ -569,7 +599,7 @@ document.querySelectorAll('.pcar').forEach(function(car){
   var track=car.querySelector('.track'), slides=track.children, dots=car.nextElementSibling.querySelectorAll('button');
   var hint=car.parentNode.querySelector('.chint'), video=car.querySelector('video'), snd=car.querySelector('.snd');
   function idx(){return Math.round(track.scrollLeft/track.clientWidth);}
-  function fit(){track.style.height=slides[idx()].offsetHeight+'px';}
+  function fit(){var s=slides[idx()];if(s)track.style.height=s.offsetHeight+'px';}
   function go(i){track.scrollTo({left:i*track.clientWidth,behavior:'smooth'});}
   function update(){
     var i=idx(); dots.forEach(function(d,k){d.classList.toggle('on',k===i);});
