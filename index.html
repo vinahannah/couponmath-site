@@ -172,10 +172,11 @@ footer{padding-top:14px}
   .dstack .a{left:0;top:40px;transform:rotate(-4deg)}.dstack .b{right:0;top:0;transform:rotate(3deg);z-index:2}
   .dpeek{padding:60px 0;background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line);scroll-margin-top:72px}
   .dpeek h2{text-align:center;font-size:34px;letter-spacing:-.4px;margin:0}.dpeek .sub2{text-align:center;font-size:17px;color:#4B5563;margin-top:8px}
-  .dslide{position:relative;margin-top:30px;padding:0 64px}
-  .drow{display:flex;gap:22px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none;padding:10px 0 46px}
+  .dslide{position:relative;margin-top:30px;padding:0 30px}
+  .drow{display:flex;gap:0;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none;padding:10px 0 46px}
   .drow::-webkit-scrollbar{display:none}
-  .drow>*{flex:0 0 calc((100% - 44px)/3);width:calc((100% - 44px)/3)!important;min-width:0;scroll-snap-align:start}
+  .drow>.dpage{flex:0 0 100%;width:100%;min-width:0;scroll-snap-align:start;display:flex;justify-content:center;align-items:flex-start;gap:22px;padding:0 40px;box-sizing:border-box}
+  .dpage>*{flex:0 0 calc((100% - 124px)/3);width:calc((100% - 124px)/3)!important;min-width:0}
   .darr{position:absolute;top:calc(50% - 18px);transform:translateY(-50%);width:50px;height:50px;border-radius:25px;border:1px solid var(--line);background:#fff;box-shadow:0 8px 22px rgba(15,40,80,.14);display:flex;align-items:center;justify-content:center;cursor:pointer;color:#0071E3;font-size:26px;font-weight:700;line-height:1;transition:opacity .2s}
   .darr:hover{background:#F2F7FE}.darr.off{opacity:0;pointer-events:none}
   .darr.l{left:0}.darr.r{right:0}
@@ -454,8 +455,21 @@ function showPeek(media) {
 (function () {
   var row = document.getElementById('rowD'), prev = document.getElementById('dPrev'), next = document.getElementById('dNext'), dd = document.getElementById('dDots');
   if (!row || !prev || !next) return;
-  function step() { var c = row.children[0]; return c ? c.getBoundingClientRect().width + 22 : row.clientWidth; }
-  function pages() { return Math.max(1, row.children.length - 2); } // 3 show at once
+  // Pages: the video on its own first, then the photos three at a time
+  function regroup() {
+    var items = [].slice.call(row.children).filter(function (c) { return !c.classList.contains('dpage'); });
+    if (!items.length) return;
+    [].slice.call(row.children).forEach(function (c) { if (c.classList.contains('dpage')) { while (c.firstChild) items.push(c.firstChild) && c.removeChild(c.firstChild); } });
+    var vids = items.filter(function (c) { return c.tagName === 'VIDEO'; }), pics = items.filter(function (c) { return c.tagName !== 'VIDEO'; });
+    row.innerHTML = '';
+    var first = vids.shift(); var pg;
+    if (first) { pg = document.createElement('div'); pg.className = 'dpage'; pg.appendChild(first); row.appendChild(pg); }
+    var rest = vids.concat(pics);
+    for (var i = 0; i < rest.length; i += 3) { pg = document.createElement('div'); pg.className = 'dpage'; rest.slice(i, i + 3).forEach(function (c) { pg.appendChild(c); }); row.appendChild(pg); }
+    if (typeof playPeek === 'function') playPeek();
+  }
+  function step() { return row.clientWidth; }
+  function pages() { return Math.max(1, row.children.length); }
   function upd() {
     var max = row.scrollWidth - row.clientWidth - 8;
     prev.classList.toggle('off', row.scrollLeft <= 8);
@@ -469,8 +483,9 @@ function showPeek(media) {
   next.onclick = function () { row.scrollBy({ left: step() }); };
   row.addEventListener('scroll', function () { window.requestAnimationFrame(upd); });
   window.addEventListener('resize', upd);
-  new MutationObserver(function () { row.scrollLeft = 0; upd(); }).observe(row, { childList: true });
-  upd();
+  var busy = false;
+  new MutationObserver(function () { if (busy) return; busy = true; regroup(); row.scrollLeft = 0; upd(); busy = false; }).observe(row, { childList: true });
+  busy = true; regroup(); busy = false; upd();
 })();
 function showUpdates(list) {
   var box = document.getElementById('updates'); box.innerHTML = '';
