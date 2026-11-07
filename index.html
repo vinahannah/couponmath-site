@@ -204,6 +204,7 @@ footer{padding-top:14px}
 }
 /* Text and photos you change in the app: hidden for a moment until the newest version is in, so the old one never flashes */
 .cmw #heroName,.cmw #heroSlogan,.cmw #sloganD,.cmw #heroWhat,.cmw #heroWhatD,.cmw #soonPill,.cmw #soonPillD,.cmw #photo,.cmw #photoD,.cmw #subtitle,.cmw #subtitleD,.cmw #why,.cmw #whyD,.cmw #aboutCard,.cmw #aboutColD,.cmw #meCardD,.cmw #updates,.cmw #updatesD,.cmw #peekTitle,.cmw #peekTitleD,.cmw #peekSub,.cmw #car,.cmw #rowD,.cmw #dots,.cmw #stackD,.cmw #notifyText,.cmw #iphoneNote,.cmw #heroIcon,.cmw #heroIconD{visibility:hidden}
+  video.peekv{pointer-events:none;-webkit-touch-callout:none}
 </style><script>
 // Hidden until filled in: from the copy saved on this device (returning visitors, right away), else the newest from the app
 document.documentElement.className += ' cmw';
@@ -418,8 +419,14 @@ function peekVideo() { // (also used for videos added in the app)
 var peekPaused = false; // paused by a tap: don't restart it on its own
 function playPeek() { if (peekPaused) return; document.querySelectorAll('video.peekv').forEach(function (v) { v.muted = true; var p = v.play(); if (p && p.catch) p.catch(function () {}); }); }
 // Tap the video to pause / play it; it stays in its spot on the page (never opens full screen)
+// The video itself never gets touched (pointer-events: none), so iPhone Safari can't open it full screen;
+// a tap on its spot is caught here instead
 document.addEventListener('click', function (e) {
-  var v = e.target && e.target.closest ? e.target.closest('video.peekv') : null;
+  var v = null;
+  document.querySelectorAll('video.peekv').forEach(function (x) {
+    var r = x.getBoundingClientRect();
+    if (r.width && e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom) v = x;
+  });
   if (!v) return;
   e.preventDefault();
   if (v.paused) { peekPaused = false; var p = v.play(); if (p && p.catch) p.catch(function () {}); } else { peekPaused = true; v.pause(); }
