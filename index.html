@@ -226,6 +226,13 @@ footer{padding-top:14px}
 .ann .annic{width:46px;height:46px;border-radius:23px;background:#FFF1DC;display:flex;align-items:center;justify-content:center;margin:6px auto 10px}
 .wvd.ann{margin-top:30px}.wv.ann{margin-top:28px}
 #iphoneNote,#iphoneNoteD{white-space:nowrap;text-wrap:nowrap;width:auto !important;min-width:0 !important;font-size:min(12.5px,3.15vw) !important}
+
+.dnav .in{max-width:1160px !important;margin:0 auto !important;padding:0 40px !important}
+.navsi{margin-right:0 !important}
+.dnbar{position:sticky;top:72px;z-index:4;height:0}
+.dnbin{max-width:1160px;margin:0 auto;padding:10px 40px 0;display:flex;justify-content:flex-end}
+.dnbin .dbtn{box-shadow:0 6px 16px rgba(15,40,80,.10)}
+@media (max-width:899px){.dnbar{display:none}}
 </style><script>
 // Hidden until filled in: from the copy saved on this device (returning visitors, right away), else the newest from the app
 document.documentElement.className += ' cmw';
@@ -235,7 +242,7 @@ setTimeout(function () { document.documentElement.classList.remove('cmw'); }, 25
 <div class="d-only" id="desk">
 <nav class="dnav"><div class="in"><a class="dbrand" href="/"><img src="/icon.png" alt="">Coupon Math</a>
 <div class="dlinks"><a href="#peekD">Sneak peek</a><a href="#aboutD">About</a><a href="#printablesD">Printables</a><a href="#tripcheckD">Trip Check</a><a href="/support">Support</a>
-<a class="navsi" href="/app/sign-in">Sign in / Sign up</a><button class="dbtn sm" id="notifyBtnNav" type="button">Get notified</button><a class="dbtn sm" id="storeBtnNav" href="https://apps.apple.com/app/id6812436686" style="display:none">Download</a></div></div></nav>
+<a class="navsi" href="/app/sign-in">Sign in / Sign up</a><a class="dbtn sm" id="storeBtnNav" href="https://apps.apple.com/app/id6812436686" style="display:none">Download</a></div></div></nav><div class="dnbar"><div class="dnbin"><button class="dbtn sm" id="notifyBtnNav" type="button">Get notified</button></div></div>
 <section class="dhero"><div class="dw"><div>
 <div class="dbadge"><img id="heroIconD" src="/icon.png" alt="Coupon Math app icon"><span class="pill" id="soonPillD">Coming soon to the App Store</span></div>
 <h1 id="sloganD">Every deal has<br>a little <span>math.</span></h1>
