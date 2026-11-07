@@ -437,7 +437,18 @@ function peekVideo() { // (also used for videos added in the app)
   return v;
 }
 var peekPaused = false; // paused by a tap: don't restart it on its own
-function playPeek() { if (peekPaused) return; document.querySelectorAll('video.peekv').forEach(function (v) { v.muted = true; var p = v.play(); if (p && p.catch) p.catch(function () {}); }); }
+// Only the video you can actually see plays. The other layout's copy (computer row on a phone, or the phone
+// carousel on a computer) stays paused: iPhone Safari can pop a hidden playing video open full screen.
+function peekVisible(v) { var r = v.getBoundingClientRect(); return !!v.offsetParent && r.width > 0 && r.height > 0; }
+function playPeek() {
+  if (peekPaused) return;
+  document.querySelectorAll('video.peekv').forEach(function (v) {
+    v.muted = true; v.playsInline = true; v.setAttribute('playsinline', ''); v.setAttribute('webkit-playsinline', '');
+    if (!peekVisible(v)) { if (!v.paused) v.pause(); v.preload = 'none'; return; }
+    var p = v.play(); if (p && p.catch) p.catch(function () {});
+  });
+}
+window.addEventListener('resize', function () { setTimeout(playPeek, 200); });
 // Tap the video to pause / play it; it stays in its spot on the page (never opens full screen)
 // The video itself never gets touched (pointer-events: none), so iPhone Safari can't open it full screen;
 // a tap on its spot is caught here instead
