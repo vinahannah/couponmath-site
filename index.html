@@ -68,7 +68,7 @@ main{position:relative}
 .upd p{font-size:15px;line-height:1.55;color:#374151;margin-bottom:10px;white-space:pre-line}
 .upd a{font-weight:600;cursor:pointer}
 .upd ul{margin:0 0 10px 20px;font-size:15px;line-height:1.55;color:#374151}
-video.peekv{cursor:pointer;-webkit-touch-callout:none}
+.peekv{cursor:pointer;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}
 .car,.drow{position:relative}
 .peekb{position:absolute;transform:translate(-50%,-50%);width:64px;height:64px;border-radius:32px;background:rgba(0,0,0,.45);color:#fff;font-size:24px;display:flex;align-items:center;justify-content:center;pointer-events:none;animation:pk .65s ease forwards}
 @keyframes pk{0%{opacity:0;transform:translate(-50%,-50%) scale(.8)}25%{opacity:1;transform:translate(-50%,-50%) scale(1)}100%{opacity:0}}
@@ -204,7 +204,7 @@ footer{padding-top:14px}
 }
 /* Text and photos you change in the app: hidden for a moment until the newest version is in, so the old one never flashes */
 .cmw #heroName,.cmw #heroSlogan,.cmw #sloganD,.cmw #heroWhat,.cmw #heroWhatD,.cmw #soonPill,.cmw #soonPillD,.cmw #photo,.cmw #photoD,.cmw #subtitle,.cmw #subtitleD,.cmw #why,.cmw #whyD,.cmw #aboutCard,.cmw #aboutColD,.cmw #meCardD,.cmw #updates,.cmw #updatesD,.cmw #peekTitle,.cmw #peekTitleD,.cmw #peekSub,.cmw #car,.cmw #rowD,.cmw #dots,.cmw #stackD,.cmw #notifyText,.cmw #iphoneNote,.cmw #heroIcon,.cmw #heroIconD{visibility:hidden}
-  video.peekv{pointer-events:none;-webkit-touch-callout:none}
+  .peekv{pointer-events:none;-webkit-touch-callout:none}
 
 .wv{margin:18px auto 0;max-width:420px;background:#fff;border:1px solid #E5E7EB;border-radius:18px;padding:16px 16px 14px;text-align:left;box-shadow:0 6px 18px rgba(15,40,80,.06)}
 .wv{text-align:center !important}.wv h3{font-size:17px;font-weight:800;margin:0 0 6px;color:#1C1C1E}.wv p{font-size:14.5px;line-height:1.5;color:#374151;margin:0 0 14px}
@@ -225,6 +225,7 @@ footer{padding-top:14px}
 .ann .anntag{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:#FF9F1C;color:#fff;font-size:11.5px;font-weight:800;letter-spacing:.8px;border-radius:999px;padding:5px 12px;display:flex;gap:6px;align-items:center;white-space:nowrap;line-height:1}
 .ann .annic{width:46px;height:46px;border-radius:23px;background:#FFF1DC;display:flex;align-items:center;justify-content:center;margin:6px auto 10px}
 .wvd.ann{margin-top:30px}.wv.ann{margin-top:28px}
+#iphoneNote,#iphoneNoteD{white-space:nowrap;text-wrap:nowrap;width:auto !important;min-width:0 !important;font-size:min(12.5px,3.15vw) !important}
 </style><script>
 // Hidden until filled in: from the copy saved on this device (returning visitors, right away), else the newest from the app
 document.documentElement.className += ' cmw';
@@ -244,7 +245,7 @@ setTimeout(function () { document.documentElement.classList.remove('cmw'); }, 25
 <div class="dnote" id="iphoneNoteD">At this time, Coupon Math will launch on iPhone only.</div>
 </div><div class="dstack" id="stackD"><img class="a" src="/preview2.jpg" alt="Coupon Math planner screen"><img class="b" src="/preview1.jpg" alt="Coupon Math deals screen"></div></div></section>
 <section class="dpeek" id="peekD"><div class="dw"><h2 id="peekTitleD">A sneak peek of Coupon Math</h2><div class="sub2">Everything you need to plan your trip, in one place.</div>
-<div class="dslide"><button class="darr l off" id="dPrev" aria-label="Previous">&#8249;</button><div class="drow" id="rowD"><video class="peekv" src="/peek-video.mp4?v=2" poster="/peek-video.jpg?v=2" muted autoplay loop playsinline webkit-playsinline disablepictureinpicture preload="auto"></video><img src="/preview1.jpg" alt="Coupon Math deals screen" loading="lazy"><img src="/preview2.jpg" alt="Coupon Math planner screen" loading="lazy"><img src="/preview3.jpg" alt="Coupon Math custom deal screen" loading="lazy"></div><button class="darr r" id="dNext" aria-label="Next">&#8250;</button><div class="ddots" id="dDots"></div></div></div></section>
+<div class="dslide"><button class="darr l off" id="dPrev" aria-label="Previous">&#8249;</button><div class="drow" id="rowD"><img class="peekv" src="/peek-video.webp?v=1" alt="Coupon Math app video" decoding="async"><img src="/preview1.jpg" alt="Coupon Math deals screen" loading="lazy"><img src="/preview2.jpg" alt="Coupon Math planner screen" loading="lazy"><img src="/preview3.jpg" alt="Coupon Math custom deal screen" loading="lazy"></div><button class="darr r" id="dNext" aria-label="Next">&#8250;</button><div class="ddots" id="dDots"></div></div></div></section>
 <section class="dupd"><div class="dw"><div id="updatesD"></div></div></section>
 <section class="dme" id="aboutD"><div class="dw"><div class="card2 noabout" id="meCardD"><img id="photoD" src="/hannah.jpg" alt="Hannah Vina">
 <div><h3>Hi, I'm Hannah</h3><div class="s" id="subtitleD">Creator of Coupon Math</div><p class="why2" id="whyD" style="display:none"></p></div>
@@ -302,7 +303,7 @@ setTimeout(function () { document.documentElement.classList.remove('cmw'); }, 25
 <div class="sec" id="peekTitle">A sneak peek of Coupon Math</div>
 <div class="secsub" id="peekSub">Swipe to see more →</div>
 <div class="car" id="car">
-<video class="peekv" src="/peek-video.mp4?v=2" poster="/peek-video.jpg?v=2" muted autoplay loop playsinline webkit-playsinline disablepictureinpicture preload="auto"></video>
+<img class="peekv" src="/peek-video.webp?v=1" alt="Coupon Math app video" decoding="async">
 <img src="/preview1.jpg" alt="Coupon Math deals screen" loading="lazy">
 <img src="/preview2.jpg" alt="Coupon Math planner screen" loading="lazy">
 <img src="/preview3.jpg" alt="Coupon Math custom deal screen" loading="lazy">
@@ -431,8 +432,13 @@ function setSlogan(v) {
   h.innerHTML = esc(top) + (mid ? '<br>' + esc(mid) + ' ' : ' ') + '<span>' + esc(last) + '</span>';
 }
 // The app video always comes first in the sneak peek (plays on its own, muted)
-function peekVideo() { // (also used for videos added in the app)
-  var v = document.createElement('video'); v.className = 'peekv'; v.src = '/peek-video.mp4?v=2'; v.poster = '/peek-video.jpg?v=2';
+// The app video is an animated picture (not a <video>), so no phone or in-app browser (TikTok, Instagram) can open it full screen
+function peekVideo() {
+  var im = document.createElement('img'); im.className = 'peekv'; im.src = '/peek-video.webp?v=1'; im.alt = 'Coupon Math app video'; im.decoding = 'async';
+  return im;
+}
+function siteVideo() { // videos added in the app
+  var v = document.createElement('video'); v.className = 'peekv';
   v.muted = true; v.autoplay = true; v.loop = true; v.playsInline = true; v.setAttribute('playsinline', ''); v.setAttribute('webkit-playsinline', ''); v.setAttribute('disablepictureinpicture', ''); v.setAttribute('muted', ''); v.preload = 'auto';
   return v;
 }
@@ -454,14 +460,16 @@ window.addEventListener('resize', function () { setTimeout(playPeek, 200); });
 // a tap on its spot is caught here instead
 document.addEventListener('click', function (e) {
   var v = null;
-  document.querySelectorAll('video.peekv').forEach(function (x) {
+  document.querySelectorAll('.peekv').forEach(function (x) {
     var r = x.getBoundingClientRect();
     if (r.width && e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom) v = x;
   });
   if (!v) return;
   e.preventDefault();
-  if (v.paused) { peekPaused = false; var p = v.play(); if (p && p.catch) p.catch(function () {}); } else { peekPaused = true; v.pause(); }
-  var w = v.parentNode, b = document.createElement('div'); b.className = 'peekb'; b.textContent = v.paused ? '❚❚' : '▶';
+  var nowPaused;
+  if (v.tagName === 'IMG') { nowPaused = !v.dataset.paused; if (nowPaused) { v.dataset.paused = '1'; v.src = '/peek-video.jpg?v=2'; } else { delete v.dataset.paused; v.src = '/peek-video.webp?v=1'; } }
+  else { if (v.paused) { peekPaused = false; var p = v.play(); if (p && p.catch) p.catch(function () {}); } else { peekPaused = true; v.pause(); } nowPaused = v.paused; }
+  var w = v.parentNode, b = document.createElement('div'); b.className = 'peekb'; b.textContent = nowPaused ? '❚❚' : '▶';
   var r = v.getBoundingClientRect(), pr = w.getBoundingClientRect();
   b.style.left = (r.left - pr.left + w.scrollLeft + r.width / 2) + 'px'; b.style.top = (r.top - pr.top + r.height / 2) + 'px';
   w.appendChild(b); setTimeout(function () { b.remove(); }, 650);
@@ -477,7 +485,7 @@ function showPeek(media) {
   media.forEach(function (m) {
     if (!m || !m.url || !/^https:\/\//.test(m.url)) return;
     var el;
-    if (m.type === 'video') { el = peekVideo(); el.src = m.url; el.removeAttribute('poster'); } // same as the app video: plays in place, tap to pause/play
+    if (m.type === 'video') { el = siteVideo(); el.src = m.url; } // same as the app video: plays in place, tap to pause/play
     else { el = document.createElement('img'); el.src = m.url; el.loading = 'lazy'; el.alt = 'Coupon Math screen'; }
     car.appendChild(el);
   });
@@ -500,7 +508,8 @@ function showPeek(media) {
     var items = [].slice.call(row.children).filter(function (c) { return !c.classList.contains('dpage'); });
     if (!items.length) return;
     [].slice.call(row.children).forEach(function (c) { if (c.classList.contains('dpage')) { while (c.firstChild) items.push(c.firstChild) && c.removeChild(c.firstChild); } });
-    var vids = items.filter(function (c) { return c.tagName === 'VIDEO'; }), pics = items.filter(function (c) { return c.tagName !== 'VIDEO'; });
+    var isVid = function (c) { return c.tagName === 'VIDEO' || (c.classList && c.classList.contains('peekv')); };
+    var vids = items.filter(isVid), pics = items.filter(function (c) { return !isVid(c); });
     row.innerHTML = '';
     var first = vids.shift(); var pg;
     if (first) { pg = document.createElement('div'); pg.className = 'dpage solo'; pg.appendChild(first); row.appendChild(pg); }
