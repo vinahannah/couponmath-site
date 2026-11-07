@@ -511,6 +511,9 @@ function showPeek(media) {
   prev.onclick = function () { row.scrollBy({ left: -step() }); };
   next.onclick = function () { row.scrollBy({ left: step() }); };
   row.addEventListener('scroll', function () { window.requestAnimationFrame(upd); });
+  // The video and photos load after the page: size the slider again once each one has loaded
+  row.addEventListener('loadedmetadata', upd, true); row.addEventListener('loadeddata', upd, true); row.addEventListener('load', upd, true);
+  window.addEventListener('load', upd); [600, 1500, 3000].forEach(function (ms) { setTimeout(upd, ms); });
   window.addEventListener('resize', upd);
   var busy = false;
   new MutationObserver(function () { if (busy) return; busy = true; regroup(); row.scrollLeft = 0; upd(); busy = false; }).observe(row, { childList: true });
