@@ -216,7 +216,11 @@ footer{padding-top:14px}
 .wvd .wvb{width:auto;display:inline-flex;padding:13px 22px}
 .wvn{max-width:520px;display:flex;flex-direction:column;align-items:center;margin-top:16px}
 .navsi{display:inline-flex;align-items:center;border-radius:10px;padding:9px 16px;font-weight:700;font-size:14px;text-decoration:none;background:#0071E3;color:#fff !important;margin-right:-18px}
-#notifyBtnNav{background:#E8F2FC !important;color:#0071E3 !important;border:1px solid #B5D5F5 !important}
+/* Floating Get notified, bottom-right (stays while scrolling) */
+.fabn{position:fixed;right:22px;bottom:22px;z-index:9;display:inline-flex;align-items:center;gap:8px;background:#0071E3;color:#fff;border:0;border-radius:999px;padding:13px 20px;font:inherit;font-weight:800;font-size:15px;cursor:pointer;box-shadow:0 8px 22px rgba(20,30,60,.25)}
+.fabn svg{width:17px;height:17px}
+.fabn:hover{background:#0062C4}
+@media (max-width:600px){.fabn{right:14px;bottom:14px;font-size:13.5px;padding:10px 15px;gap:6px}.fabn svg{width:15px;height:15px}}
 #notifyBtnD{background:#E8F2FC !important;color:#0071E3 !important;border:1px solid #B5D5F5 !important}
 #notifyBtnD svg path{fill:#0071E3}
 #iphoneNoteD{text-align:center;max-width:520px}
@@ -242,7 +246,7 @@ setTimeout(function () { document.documentElement.classList.remove('cmw'); }, 25
 <div class="d-only" id="desk">
 <nav class="dnav"><div class="in"><a class="dbrand" href="/"><img src="/icon.png" alt="">Coupon Math</a>
 <div class="dlinks"><a href="#peekD">Sneak peek</a><a href="#aboutD">About</a><a href="#printablesD">Printables</a><a href="#tripcheckD">Trip Check</a><a href="/support">Support</a>
-<a class="navsi" href="/app/sign-in">Sign in / Sign up</a><a class="dbtn sm" id="storeBtnNav" href="https://apps.apple.com/app/id6812436686" style="display:none">Download</a></div></div></nav><div class="dnbar"><div class="dnbin"><button class="dbtn sm" id="notifyBtnNav" type="button">Get notified</button></div></div>
+<a class="navsi" href="/app/sign-in">Sign in / Sign up</a><a class="dbtn sm" id="storeBtnNav" href="https://apps.apple.com/app/id6812436686" style="display:none">Download</a></div></div></nav>
 <section class="dhero"><div class="dw"><div>
 <div class="dbadge"><img id="heroIconD" src="/icon.png" alt="Coupon Math app icon"><span class="pill" id="soonPillD">Coming soon to the App Store</span></div>
 <h1 id="sloganD">Every deal has<br>a little <span>math.</span></h1>
@@ -366,6 +370,7 @@ setTimeout(function () { document.documentElement.classList.remove('cmw'); }, 25
 </main>
 <footer><a href="/support">Support</a> · <a href="/privacy">Privacy Policy</a> · <a href="/terms">Terms &amp; Conditions</a><div style="margin-top:6px">© 2026 Coupon Math</div></footer>
 
+<button class="fabn" id="notifyBtnNav" type="button" aria-label="Get notified"><svg viewBox="0 0 24 24"><path d="M12 22a2 2 0 0 0 2-2h-4a2 2 0 0 0 2 2zm6-6V11a6 6 0 0 0-5-5.9V4a1 1 0 0 0-2 0v1.1A6 6 0 0 0 6 11v5l-2 2v1h16v-1l-2-2z" fill="#fff"/></svg>Get notified</button>
 <div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Get notified">
   <div class="sheet"><div class="sh">Get notified<button class="x" id="closeBtn" type="button" aria-label="Close">✕</button></div>
   <iframe id="formFrame" title="Get notified form"></iframe></div>
