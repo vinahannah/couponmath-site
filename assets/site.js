@@ -21,7 +21,7 @@ function buildLook(box){
     var b=document.createElement('button'); b.type='button'; b.innerHTML='<b>'+(k===0?'▶':k+1)+'</b>'+s.n; b.onclick=function(){go(k)}; rt.appendChild(b);
     var d=document.createElement('button'); d.type='button'; d.setAttribute('aria-label',s.n); d.onclick=function(){go(k)}; dots.appendChild(d);
     var el;
-    if(s.v){el=document.createElement('video'); el.src='/media/look-video.mp4'; el.poster='/media/look-video.jpg'; el.muted=true; el.loop=true; el.setAttribute('playsinline',''); el.preload='metadata';}
+    if(s.v){el=document.createElement('video'); el.src='/media/look-video.mp4'; el.poster='/media/look-video.jpg'; el.muted=true; el.loop=true; el.setAttribute('muted',''); el.setAttribute('loop',''); el.setAttribute('playsinline',''); el.preload='metadata';}
     else{el=document.createElement('div'); el.innerHTML='<img class="d" src="/media/d'+s.i+'.png" alt="'+s.n+'"'+(k>1?' loading="lazy"':'')+'><img class="m" src="/media/m'+s.i+'.png" alt="'+s.n+'"'+(k>1?' loading="lazy"':'')+'>';}
     el.hidden=true; media.appendChild(el);
   });
@@ -151,3 +151,14 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
   if(a.classList.contains('buyPlanner'))track('planner'); else if(a.classList.contains('buyTripCheck'))track('tripcheck');
   else if(a.classList.contains('toStore'))track('appstore');
   else if(a.getAttribute('aria-label')==='TikTok')track('tiktok'); else if(a.getAttribute('aria-label')==='Instagram')track('instagram');},true);
+
+// Keep the looping videos going: restart if a phone stops one at the end, and start again when it scrolls back into view
+(function(){
+  function keepGoing(v, isOn){
+    v.addEventListener('ended',function(){ if(isOn()){ v.currentTime=0; var p=v.play(); if(p&&p.catch)p.catch(function(){}); } });
+    if('IntersectionObserver' in window) new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting&&v.paused&&isOn()){ var p=v.play(); if(p&&p.catch)p.catch(function(){}); } }); },{threshold:.25}).observe(v);
+    document.addEventListener('visibilitychange',function(){ if(!document.hidden&&v.paused&&isOn()){ var p=v.play(); if(p&&p.catch)p.catch(function(){}); } });
+  }
+  var hv=document.querySelector('.hvid video'); if(hv) keepGoing(hv,function(){return true;});
+  document.querySelectorAll('.media video').forEach(function(v){ keepGoing(v,function(){return !v.hidden;}); });
+})();
