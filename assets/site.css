@@ -2,7 +2,7 @@
 :root{
   --bg:#FFFFFF; --ink:#141E3C; --muted:#5B6478; --soft:#8A92A6; --line:#E3E6EE;
   --blue:#0050FC; --logo:#0050FC; --blueSoft:#E8F2FD; --stage1:#F3F8FF; --stage2:#E5F0FD; --panel:#F5F7FB;
-  --dim:rgba(20,30,60,.82); --black:#000000; --white:#FFFFFF;
+  --dim:rgba(14,20,40,.94); --black:#000000; --white:#FFFFFF;
   --font:'Inter',-apple-system,"SF Pro Text","Helvetica Neue",Arial,sans-serif;
   color-scheme:light;
 }
@@ -175,3 +175,6 @@ footer .l a{color:var(--blue);font-weight:600}
 .post p{white-space:normal;margin:12px 0 0}.post ul{margin:12px 0 0 20px;color:#3B4152}.post a{color:var(--blue);font-weight:600}
 #aboutText p{margin:16px 0 0}#aboutText ul{margin:12px 0 0 20px;color:#3B4152}
 @media (max-width:900px){.hr{flex-direction:column;gap:2px}.hr span{font-size:15px}}
+.vw{position:relative;display:block}.vw .fs{right:12px;top:auto;bottom:12px}
+.hfs{display:none}
+@media (max-width:900px){.hfs{display:block}.hvid .vw{width:100%;max-width:320px}}
