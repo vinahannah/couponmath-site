@@ -174,3 +174,4 @@ footer .l a{color:var(--blue);font-weight:600}
 
 .post p{white-space:normal;margin:12px 0 0}.post ul{margin:12px 0 0 20px;color:#3B4152}.post a{color:var(--blue);font-weight:600}
 #aboutText p{margin:16px 0 0}#aboutText ul{margin:12px 0 0 20px;color:#3B4152}
+@media (max-width:900px){.hr{flex-direction:column;gap:2px}.hr span{font-size:15px}}
