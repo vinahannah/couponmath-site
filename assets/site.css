@@ -178,3 +178,5 @@ footer .l a{color:var(--blue);font-weight:600}
 .vw{position:relative;display:block}.vw .fs{right:12px;top:auto;bottom:12px}
 .hfs{display:none}
 @media (max-width:900px){.hfs{display:block}.hvid .vw{width:100%;max-width:320px}}
+/* Phone: no video at the top; the video is the first slide of Take a look */
+@media (max-width:900px){.hvid{display:none!important}}

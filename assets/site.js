@@ -1,7 +1,6 @@
 var L='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>';
 var R='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>';
 var SLIDES=[
- {v:1,a:'Watch it ',b:'in action',d:'See how a coupon trip comes together, from picking deals to your total at the register.',n:'Watch it in action'},
  {i:1,a:'Browse ',b:'weekly deals',d:"See this week's deals in one place, with BOGO offers, coupons and the Rewards each one earns.",n:'Browse weekly deals'},
  {i:2,a:'Understand ',b:'every deal',d:"See the price, BOGO discount, coupon and Rewards for every deal, and what you'll pay.",n:'Understand every deal'},
  {i:3,a:'Plan your ',b:'trip',d:"Split your trip into transactions and see each one's total and the Rewards it earns.",n:'Plan your trip'},
@@ -9,7 +8,10 @@ var SLIDES=[
  {i:5,a:'Add your ',b:'own deals',d:"Create custom deals and calculate your estimated totals.",n:'Add your own deals'},
  {i:6,a:'Check off ',b:'as you shop',d:'In the store, check off each deal as it goes in your cart and see how many are left.',n:'Check off as you shop'}
 ];
+// Phone, home page only: the top video (hands) is the first slide; computer and the Take a look page: photos only
+var VSLIDE={v:1,a:'Watch it ',b:'in action',d:'See how a coupon trip comes together, from picking deals to checking them off in the store.',n:'Watch it in action'};
 function buildLook(box){
+  var SL=(document.body.getAttribute('data-page')==='home'&&window.matchMedia('(max-width:900px)').matches)?[VSLIDE].concat(SLIDES):SLIDES;
   var st=document.createElement('div'); st.className='stage';
   st.innerHTML='<div class="lt"><div class="num"></div><h4></h4><p></p><div class="nb"><button class="cb pv1" type="button" aria-label="Previous">'+L+'</button><button class="cb nx1" type="button" aria-label="Next">'+R+'</button></div></div>'+
     '<div class="media"></div><div class="rt"></div>'+
@@ -17,18 +19,18 @@ function buildLook(box){
   box.appendChild(st);
   var dots=document.createElement('div'); dots.className='dots'; box.appendChild(dots);
   var rt=st.querySelector('.rt'), media=st.querySelector('.media'), cur=0;
-  SLIDES.forEach(function(s,k){
-    var b=document.createElement('button'); b.type='button'; b.innerHTML='<b>'+(k===0?'▶':k+1)+'</b>'+s.n; b.onclick=function(){go(k)}; rt.appendChild(b);
+  SL.forEach(function(s,k){
+    var b=document.createElement('button'); b.type='button'; b.innerHTML='<b>'+(s.v?'▶':k+1)+'</b>'+s.n; b.onclick=function(){go(k)}; rt.appendChild(b);
     var d=document.createElement('button'); d.type='button'; d.setAttribute('aria-label',s.n); d.onclick=function(){go(k)}; dots.appendChild(d);
     var el;
-    if(s.v){var v=document.createElement('video'); v.src='/media/look-video.mp4'; v.poster='/media/look-video.jpg'; v.muted=true; v.loop=true; v.playsInline=true; ['muted','loop','playsinline','webkit-playsinline'].forEach(function(a){v.setAttribute(a,'')}); v.preload='metadata';
+    if(s.v){var v=document.createElement('video'); v.src='/media/hero.mp4'; v.poster='/media/hero.jpg'; v.muted=true; v.loop=true; v.playsInline=true; ['muted','loop','playsinline','webkit-playsinline'].forEach(function(a){v.setAttribute(a,'')}); v.preload='metadata';
       el=document.createElement('div'); el.className='vw'; el.appendChild(v); var fb=document.createElement('button'); fb.type='button'; fb.className='fs'; fb.textContent='⤢ Full screen'; fb.onclick=function(e){e.stopPropagation(); openFull(v);}; el.appendChild(fb);}
-    else{el=document.createElement('div'); el.innerHTML='<img class="d" src="/media/d'+s.i+'.png" alt="'+s.n+'"'+(k>1?' loading="lazy"':'')+'><img class="m" src="/media/m'+s.i+'.png?v=2" alt="'+s.n+'"'+(k>1?' loading="lazy"':'')+'>';}
+    else{el=document.createElement('div'); el.innerHTML='<img class="d" src="/media/d'+s.i+'.png" alt="'+s.n+'"'+(k>0?' loading="lazy"':'')+'><img class="m" src="/media/m'+s.i+'.png?v=2" alt="'+s.n+'"'+(k>0?' loading="lazy"':'')+'>';}
     el.hidden=true; media.appendChild(el);
   });
   function go(k){
-    cur=(k+SLIDES.length)%SLIDES.length; var s=SLIDES[cur];
-    st.querySelector('.num').textContent=(cur+1)+' OF '+SLIDES.length;
+    cur=(k+SL.length)%SL.length; var s=SL[cur];
+    st.querySelector('.num').textContent=(cur+1)+' OF '+SL.length;
     st.querySelector('h4').innerHTML=s.a+'<span class="blue">'+s.b+'</span>';
     st.querySelector('.lt p').textContent=s.d;
     [].forEach.call(media.children,function(el,i){el.hidden=i!==cur; var vv=el.querySelector&&el.querySelector('video'); if(vv){ if(i===cur){var p=vv.play(); if(p&&p.catch)p.catch(function(){});} else vv.pause(); }});
