@@ -10,7 +10,7 @@
 .t5 .card{border:1px solid var(--line);border-radius:16px;padding:12px;display:flex;flex-direction:column;gap:6px;position:relative;min-width:0;background:var(--bg);transition:box-shadow .15s}
 .t5 .card:hover{box-shadow:0 8px 22px rgba(20,30,60,.10)}
 .t5 .rank{position:absolute;top:10px;left:10px;width:26px;height:26px;border-radius:13px;background:var(--ink);color:var(--white);font-weight:800;font-size:13px;display:grid;place-items:center;z-index:1}
-.t5 .ph{height:130px;border-radius:12px;background:var(--panel);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.t5 .ph{height:130px;border-radius:12px;background:transparent;display:flex;align-items:center;justify-content:center;overflow:hidden}
 .t5 .ph img{width:100%;height:100%;object-fit:contain}
 .t5 .mid{display:flex;flex-direction:column;gap:5px;flex:1;min-width:0}
 .t5 .br{font-weight:800;font-size:15px;line-height:1.25;overflow-wrap:anywhere}
