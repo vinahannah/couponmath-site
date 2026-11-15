@@ -18,7 +18,7 @@
   function price(d){
     var reg=d.reg>0&&d.reg>Math.max(0,d.net)+0.004?'<s>'+money(d.reg)+'</s>':'';
     var a=after(d), sm=a?'<small>'+a+'</small>':'';
-    if(d.net<=0) return '<div class="pr free"><b>'+(d.net<0?'Money maker':'Free')+'</b>'+reg+sm+'</div>';
+    if(d.net<=0) return '<div class="pr free'+(d.net<0?' mm':'')+'"><span class="pl"><b>'+(d.net<0?'Money maker':'Free')+'</b>'+reg+'</span>'+sm+'</div>';
     if(d.each!=null) return '<div class="pr"><b>'+money(d.each)+'</b>'+(d.reg>0&&d.units?'<s>'+money(d.reg/d.units)+'</s>':'')+'<small>each, when you buy '+d.units+(a?', '+a:'')+'</small></div>';
     return '<div class="pr"><b>'+money(d.net)+'</b>'+reg+sm+'</div>';
   }

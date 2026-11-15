@@ -41,3 +41,5 @@
   .t5 .pr small{width:auto}
   .t5 .b{width:100%;justify-content:center}
 }
+.t5 .pl{display:inline-flex;align-items:baseline;gap:6px;white-space:nowrap}
+.t5 .pr.mm b{font-size:16px}
