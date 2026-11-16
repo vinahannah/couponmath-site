@@ -4,11 +4,16 @@
   document.querySelectorAll('[data-demos]').forEach(function(root){
     var box = root.querySelector('.dbox'), sc = root.querySelector('.dscale'), raf = 0, cur = 'plan';
     function fit(){
+      // room for the pop-up boxes: measure how far they reach past the 390px stage and make space for it
       var desk = window.matchMedia('(min-width:900px)').matches;
-      var s = desk ? 1 : Math.min(1, (box.clientWidth || 390) / 390);
+      var minL = 0, maxR = 390;
+      sc.querySelectorAll('.dc').forEach(function(c){ minL = Math.min(minL, c.offsetLeft - 6); maxR = Math.max(maxR, c.offsetLeft + c.offsetWidth + 6); });
+      var need = maxR - minL, cw = box.parentNode.clientWidth || 390;
+      var s = desk ? 1 : Math.min(1, cw / need);
       var st = sc.querySelector('.dstage:not([hidden])') || sc.firstElementChild;
-      sc.style.transform = 'scale(' + s + ')';
-      box.style.width = desk ? (390 * s) + 'px' : '';
+      sc.style.transform = 'translateX(' + (-minL * s) + 'px) scale(' + s + ')';
+      box.style.width = (need * s) + 'px';
+      box.style.maxWidth = 'none';
       box.style.height = (st.offsetHeight * s) + 'px';
     }
     function tick(stage){
