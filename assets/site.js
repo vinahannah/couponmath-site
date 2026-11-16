@@ -16,6 +16,7 @@ function buildLook(box){
   st.innerHTML='<div class="lt"><div class="num"></div><h4></h4><p></p><div class="nb"><button class="cb pv1" type="button" aria-label="Previous">'+L+'</button><button class="cb nx1" type="button" aria-label="Next">'+R+'</button></div></div>'+
     '<div class="media"></div><div class="rt"></div>'+
     '<button class="parr pv2" type="button" aria-label="Previous" style="left:8px">'+L+'</button><button class="parr nx2" type="button" aria-label="Next" style="right:8px">'+R+'</button>';
+  var mc=document.createElement('div'); mc.className='mcap'; mc.innerHTML='<div class="num"></div><h4></h4>'; box.appendChild(mc);
   box.appendChild(st);
   var dots=document.createElement('div'); dots.className='dots'; box.appendChild(dots);
   var rt=st.querySelector('.rt'), media=st.querySelector('.media'), cur=0;
@@ -25,7 +26,7 @@ function buildLook(box){
     var el;
     if(s.v){var v=document.createElement('video'); v.src='/media/hero.mp4'; v.poster='/media/hero.jpg'; v.muted=true; v.loop=true; v.playsInline=true; ['muted','loop','playsinline','webkit-playsinline'].forEach(function(a){v.setAttribute(a,'')}); v.preload='metadata';
       el=document.createElement('div'); el.className='vw'; el.appendChild(v); var fb=document.createElement('button'); fb.type='button'; fb.className='fs'; fb.textContent='⤢ Full screen'; fb.onclick=function(e){e.stopPropagation(); openFull(v);}; el.appendChild(fb);}
-    else{el=document.createElement('div'); el.innerHTML='<img class="d" src="/media/d'+s.i+'.png" alt="'+s.n+'"'+(k>0?' loading="lazy"':'')+'><img class="m" src="/media/m'+s.i+'.png?v=2" alt="'+s.n+'"'+(k>0?' loading="lazy"':'')+'>';}
+    else{el=document.createElement('div'); el.innerHTML='<img class="d" src="/media/d'+s.i+'.png" alt="'+s.n+'"'+(k>0?' loading="lazy"':'')+'><img class="m" src="/media/p'+s.i+'.png?v=1" alt="'+s.n+'"'+(k>0?' loading="lazy"':'')+'>';}
     el.hidden=true; media.appendChild(el);
   });
   function go(k){
@@ -33,6 +34,7 @@ function buildLook(box){
     st.querySelector('.num').textContent=(cur+1)+' OF '+SL.length;
     st.querySelector('h4').innerHTML=s.a+'<span class="blue">'+s.b+'</span>';
     st.querySelector('.lt p').textContent=s.d;
+    mc.querySelector('.num').textContent=(cur+1)+' OF '+SL.length; mc.querySelector('h4').innerHTML=s.a+'<span class="blue">'+s.b+'</span>';
     [].forEach.call(media.children,function(el,i){el.hidden=i!==cur; var vv=el.querySelector&&el.querySelector('video'); if(vv){ if(i===cur){var p=vv.play(); if(p&&p.catch)p.catch(function(){});} else vv.pause(); }});
     [].forEach.call(rt.children,function(b,i){b.classList.toggle('on',i===cur)});
     [].forEach.call(dots.children,function(b,i){b.classList.toggle('on',i===cur)});
