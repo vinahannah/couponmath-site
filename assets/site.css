@@ -172,6 +172,9 @@ footer .l a{color:var(--blue);font-weight:600}
   .two{grid-template-columns:1fr;gap:20px}
   .tc.wide,.tc.wide.rev{flex-direction:column}.tc.wide .top{width:100%;min-height:0}.tc.wide .bd{padding:24px 22px 26px}
   .hero h1{font-size:40px}.what{font-size:17px}.asb{min-width:0}
+  .brand > span{display:none}
+  .made{margin-top:12px;font-size:12.5px;gap:6px}
+  .web{margin-top:12px}
   .ec{grid-template-columns:1fr;gap:18px;padding:20px}
   .sup{padding:26px 18px}.sup h3{font-size:23px}
   .top{height:auto;aspect-ratio:16/9}
