@@ -155,9 +155,11 @@ footer .l a{color:var(--blue);font-weight:600}
   .hero h1{font-size:36px}
   .look{border:0;padding-inline:0;padding-block:24px 0;margin-top:28px;background:var(--panel);border-radius:20px;padding:20px 12px}
   .look > h3{font-size:21px}.look > p{font-size:14px;margin-bottom:14px}
-  .look{margin-inline:-14px;padding:18px 4px 16px}
+  .look{margin-inline:-14px;padding:14px 4px 12px;scroll-margin-top:64px}
+  .look > h3{margin-bottom:8px}
+  .dots{margin-top:8px}
   .mcap{display:block;text-align:center;margin:0 0 8px}.mcap .num{display:none}.mcap h4{font-size:20px;margin:2px 0 0;line-height:1.25}
-  .stage{height:min(calc((100vw - 4px) * 1.747), 62vh);min-height:420px;display:flex;align-items:center;justify-content:center}
+  .stage{height:min(calc((100vw - 4px) * 1.747), calc(100vh - 226px));height:min(calc((100vw - 4px) * 1.747), calc(100svh - 226px));min-height:360px;display:flex;align-items:center;justify-content:center}
   .media{position:static;transform:none;width:100%;height:100%}
   .media > div:not(.vw){width:100%;height:100%;display:flex;align-items:center;justify-content:center}
   .media img.d{display:none}.media img.m{display:block;width:100%;height:100%;object-fit:contain}
