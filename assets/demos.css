@@ -4,9 +4,9 @@
 .dpanel{display:flex;flex-direction:column;align-items:center}
 .dleft,.dright{display:none}
 .dmid{display:flex;flex-direction:column;align-items:center;gap:12px;width:100%}
-.dchips{display:flex;flex-direction:column;align-items:center;gap:8px}
-.drow{display:flex;gap:8px;justify-content:center}
-.dchip{font:inherit;display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border-radius:999px;font-size:15px;font-weight:700;white-space:nowrap;background:#fff;color:#4A5068;border:1px solid #E3E7EE;cursor:pointer}
+.dchips{display:flex;flex-direction:column;align-items:center;gap:6px}
+.drow{display:flex;gap:6px;justify-content:center}
+.dchip{font:inherit;display:inline-flex;align-items:center;gap:8px;padding:7px 13px;border-radius:999px;font-size:13.5px;font-weight:700;white-space:nowrap;background:#fff;color:#4A5068;border:1px solid #E3E7EE;cursor:pointer}
 .dchip.on{background:#1F4FE0;color:#fff;border-color:#1F4FE0}
 .dn{display:none}
 .dbox{width:100%;max-width:390px;overflow:hidden;margin-top:4px}

@@ -8,7 +8,8 @@
       var desk = window.matchMedia('(min-width:900px)').matches;
       var minL = 0, maxR = 390;
       sc.querySelectorAll('.dc').forEach(function(c){ minL = Math.min(minL, c.offsetLeft - 6); maxR = Math.max(maxR, c.offsetLeft + c.offsetWidth + 6); });
-      var need = maxR - minL, cw = box.parentNode.clientWidth || 390;
+      // phones: the demo may use 16px of the page's side margin on each side, so the phone shows a bit bigger
+      var need = maxR - minL, cw = (box.parentNode.clientWidth || 390) + (desk ? 0 : 32);
       var s = desk ? 1 : Math.min(1, cw / need);
       var st = sc.querySelector('.dstage:not([hidden])') || sc.firstElementChild;
       sc.style.transform = 'translateX(' + (-minL * s) + 'px) scale(' + s + ')';
