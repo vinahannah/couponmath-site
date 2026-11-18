@@ -194,3 +194,13 @@ footer .l a{color:var(--blue);font-weight:600}
 @media (max-width:900px){.hfs{display:block}.hvid .vw{width:100%;max-width:320px}}
 /* Phone: no video at the top; the video is the first slide of Take a look */
 @media (max-width:900px){.hvid{display:none!important}}
+
+.bts{max-width:760px;margin:22px auto 0;border:1px solid var(--line);border-radius:20px;padding:24px 28px 30px;background:var(--panel)}
+.bts h3{margin:4px 0 0;font-size:21px}
+.bts .ph{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:22px;padding:0 10px}
+.bts figure{margin:0;background:#fff;padding:10px 10px 14px;border-radius:10px;box-shadow:0 10px 26px rgba(20,50,120,.12);transform:rotate(-2deg)}
+.bts figure:nth-child(2){transform:rotate(2deg)}
+.bts img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:6px;display:block}
+.bts figure:nth-child(2) img{object-position:center top}
+.bts figcaption{margin-top:10px;text-align:center;font-size:14px;font-weight:600;color:#3B4152}
+@media (max-width:900px){.bts{padding:20px}.bts .ph{grid-template-columns:1fr;gap:22px;padding:0 6px}}
