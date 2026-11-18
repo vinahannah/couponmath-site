@@ -30,7 +30,7 @@
       root.querySelectorAll('.dstage').forEach(function(s){
         var on = s.dataset.demo === key, v = s.querySelector('video');
         s.hidden = !on;
-        if (v) { if (on) { v.currentTime = 0; v.muted = true; var p = v.play(); if (p && p.catch) p.catch(function(){}); } else v.pause(); }
+        if (v) { if (on) { v.currentTime = 0; v.muted = true; v.playsInline = true; v.setAttribute('playsinline', ''); v.setAttribute('webkit-playsinline', ''); var p = v.play(); if (p && p.catch) p.catch(function(){}); } else v.pause(); }
         if (on && !v) { var a = s.querySelector('.danim'); a.style.display = 'none'; void a.offsetHeight; a.style.display = ''; }
         if (on && v) tick(s);
       });
