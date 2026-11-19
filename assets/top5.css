@@ -32,7 +32,7 @@
 .t5 .h{display:flex;align-items:center;justify-content:space-between;gap:12px 20px;flex-wrap:wrap}
 .t5 .ht{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px}
 .t5 .vm{display:none}
-.t5 .foot{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:16px}
+.t5 .foot{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-top:8px}
 .t5 .foot .vary{margin:0}
 .t5 .note{text-align:right;margin-top:8px}
 .t5 .appwrap{display:flex;justify-content:center;margin-top:26px}
