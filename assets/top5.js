@@ -32,15 +32,20 @@
       return '<a class="card" href="/app/deal/'+encodeURIComponent(d.id)+'"><span class="rank">'+(i+1)+'</span>'+
         '<div class="ph">'+(d.imageUrl?'<img loading="lazy" src="'+esc(d.imageUrl)+'" alt="">':'')+'</div>'+
         '<div class="mid"><div class="br">'+esc(d.brand)+'</div>'+(d.title?'<div class="ti">'+esc(d.title)+'</div>':'')+
-        (tags?'<div class="tags">'+tags+'</div>':'')+price(d)+'</div></a>';
+        (tags?'<div class="tags">'+tags+'</div>':'')+price(d)+'</div><span class="go" aria-hidden="true">›</span></a>';
     }).join('');
-    var btns='<a class="b bp" data-ev="top5_app" href="/app/">See full details</a>'+
-      (w.tiktokUrl?'<a class="b bt" data-ev="top5_video" href="'+esc(w.tiktokUrl)+'" target="_blank" rel="noopener">▶ Watch the video</a>':'')+
+    var btns=(w.tiktokUrl?'<a class="b bp" data-ev="top5_video" href="'+esc(w.tiktokUrl)+'" target="_blank" rel="noopener">▶ Watch the video</a>':'')+
       (w.shopUrl?'<a class="b bs" data-ev="top5_shop" href="'+esc(w.shopUrl)+'" target="_blank" rel="noopener">Shop these deals ↗</a>':'');
+    var app='<div class="appband"><img src="/media/top5-app.png" alt="Coupon Math deal details screen" loading="lazy">'+
+      '<div class="at"><div class="ah">Plan this trip in <span>Coupon Math</span></div>'+
+      '<p>Add these deals to your planner and see what you\'ll pay.</p>'+
+      '<a class="getapp toStore" data-ev="top5_get_app" href="'+STORE+'" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16.4 12.6c0-2.4 2-3.6 2.1-3.7-1.1-1.7-2.9-1.9-3.5-1.9-1.5-.2-2.9.9-3.7.9-.8 0-1.9-.9-3.2-.8-1.6 0-3.1 1-4 2.4-1.7 3-.4 7.3 1.2 9.7.8 1.2 1.8 2.5 3 2.4 1.2 0 1.7-.8 3.1-.8 1.5 0 1.9.8 3.2.8 1.3 0 2.2-1.2 3-2.4.9-1.4 1.3-2.7 1.3-2.8 0 0-2.5-1-2.5-3.8zM14 5.4c.7-.8 1.1-1.9 1-3-1 0-2.1.7-2.8 1.5-.6.7-1.2 1.8-1 2.9 1.1.1 2.1-.6 2.8-1.4z"/></svg>Get the iPhone app</a></div></div>'+
+      '<div class="appweb">Not on iPhone? <a data-ev="top5_web" href="/app/">Use it on the web</a></div>';
     box.innerHTML='<div class="eyb">THIS WEEK</div><div class="h"><h2>Top 5 deals this week</h2><span class="wk">'+esc((w.label||'').replace(/\s*–\s*/,'–').replace(/^([A-Za-z]+) (\d+)–\1 (\d+)$/,'$1 $2–$3'))+'</span></div>'+
       '<div class="chips"><span class="chip">'+esc(w.store||'CVS')+'</span></div><div class="cards">'+cards+'</div>'+
-      '<div class="vary">Prices can vary by store. Change the price to match yours in the app.</div><div class="btns">'+btns+'</div>'+
-      (w.shopUrl?'<div class="note">ⓘ Some links may earn a commission.</div>':'');
+      '<div class="vary">Prices can vary by store. Change the price to match yours in the app.</div>'+
+      (btns?'<div class="btns">'+btns+'</div>':'')+
+      (w.shopUrl?'<div class="note">ⓘ Some links may earn a commission.</div>':'')+app;
     box.hidden=false;
     box.addEventListener('click',function(e){var a=e.target.closest('[data-ev]'); if(a) tr(a.getAttribute('data-ev')); else if(e.target.closest('.card')) tr('top5_card');});
   }).catch(function(){});
