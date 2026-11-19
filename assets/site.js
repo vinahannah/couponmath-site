@@ -1,7 +1,7 @@
 var L='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>';
 var R='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>';
 var SLIDES=[
- {i:1,a:'Browse ',b:'weekly deals',d:"See this week's deals in one place, with BOGO offers, coupons and the Rewards each one earns.",n:'Browse weekly deals'},
+ {i:1,a:'Browse ',b:'weekly deals',d:"See this week's picks in one place, with BOGO offers, coupons and the Rewards each one earns.",n:'Browse weekly deals'},
  {i:2,a:'Understand ',b:'every deal',d:"See the price, BOGO discount, coupon and Rewards for every deal, and what you'll pay.",n:'Understand every deal'},
  {i:3,a:'Plan your ',b:'trip',d:"Split your trip into transactions and see each one's total and the Rewards it earns.",n:'Plan your trip'},
  {i:4,a:'See your ',b:'trip summary',d:"All your transactions in one place: the total before and after coupons, Rewards used, and your estimated total.",n:'See your trip summary'},
