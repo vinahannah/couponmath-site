@@ -79,3 +79,7 @@
 }
 .t5 .pl{display:inline-flex;align-items:baseline;gap:6px;white-space:nowrap}
 .t5 .pr.mm b{font-size:16px}
+.t5 .chips{align-items:center}
+.t5 .parts{display:inline-flex;gap:6px;margin-left:6px}
+.t5 .pt{font:inherit;font-size:13px;font-weight:700;border-radius:999px;padding:5px 14px;border:1.5px solid var(--line);background:var(--bg);color:var(--muted);cursor:pointer}
+.t5 .pt.on{background:var(--blue);border-color:var(--blue);color:var(--white)}

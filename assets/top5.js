@@ -25,17 +25,20 @@
   fetch(URL,{headers:{apikey:K,Authorization:'Bearer '+K}}).then(function(r){return r.json();}).then(function(rows){
     var v=rows&&rows[0]&&rows[0].content?JSON.parse(rows[0].content):null; if(!v||!v.weeks) return;
     var now=Date.now(), w=null;
-    Object.keys(v.weeks).forEach(function(k){var x=v.weeks[k]; if(new Date(x.start).getTime()<=now&&now<new Date(x.end).getTime()&&x.deals&&x.deals.length) w=x;});
+    function has(p){return p&&p.deals&&p.deals.length;}
+    Object.keys(v.weeks).forEach(function(k){var x=v.weeks[k]; if(new Date(x.start).getTime()<=now&&now<new Date(x.end).getTime()&&(has(x)||has(x.part2))) w=x;});
     if(!w) return;
-    var cards=w.deals.slice(0,5).map(function(d,i){
+    // Part 1 is the week itself; Part 2 (optional) has its own deals, video and storefront links
+    var parts=[w,w.part2].filter(has), cur=0;
+    function cardsOf(p){return p.deals.slice(0,5).map(function(d,i){
       var tags=(d.tags||[]).slice(0,3).map(function(t){return '<span class="tag" style="color:'+esc(t.color)+';background:'+soft(t.color)+'">'+esc(t.text)+'</span>';}).join('');
       return '<a class="card" href="/app/deal/'+encodeURIComponent(d.id)+'"><span class="rank">'+(i+1)+'</span>'+
         '<div class="ph">'+(d.imageUrl?'<img loading="lazy" src="'+esc(d.imageUrl)+'" alt="">':'')+'</div>'+
         '<div class="mid"><div class="br">'+esc(d.brand)+'</div>'+(d.title?'<div class="ti">'+esc(d.title)+'</div>':'')+
         (tags?'<div class="tags">'+tags+'</div>':'')+price(d)+'</div><span class="go" aria-hidden="true">›</span></a>';
-    }).join('');
-    var vid=w.tiktokUrl?function(c){return '<a class="b bp '+c+'" data-ev="top5_video" href="'+esc(w.tiktokUrl)+'" target="_blank" rel="noopener">▶ Watch the video</a>';}:function(){return '';};
-    var shop=w.shopUrl?'<a class="b bs" data-ev="top5_shop" href="'+esc(w.shopUrl)+'" target="_blank" rel="noopener">Shop these deals ↗</a>':'';
+    }).join('');}
+    function vidOf(p){return p.tiktokUrl?function(c){return '<a class="b bp '+c+'" data-ev="top5_video" href="'+esc(p.tiktokUrl)+'" target="_blank" rel="noopener">▶ Watch the video</a>';}:function(){return '';};}
+    function shopOf(p){return p.shopUrl?'<a class="b bs" data-ev="top5_shop" href="'+esc(p.shopUrl)+'" target="_blank" rel="noopener">Shop these deals ↗</a>':'';}
     var VARY='Prices can vary by store. Change the price to match yours in the app.';
     var wk=esc((w.label||'').replace(/\s*–\s*/,'–').replace(/^([A-Za-z]+) (\d+)–\1 (\d+)$/,'$1 $2–$3'));
     var app='<div class="appwrap"><div class="appband"><img src="/media/top5-app.png" alt="Coupon Math deal details screen" loading="lazy">'+
@@ -43,14 +46,22 @@
       '<p>Add these deals to your planner and see what you\'ll pay.</p>'+
       '<div class="acts"><a class="asb toStore" data-ev="top5_get_app" href="'+STORE+'" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M16.4 12.6c0-2.4 2-3.5 2-3.6-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.2-2.8.8-3.5.8s-1.9-.8-3.1-.8a4.6 4.6 0 0 0-3.9 2.4c-1.7 2.9-.4 7.2 1.2 9.6.8 1.2 1.7 2.5 3 2.4 1.2 0 1.6-.8 3.1-.8s1.8.8 3.1.8c1.3 0 2.1-1.2 2.9-2.4a10 10 0 0 0 1.3-2.7c0 0-2.6-1-2.7-3.9zM14 5.5c.7-.8 1.1-1.9 1-3-1 0-2.1.7-2.8 1.5-.6.7-1.2 1.8-1 2.9 1 .1 2.1-.6 2.8-1.4z"/></svg><span><small>Download on the</small><b>App Store</b></span></a>'+
       '<span class="appweb">or <a data-ev="top5_web" href="/app/">use it on the web</a></span></div></div></div></div>';
+    function partBtns(){return parts.length<2?'':'<div class="parts" role="tablist">'+parts.map(function(_,i){return '<button type="button" role="tab" class="pt'+(i===cur?' on':'')+'" aria-selected="'+(i===cur)+'" data-part="'+i+'">Part '+(i+1)+'</button>';}).join('')+'</div>';}
+    function draw(){
+    var P=parts[cur], vid=vidOf(P), shop=shopOf(P), cards=cardsOf(P);
     box.innerHTML='<div class="eyb">THIS WEEK</div>'+
       '<div class="h"><div class="ht"><h2>Top 5 deals this week</h2><span class="wk">'+wk+'</span></div>'+vid('vd')+'</div>'+
       '<div class="vary vm">'+VARY+'</div>'+
-      '<div class="chips"><span class="chip">'+esc(w.store||'CVS')+'</span></div>'+vid('vm')+
+      '<div class="chips"><span class="chip">'+esc(w.store||'CVS')+'</span>'+partBtns()+'</div>'+vid('vm')+
       '<div class="cards">'+cards+'</div>'+
       '<div class="foot"><div class="vary vd">'+VARY+'</div>'+shop+'</div>'+
-      (w.shopUrl?'<div class="note">ⓘ Some links may earn a commission.</div>':'')+app;
+      (P.shopUrl?'<div class="note">ⓘ Some links may earn a commission.</div>':'')+app;
+    }
+    draw();
     box.hidden=false;
-    box.addEventListener('click',function(e){var a=e.target.closest('[data-ev]'); if(a) tr(a.getAttribute('data-ev')); else if(e.target.closest('.card')) tr('top5_card');});
+    box.addEventListener('click',function(e){
+      var pt=e.target.closest('[data-part]');
+      if(pt){var i=+pt.getAttribute('data-part'); if(i!==cur){cur=i; draw(); tr(i===1?'top5_part2':'top5_part1');} return;}
+      var a=e.target.closest('[data-ev]'); if(a) tr(a.getAttribute('data-ev')); else if(e.target.closest('.card')) tr('top5_card');});
   }).catch(function(){});
 })();
