@@ -29,14 +29,22 @@
 .t5 .bs{border:1.5px solid #B9CFFB;color:var(--blue)}
 .t5 .note{font-size:12px;color:var(--soft);margin-top:10px}
 .t5 .go{display:none}
-.t5 .appband{margin-top:26px;background:#EEF3FF;border-radius:22px;padding:22px;display:flex;gap:22px;align-items:center}
-.t5 .appband img{width:150px;height:auto;flex:none}
-.t5 .appband .ah{font-size:26px;font-weight:800;line-height:1.2}
+.t5 .h{display:flex;align-items:center;justify-content:space-between;gap:12px 20px;flex-wrap:wrap}
+.t5 .ht{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px}
+.t5 .vm{display:none}
+.t5 .foot{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:16px}
+.t5 .foot .vary{margin:0}
+.t5 .note{text-align:right;margin-top:8px}
+.t5 .appwrap{display:flex;justify-content:center;margin-top:26px}
+.t5 .appband{display:inline-flex;gap:22px;align-items:center;background:#EEF3FF;border-radius:22px;padding:18px 28px 18px 22px}
+.t5 .appband img{width:84px;height:auto;flex:none}
+.t5 .appband .ah{font-size:24px;font-weight:800;line-height:1.2}
 .t5 .appband .ah span{color:var(--blue)}
-.t5 .appband p{color:var(--muted);margin:8px 0 14px;font-size:15px}
-.t5 .getapp{display:inline-flex;align-items:center;gap:8px;background:#111;color:#fff;border-radius:12px;padding:11px 16px;font-weight:700;font-size:15px}
+.t5 .appband p{color:var(--muted);margin:6px 0 14px;font-size:15px}
+.t5 .acts{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.t5 .getapp{display:inline-flex;align-items:center;gap:8px;background:#111;color:#fff;border-radius:12px;padding:10px 15px;font-weight:700;font-size:15px}
 .t5 .getapp svg{width:18px;height:18px}
-.t5 .appweb{text-align:center;font-size:13px;color:var(--soft);margin-top:12px}
+.t5 .appweb{font-size:14px;color:var(--soft)}
 .t5 .appweb a{color:var(--blue);font-weight:700}
 .t5.page{margin-top:28px}
 @media (max-width:1000px){.t5 .cards{grid-template-columns:repeat(3,minmax(0,1fr))}}
@@ -49,15 +57,25 @@
   .t5 .rank{top:6px;left:6px;width:22px;height:22px;font-size:12px}
   .t5 .pr{border:0;padding:0;margin:0}
   .t5 .pr small{width:auto}
-  .t5 .btns{flex-wrap:nowrap}
-  .t5 .b{flex:1 1 0;justify-content:center;padding:12px 8px;font-size:14px;white-space:nowrap}
+  .t5 .vd{display:none}
+  .t5 .vm{display:block}
+  .t5 .h{margin-bottom:2px}
+  .t5 .vary.vm{margin:2px 0 10px;font-size:13px}
+  .t5 .b{width:100%;justify-content:center}
+  .t5 .b.vm{display:flex;margin:0 0 14px}
+  .t5 .foot{display:block;margin-top:14px}
   .t5 .note{text-align:center}
   .t5 .go{display:block;margin-left:auto;color:#B0B8C8;font-size:26px;line-height:1;padding-right:4px}
-  .t5 .appband{padding:16px;gap:14px;border-radius:20px}
-  .t5 .appband img{width:96px}
+  .t5 .appwrap{margin-top:20px}
+  .t5 .appband{display:flex;width:100%;padding:16px;gap:14px;border-radius:20px}
+  .t5 .appband img{width:64px}
   .t5 .appband .ah{font-size:19px}
-  .t5 .appband p{font-size:13px;margin:6px 0 10px}
-  .t5 .getapp{font-size:13px;padding:9px 12px}
+  .t5 .appband p{font-size:13px;margin:5px 0 10px}
+  .t5 .acts{gap:6px 10px}
+  .t5 .appband .asb{height:52px;padding:0 14px}
+  .t5 .appband .asb svg{width:24px;height:24px}
+  .t5 .appband .asb b{font-size:18px;line-height:20px}
+  .t5 .appweb{font-size:12px;width:100%}
 }
 .t5 .pl{display:inline-flex;align-items:baseline;gap:6px;white-space:nowrap}
 .t5 .pr.mm b{font-size:16px}
