@@ -204,3 +204,8 @@ footer .l a{color:var(--blue);font-weight:600}
 .bts figure:nth-child(2) img{object-position:center top}
 .bts figcaption{margin-top:10px;text-align:center;font-size:14px;font-weight:600;color:#3B4152}
 @media (max-width:900px){.bts{padding:20px}.bts .ph{grid-template-columns:1fr;gap:22px;padding:0 6px}}
+
+/* App Store button on every page (Nov 21): phone top bar, computer Download with the Apple logo, and at the bottom of each page */
+.dl{display:inline-flex;align-items:center;gap:6px}.dl svg{width:16px;height:16px;margin-top:-2px}
+.dlp{display:inline-flex;align-items:center;gap:5px;background:var(--black);color:var(--white);border-radius:9px;padding:6px 10px;font-weight:700;font-size:13px;line-height:1}.dlp svg{width:15px;height:15px;margin-top:-2px}
+.fdl{display:flex;justify-content:center;margin:0 0 22px}
