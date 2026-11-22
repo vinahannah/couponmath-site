@@ -221,3 +221,11 @@ footer .l a{color:var(--blue);font-weight:600}
 .get .qrt{height:auto;padding:6px 16px 6px 6px;gap:12px}.get .qrt span{font-size:16px;line-height:20px;font-weight:700;color:var(--ink);white-space:nowrap}
 html.android .wbw{order:-1}
 .get .made{margin-top:4px}
+
+/* Computer: QR code opens under the top-bar Download button on hover (replaces the QR box in the hero) */
+.dl{position:relative}
+.dlq{display:none;position:absolute;top:calc(100% + 12px);right:0;width:220px;box-sizing:border-box;background:#fff;border:1px solid #D5DAE3;border-radius:14px;box-shadow:0 10px 28px rgba(20,30,60,.16);padding:14px;text-align:center;color:var(--ink);z-index:60;cursor:default}
+.dlq::before{content:"";position:absolute;top:-7px;right:28px;width:12px;height:12px;background:#fff;border-left:1px solid #D5DAE3;border-top:1px solid #D5DAE3;transform:rotate(45deg)}
+.dlq::after{content:"";position:absolute;left:0;right:0;top:-14px;height:14px}
+.dlq img{width:130px;height:130px;display:block;margin:0 auto}.dlq b{display:block;font-size:15px;margin-top:6px}.dlq small{display:block;font-size:12.5px;font-weight:500;color:var(--muted);margin-top:2px}
+@media (hover:hover) and (pointer:fine){.dl:hover .dlq,.dl:focus-visible .dlq{display:block}}

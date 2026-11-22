@@ -187,3 +187,9 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
   b.addEventListener('click',function(e){ e.stopPropagation(); var open=p.hidden; set(open); if(open) track('web_info'); });
   document.addEventListener('click',function(e){ if(!p.hidden && !p.contains(e.target)) set(false); });
   document.addEventListener('keydown',function(e){ if(e.key==='Escape') set(false); }); })();
+
+// Computer: QR code box inside the top-bar Download button (shows on hover; clicking still opens the App Store)
+(function(){ document.querySelectorAll('a.dl.toStore').forEach(function(a){ if(a.querySelector('.dlq')) return;
+  var q=document.createElement('span'); q.className='dlq';
+  q.innerHTML='<img src="/media/qr-appstore.png" alt="QR code for Coupon Math on the App Store"><b>Scan to download</b><small>Point your iPhone camera at the code</small>';
+  a.appendChild(q); a.addEventListener('mouseenter',function(){ track('qr_hover'); },{once:true}); }); })();
