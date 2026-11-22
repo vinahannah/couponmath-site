@@ -62,7 +62,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .slo{color:var(--soft);font-size:20px;margin-top:2px}
 .pill{display:inline-block;background:var(--blueSoft);color:var(--blue);font-weight:700;font-size:11.5px;border-radius:999px;padding:4px 10px;margin-top:10px}
 .what{max-width:540px;margin:18px 0 0;font-size:19px;line-height:1.55;color:#3B4152}
-.get{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:26px}
+.get{display:flex;flex-wrap:wrap;align-items:flex-start;gap:12px;margin-top:26px}
 .asb{display:inline-flex;align-items:center;gap:10px;background:var(--black);color:var(--white);border-radius:12px;height:62px;padding:0 20px;text-align:left;min-width:0}.qrt{display:inline-flex;align-items:center;gap:10px;height:62px;border:1.5px solid var(--line);border-radius:12px;padding:0 16px 0 6px;font-size:13px;line-height:16px;color:var(--muted);text-align:left}.qrt img{width:50px;height:50px}
 .asb svg{width:28px;height:28px}.asb small{display:block;font-size:11px;line-height:12px}.asb b{font-size:22px;line-height:24px}
 .qr{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--muted);text-align:left}.qr img{width:84px;height:84px;border-radius:8px;border:1px solid var(--line)}
@@ -209,3 +209,10 @@ footer .l a{color:var(--blue);font-weight:600}
 .dl{display:inline-flex;align-items:center;gap:6px}.dl svg{width:16px;height:16px;margin-top:-2px}
 .dlp{display:inline-flex;align-items:center;gap:5px;background:var(--black);color:var(--white);border-radius:9px;padding:6px 10px;font-weight:700;font-size:13px;line-height:1}.dlp svg{width:15px;height:15px;margin-top:-2px}
 .fdl{display:flex;justify-content:center;margin:0 0 22px}
+
+/* Web version button (Android and computers), with a centered note under it */
+.wbw{display:inline-flex;flex-direction:column;align-items:center;gap:6px}
+.wbb{display:inline-flex;align-items:center;gap:10px;height:62px;padding:0 18px;border:2px solid var(--blue);border-radius:12px;color:var(--blue);background:var(--white);text-align:left}
+.wbb svg{width:26px;height:26px;flex:none}.wbb b{display:block;font-size:19px;line-height:22px}.wbb small{display:block;font-size:12px;line-height:14px;color:var(--muted)}
+.wbn{font-size:12.5px;line-height:16px;color:var(--muted);text-align:center;white-space:nowrap}
+html.android .wbw{order:-1}

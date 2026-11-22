@@ -159,6 +159,7 @@ if(PAGE==='home') track('view');
 document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a');if(!a)return;
   if(a.classList.contains('buyPlanner'))track('planner'); else if(a.classList.contains('buyTripCheck'))track('tripcheck');
   else if(a.classList.contains('toStore'))track('appstore');
+  else if(a.classList.contains('toWeb'))track('web_app');
   else if(a.getAttribute('aria-label')==='TikTok')track('tiktok'); else if(a.getAttribute('aria-label')==='Instagram')track('instagram');},true);
 
 // Keep the looping videos going: restart if a phone stops one at the end, and start again when it scrolls back into view
@@ -173,3 +174,9 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
   document.querySelectorAll('video').forEach(function(v){ v.playsInline=true; v.setAttribute('playsinline',''); v.setAttribute('webkit-playsinline',''); v.disablePictureInPicture=true; });
   document.querySelectorAll('.media video').forEach(function(v){ keepGoing(v,function(){return !v.closest('[hidden]') && ov.hidden;}); });
 })();
+
+// Android phones: the web version comes first (hero), and the top bar / footer button opens the web app instead of the App Store
+(function(){ if(!/Android/i.test(navigator.userAgent)) return; document.documentElement.classList.add('android');
+  function swap(){ document.querySelectorAll('.dlp.toStore').forEach(function(a){ a.href='/app/'; a.removeAttribute('target'); a.classList.remove('toStore'); a.classList.add('toWeb'); a.innerHTML='<span>Open web app</span>'; });
+    document.querySelectorAll('.fdl .asb.toStore').forEach(function(a){ a.href='/app/'; a.removeAttribute('target'); a.classList.remove('toStore','asb'); a.classList.add('toWeb','wbb'); a.innerHTML='<span><b>Use it on the web</b><small>Works in any browser</small></span>'; }); }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',swap); else swap(); })();
