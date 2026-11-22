@@ -220,3 +220,4 @@ footer .l a{color:var(--blue);font-weight:600}
 .wbp small{display:block;font-size:12.5px;color:var(--muted);margin-top:6px}.wbp a{display:block;font-weight:700;font-size:13px;margin-top:6px;color:var(--ink)}
 .get .qrt{height:auto;padding:6px 16px 6px 6px;gap:12px}.get .qrt span{font-size:16px;line-height:20px;font-weight:700;color:var(--ink);white-space:nowrap}
 html.android .wbw{order:-1}
+.get .made{margin-top:4px}
