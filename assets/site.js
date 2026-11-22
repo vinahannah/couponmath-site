@@ -180,3 +180,10 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
   function swap(){ document.querySelectorAll('.dlp.toStore').forEach(function(a){ a.href='/app/'; a.removeAttribute('target'); a.classList.remove('toStore'); a.classList.add('toWeb'); a.innerHTML='<span>Open web app</span>'; });
     document.querySelectorAll('.fdl .asb.toStore').forEach(function(a){ a.href='/app/'; a.removeAttribute('target'); a.classList.remove('toStore','asb'); a.classList.add('toWeb','wbb'); a.innerHTML='<span><b>Use it on the web</b><small>Works in any browser</small></span>'; }); }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',swap); else swap(); })();
+
+// Web button ⓘ: tap to open/close the bubble; tapping anywhere else closes it
+(function(){ var b=document.querySelector('.wbi'), p=document.querySelector('.wbp'); if(!b||!p) return;
+  function set(open){ p.hidden=!open; b.setAttribute('aria-expanded', open?'true':'false'); }
+  b.addEventListener('click',function(e){ e.stopPropagation(); var open=p.hidden; set(open); if(open) track('web_info'); });
+  document.addEventListener('click',function(e){ if(!p.hidden && !p.contains(e.target)) set(false); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape') set(false); }); })();

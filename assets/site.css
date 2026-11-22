@@ -62,7 +62,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .slo{color:var(--soft);font-size:20px;margin-top:2px}
 .pill{display:inline-block;background:var(--blueSoft);color:var(--blue);font-weight:700;font-size:11.5px;border-radius:999px;padding:4px 10px;margin-top:10px}
 .what{max-width:540px;margin:18px 0 0;font-size:19px;line-height:1.55;color:#3B4152}
-.get{display:flex;flex-wrap:wrap;align-items:flex-start;gap:12px;margin-top:26px}
+.get{display:flex;flex-direction:column;align-items:center;gap:14px;margin-top:26px;width:fit-content;max-width:100%}.gbt{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:12px}
 .asb{display:inline-flex;align-items:center;gap:10px;background:var(--black);color:var(--white);border-radius:12px;height:62px;padding:0 20px;text-align:left;min-width:0}.qrt{display:inline-flex;align-items:center;gap:10px;height:62px;border:1.5px solid var(--line);border-radius:12px;padding:0 16px 0 6px;font-size:13px;line-height:16px;color:var(--muted);text-align:left}.qrt img{width:50px;height:50px}
 .asb svg{width:28px;height:28px}.asb small{display:block;font-size:11px;line-height:12px}.asb b{font-size:22px;line-height:24px}
 .qr{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--muted);text-align:left}.qr img{width:84px;height:84px;border-radius:8px;border:1px solid var(--line)}
@@ -207,12 +207,16 @@ footer .l a{color:var(--blue);font-weight:600}
 
 /* App Store button on every page (Nov 21): phone top bar, computer Download with the Apple logo, and at the bottom of each page */
 .dl{display:inline-flex;align-items:center;gap:6px}.dl svg{width:16px;height:16px;margin-top:-2px}
-.dlp{display:inline-flex;align-items:center;gap:5px;background:var(--black);color:var(--white);border-radius:9px;padding:6px 10px;font-weight:700;font-size:13px;line-height:1}.dlp svg{width:15px;height:15px;margin-top:-2px}
+.dlp{display:inline-flex;align-items:center;gap:5px;background:var(--black);color:var(--white);border-radius:9px;height:34px;box-sizing:border-box;padding:0 12px;font-weight:700;font-size:13px;line-height:1}.dlp svg{width:15px;height:15px;margin-top:-2px}
 .fdl{display:flex;justify-content:center;margin:0 0 22px}
 
-/* Web version button (Android and computers): light gray, same height as the App Store button (which keeps its size); note under it */
-.wbw{display:inline-flex;flex-direction:column;align-items:center;gap:6px}
+/* Web version button (Android and computers): light gray, same height as the App Store button (which keeps its size); ⓘ to its right opens a bubble */
+.wbw{position:relative;display:inline-flex}
 .wbb{display:inline-flex;align-items:center;gap:10px;box-sizing:border-box;height:62px;padding:0 20px;border-radius:12px;background:#EEF0F4;color:var(--ink);text-align:left}
 .wbb svg{width:26px;height:26px;flex:none}.wbb b{display:block;font-size:20px;line-height:24px;white-space:nowrap}.wbb small{display:block;font-size:11px;line-height:13px;color:var(--muted)}
-.wbn{font-size:11px;line-height:14px;color:var(--muted);text-align:center;white-space:nowrap}
+.wbi{position:absolute;left:100%;top:50%;margin:-10px 0 0 8px;width:20px;height:20px;border-radius:50%;border:1.5px solid var(--muted);background:none;color:var(--muted);font:700 12px/1 var(--font);padding:0;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.wbp{position:absolute;top:calc(100% + 10px);right:-34px;z-index:30;width:260px;box-sizing:border-box;background:#fff;border:1px solid #D5DAE3;border-radius:12px;padding:11px 13px;font-size:13.5px;line-height:19px;color:var(--ink);text-align:left;box-shadow:0 6px 18px rgba(20,30,60,.12)}
+.wbp::before{content:"";position:absolute;top:-7px;right:24px;width:12px;height:12px;background:#fff;border-left:1px solid #D5DAE3;border-top:1px solid #D5DAE3;transform:rotate(45deg)}
+.wbp small{display:block;font-size:12.5px;color:var(--muted);margin-top:6px}.wbp a{display:block;font-weight:700;font-size:13px;margin-top:6px;color:var(--ink)}
+.get .qrt{height:auto;padding:6px 16px 6px 6px;gap:12px}.get .qrt span{font-size:16px;line-height:20px;font-weight:700;color:var(--ink);white-space:nowrap}
 html.android .wbw{order:-1}
