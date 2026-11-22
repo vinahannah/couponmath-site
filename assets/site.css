@@ -210,9 +210,9 @@ footer .l a{color:var(--blue);font-weight:600}
 .dlp{display:inline-flex;align-items:center;gap:5px;background:var(--black);color:var(--white);border-radius:9px;padding:6px 10px;font-weight:700;font-size:13px;line-height:1}.dlp svg{width:15px;height:15px;margin-top:-2px}
 .fdl{display:flex;justify-content:center;margin:0 0 22px}
 
-/* Web version button (Android and computers), with a centered note under it */
+/* Web version button (Android and computers): light gray, same height as the App Store button (which keeps its size); note under it */
 .wbw{display:inline-flex;flex-direction:column;align-items:center;gap:6px}
-.wbb{display:inline-flex;align-items:center;gap:10px;height:62px;padding:0 18px;border:2px solid var(--blue);border-radius:12px;color:var(--blue);background:var(--white);text-align:left}
-.wbb svg{width:26px;height:26px;flex:none}.wbb b{display:block;font-size:19px;line-height:22px}.wbb small{display:block;font-size:12px;line-height:14px;color:var(--muted)}
-.wbn{font-size:12.5px;line-height:16px;color:var(--muted);text-align:center;white-space:nowrap}
+.wbb{display:inline-flex;align-items:center;gap:10px;box-sizing:border-box;height:62px;padding:0 20px;border-radius:12px;background:#EEF0F4;color:var(--ink);text-align:left}
+.wbb svg{width:26px;height:26px;flex:none}.wbb b{display:block;font-size:20px;line-height:24px;white-space:nowrap}.wbb small{display:block;font-size:11px;line-height:13px;color:var(--muted)}
+.wbn{font-size:11px;line-height:14px;color:var(--muted);text-align:center;white-space:nowrap}
 html.android .wbw{order:-1}
