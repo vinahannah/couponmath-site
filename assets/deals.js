@@ -17,7 +17,7 @@
     if(d.rewards_earned>0) cps+='<span class="r">Rewards '+money(d.rewards_earned)+'</span>';
     var shop=firstUrl(d.link_url);
     var href='/app/deal/'+encodeURIComponent(d.id);
-    return '<article class="dc"><a class="ph" href="'+href+'" aria-hidden="true" tabindex="-1">'+(d.image_url?'<img loading="lazy" src="'+esc(d.image_url)+'" alt="">':'')+'</a>'+
+    return '<article class="dcard"><a class="ph" href="'+href+'" aria-hidden="true" tabindex="-1">'+(d.image_url?'<img loading="lazy" src="'+esc(d.image_url)+'" alt="">':'')+'</a>'+
       '<div><a class="br" href="'+href+'">'+esc(String(d.brand||'').replace(/\s*\n\s*/g,' '))+'</a>'+(d.title?'<div class="of">'+esc(d.title)+'</div>':'')+'</div>'+
       (cps?'<div class="cp">'+cps+'</div>':'')+
       '<div class="tot"><small>Subtotal '+money(d.item_price)+'</small><b>You pay '+money(d.final_price)+'</b></div>'+
