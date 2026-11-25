@@ -73,3 +73,7 @@ body[data-page="preview"] main{padding-bottom:20px}
   .gbar a{background:var(--blue);color:var(--white);text-decoration:none;padding:9px 14px;border-radius:10px;white-space:nowrap}
   body[data-page="preview"] footer{padding-bottom:80px}
 }
+.dcard .tot .er,.dcard .tot .yp{white-space:nowrap}
+.g5 .dcard .tot{font-size:13px}
+.g5 .dcard .tot b{font-size:16px}
+@media (max-width:900px){.dcard .tot{flex-direction:row;flex-wrap:wrap}.dcard .tot b{font-size:16px}}
