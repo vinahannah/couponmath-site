@@ -130,3 +130,4 @@ body[data-page="preview"] main{padding-bottom:20px}
 /* Keep the card's text where it was; button sits in the top right corner */
 .promo .ptop{display:block}
 .promo .mmd{position:absolute;top:24px;right:24px}
+.promo .mmd{top:14px;right:14px;padding:12px 20px}
