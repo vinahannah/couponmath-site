@@ -33,10 +33,14 @@ body.dealsPage footer{background:#F3F5F9}
 .dcard .br,.pcard .br{font:inherit;font-weight:800;font-size:18px;line-height:1.28;color:var(--ink);text-decoration:none;background:none;border:0;padding:0;text-align:left;cursor:pointer}
 .dcard .of,.pcard .of{font-size:15px;color:var(--muted);margin-top:3px}
 .dcard .cp{display:flex;flex-wrap:wrap;gap:6px}
-.dcard .cp span{border:1.5px solid #2F9E44;color:#237A35;border-radius:999px;padding:3px 10px;font-size:13px;font-weight:700}
+.dcard .cp{padding-top:4px}
+.dcard .cp span{position:relative;border:1.5px dashed #2F9E44;color:#237A35;border-radius:999px;padding:3px 10px;font-size:13px;font-weight:700}
+/* Scissors sitting on the dashed edge, top right (Nov 25) */
+.dcard .cp .sc{position:absolute;right:12px;top:-8px;width:14px;height:14px;padding:0 1px;background:#FFFFFF;fill:none;stroke:#2F9E44;stroke-width:2;stroke-linecap:round}
 .dcard .tot{display:flex;justify-content:space-between;align-items:baseline;gap:8px;border-top:1px solid var(--line);padding-top:11px;margin-top:auto;font-size:16px}
 .dcard .tot b{font-size:21px}
 .dcard .tot .er,.dcard .tot .yp{white-space:nowrap}
+.dcard .tot small{font-size:inherit}
 .dcard .er{color:var(--blue)}
 .dcard .er.none{color:var(--soft)}
 .dcard .add{font:inherit;border:0;cursor:pointer;text-align:center;font-weight:700;font-size:15px;padding:12px;border-radius:12px;background:var(--blue);color:var(--white)}
@@ -44,7 +48,6 @@ body.dealsPage footer{background:#F3F5F9}
 /* Store promo: the app's card (light blue, circle top right, STORE PROMO tag), first in the grid */
 .pcard{position:relative;overflow:hidden;border:1.5px solid #B5D5F5;background:#F2F8FF;border-radius:18px;padding:14px;display:flex;flex-direction:column;gap:8px;min-width:0;cursor:pointer}
 .pcard>*{position:relative}
-.pcard .blob{position:absolute;right:-34px;top:-44px;width:140px;height:140px;border-radius:50%;background:rgba(0,113,227,.07)}
 .pcard .tag{align-self:flex-start;background:#DCEBFF;border-radius:7px;padding:3px 7px;font-size:11px;font-weight:800;letter-spacing:.06em;color:#0071E3}
 .pcard .pg{height:210px;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:6px}
 .pcard .pg.n1{grid-template-columns:1fr;grid-template-rows:1fr}
@@ -53,7 +56,8 @@ body.dealsPage footer{background:#F3F5F9}
 .pcard .pg span{background:#FFFFFF;border-radius:10px;display:flex;align-items:center;justify-content:center;overflow:hidden;min-height:0}
 .pcard .pg img{width:100%;height:100%;object-fit:contain}
 .pcard .pg .more{background:#DCEBFF;color:#0071E3;font-weight:800;font-size:15px}
-.pcard .br{color:#0071E3;cursor:pointer}
+.pcard .br{color:#0071E3;cursor:pointer;font-size:20px}
+.pcard .of{margin-top:1px}
 .pcard .mm{margin-top:auto;text-align:center;font-weight:800;font-size:15px;padding:12px;border-radius:12px;background:#0071E3;color:#FFFFFF}
 .pcard:hover .mm{filter:brightness(1.06)}
 .empty{color:var(--muted);padding:20px 0}
@@ -97,16 +101,20 @@ body.dealsPage footer{background:#F3F5F9}
   .pcard .br{font-size:16px}
   .pcard .of{font-size:14px}
   .pcard .mm{font-size:14px;padding:10px}
-  .pcard .blob{width:110px;height:110px;right:-30px;top:-40px}
+
   .g4{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
   .sh h2,.secth{font-size:22px}
   .dcard{padding:10px;border-radius:16px}
   .dcard .ph{height:140px}
   .dcard .br{font-size:16px}
   .dcard .of{font-size:14px}
-  .dcard .tot{flex-direction:column;align-items:flex-start;gap:2px;font-size:15px}
-  .dcard .tot b{font-size:19px}
-  .dcard .tot .yp{order:-1}
+  /* Earn left, You pay right, small label over each amount (option A) */
+  .dcard .tot{align-items:flex-end;gap:6px}
+  .dcard .tot .er,.dcard .tot .yp{display:flex;flex-direction:column;line-height:1.15}
+  .dcard .tot .yp{text-align:right;align-items:flex-end}
+  .dcard .tot small{font-size:12px}
+  .dcard .tot .yp small{color:var(--muted)}
+  .dcard .tot b{font-size:17px}
   .gbar{left:12px;right:12px;bottom:12px;max-width:none}
   .dealsPage footer{padding-bottom:90px}
 }
@@ -168,3 +176,7 @@ html.cmlock,html.cmlock body{overflow:hidden}
   .cmbox.mix{max-width:none;width:calc(100% - 24px);height:calc(100% - 56px);margin:auto;border-radius:20px}
   .cmov:has(.cmbox.mix){align-items:center;padding:12px}
 }
+
+.cmbox .pc{display:inline-flex;align-items:center;gap:2px}
+.cmbox .pc svg{width:15px;height:15px;fill:none;stroke:#8A92A6;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.cmhd.mx{padding:8px 10px;border-bottom:0;min-height:0}

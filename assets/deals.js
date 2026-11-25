@@ -27,18 +27,19 @@
   }
 
   var deals=[], byId={}, cat='all';
+  var SC='<svg class="sc" viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M8.5 7.5L20 18M8.5 16.5L20 6"/></svg>';
   function photo(d){return d&&(d.image_url||(d.image_urls&&d.image_urls[0]))||'';}
 
   // Deal card (style 1): name, deal in gray, coupon tags, Earn left / You pay right
   function card(d){
-    var cps=(d.coupons_list||[]).map(function(c){return '<span>'+esc(c.description||'Coupon')+' '+money(c.value)+'</span>';}).join('');
-    var earn=d.rewards_earned>0?'<span class="er">Earn <b>'+money(d.rewards_earned)+'</b></span>':'<span class="er none">Earn <b>—</b></span>';
+    var cps=(d.coupons_list||[]).map(function(c){return '<span>'+esc(c.description||'Coupon')+' '+money(c.value)+SC+'</span>';}).join('');
+    var earn=d.rewards_earned>0?'<span class="er"><small>Earn</small> <b>'+money(d.rewards_earned)+'</b></span>':'<span class="er none"><small>Earn</small> <b>—</b></span>';
     var id=esc(d.id);
     return '<article class="dcard">'+
       '<button type="button" class="ph" data-open="'+id+'" aria-label="'+esc(oneLine(d.brand))+' details">'+(photo(d)?'<img loading="lazy" src="'+esc(photo(d))+'" alt="">':'')+'</button>'+
       '<div><button type="button" class="br" data-open="'+id+'">'+esc(oneLine(d.brand))+'</button>'+(d.title?'<div class="of">'+esc(d.title)+'</div>':'')+'</div>'+
       (cps?'<div class="cp">'+cps+'</div>':'')+
-      '<div class="tot">'+earn+'<span class="yp">You pay <b>'+money(d.final_price)+'</b></span></div>'+
+      '<div class="tot">'+earn+'<span class="yp"><small>You pay</small> <b>'+money(d.final_price)+'</b></span></div>'+
       '<button type="button" class="add" data-add="'+id+'">Add to Planner</button></article>';
   }
   function offerOf(p){return String(p.title||'').replace(/^Spend (\$[\d.]+) get (\$[\d.]+)$/i,'Spend $1, get $2 in Rewards');}
@@ -46,11 +47,10 @@
   function promoCard(p){
     var ids=p.mix.dealIds, imgs=[];
     ids.forEach(function(id){var u=photo(byId[id]);if(u&&imgs.indexOf(u)<0)imgs.push(u);});
-    var cells=imgs.slice(0,3).map(function(u){return '<span><img loading="lazy" src="'+esc(u)+'" alt=""></span>';});
-    if(imgs.length>3) cells.push('<span class="more">+ more</span>');
-    return '<article class="pcard" data-mix="'+esc(p.id)+'" tabindex="0" role="button" aria-label="'+esc(p.mix.promoName||oneLine(p.brand))+', Mix and match"><i class="blob"></i>'+
+    var cells=imgs.slice(0,4).map(function(u){return '<span><img loading="lazy" src="'+esc(u)+'" alt=""></span>';});
+    return '<article class="pcard" data-mix="'+esc(p.id)+'" tabindex="0" role="button" aria-label="'+esc(p.mix.promoName||oneLine(p.brand))+', Mix and match">'+
       '<span class="tag">STORE PROMO</span><div class="pg n'+cells.length+'">'+cells.join('')+'</div>'+
-      '<div class="br">'+esc(p.mix.promoName||oneLine(p.brand))+'</div><div class="of">'+esc(offerOf(p))+'</div>'+
+      '<div><div class="br">'+esc(p.mix.promoName||oneLine(p.brand))+'</div><div class="of">'+esc(offerOf(p))+'</div></div>'+
       '<span class="mm">Mix &amp; match ›</span></article>';
   }
 
@@ -94,12 +94,11 @@
   function openDeal(id){
     var d=byId[id]; if(!d) return;
     var note=d.notes?'<div class="nt">'+esc(d.notes)+'</div>':'';
-    var com=isLink(d.link_url)?'<div class="com">ⓘ Some links may earn a commission.</div>':'';
     openBox('<div class="cmhd"><span></span>'+X+'</div>'+
       '<div class="cmtop"><div class="cmph">'+(photo(d)?'<img src="'+esc(photo(d))+'" alt="">':'')+'</div><div class="dnm"><div class="br">'+esc(oneLine(d.brand))+'</div>'+(d.title?'<div class="of">'+esc(d.title)+'</div>':'')+'</div></div>'+
       note+'<div class="math">'+lines(d)+'<div class="ln yp"><span>You pay</span><b>'+money(d.final_price)+'</b></div>'+
       (d.rewards_earned>0?'<div class="ln er"><span>Earn</span><b>'+money(d.rewards_earned)+' Rewards</b></div>':'')+'</div>'+
-      '<button type="button" class="cmbtn" data-add="'+esc(d.id)+'">Add to my planner</button>'+com,'deal');
+      '<button type="button" class="cmbtn" data-add="'+esc(d.id)+'">Add to my planner</button>','deal');
     track('home_deal_open',{id:d.id});
   }
   // The sign-up sheet: the deal as it will look in the Planner, then Sign up and add deal
@@ -113,7 +112,7 @@
       '<div class="cmpv"><div class="cmpvl"><div class="cmpvp">'+(photo(d)?'<img src="'+esc(photo(d))+'" alt="">':'')+'</div>'+
       (d.rewards_earned>0?'<div class="cmpve"><small>Earn</small><b>'+money(d.rewards_earned)+'</b></div>':'')+'</div>'+
       '<div class="cmpvr"><div class="br">'+esc(oneLine(d.brand))+'</div>'+(d.title?'<div class="of">'+esc(d.title)+'</div>':'')+
-      '<div class="ln"><span>Price ⌄</span><b>'+money(d.item_price)+'</b></div>'+cps+
+      '<div class="ln"><span class="pc">Price<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></span><b>'+money(d.item_price)+'</b></div>'+cps+
       '<div class="ln tt"><span>TOTAL</span><b>'+money(d.final_price)+'</b></div></div></div>'+
       '<button type="button" class="cmbtn" data-go="sign-up">Sign up and add deal</button>'+
       '<div class="alt">Already have an account? <button type="button" data-go="sign-in">Sign in</button></div>','sheet');
@@ -129,7 +128,7 @@
   // Mix & match: the app's screen in a window over the site
   function openMix(id){
     var p=byId[id]; if(!p) return;
-    openBox('<div class="cmhd mx"><span class="mt">'+esc(p.mix.promoName||oneLine(p.brand))+'<small>'+esc(offerOf(p))+'</small></span>'+X+'</div>'+
+    openBox('<div class="cmhd mx"><span></span>'+X+'</div>'+
       '<div class="mxw"><div class="mxl">Loading…</div><iframe title="Mix &amp; match" src="/app/mix/'+encodeURIComponent(id)+'"></iframe></div>','mix');
     var f=root.querySelector('iframe'), l=root.querySelector('.mxl');
     if(f) f.addEventListener('load',function(){setTimeout(function(){if(l)l.style.display='none';},900);});
