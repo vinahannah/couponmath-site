@@ -126,3 +126,13 @@ body[data-page="preview"] main{padding-bottom:20px}
   .promo .th .i5,.promo .th .m5{display:none}
   .promo .th .m4{display:flex}
 }
+/* Promo: Mix & match top right on computers, full width under photos on phones */
+.promo .ptop{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.promo .mmp{display:none}
+.promo .th .m4{display:none}
+@media (max-width:900px){
+  .promo .mmd{display:none}
+  .promo .mmp{display:block}
+  .promo .th .x5,.promo .th .m5{display:none}
+  .promo .th .m4{display:flex}
+}
