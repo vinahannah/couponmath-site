@@ -116,3 +116,13 @@ body[data-page="preview"] main{padding-bottom:20px}
   .gbar{left:12px;right:12px;bottom:12px;max-width:none}
   body[data-page="preview"] footer{padding-bottom:90px}
 }
+
+/* Promo: Mix & match top right on computers, 4 photos on phones */
+.promo .mm{position:absolute;top:24px;right:24px;z-index:2}
+.promo .th .m4{display:none}
+@media (max-width:900px){
+  .promo{display:flex;flex-direction:column}
+  .promo .mm{position:static;order:9;margin-top:16px;width:100%}
+  .promo .th .i5,.promo .th .m5{display:none}
+  .promo .th .m4{display:flex}
+}
