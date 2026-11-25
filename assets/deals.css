@@ -1,0 +1,56 @@
+/* Deals-first test page (/preview). Filled by deals.js from this week's published deals. */
+.dh{padding-top:36px}
+.dh .eyb{font-size:12px;font-weight:800;letter-spacing:.1em;color:var(--blue)}
+.dh .top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:18px}
+.dh h1{font-size:44px;line-height:1.05;letter-spacing:-.02em;margin:6px 0 0}
+.dh h1 .wk{font-size:20px;font-weight:600;color:var(--muted);letter-spacing:0;margin-left:6px}
+.dh .store{display:flex;align-items:center;gap:10px;margin-top:14px}
+.dh .store span{font-size:15px;font-weight:600;color:var(--muted)}
+.dh .store b{font-size:17px;font-weight:800;border:1.5px solid var(--ink);border-radius:12px;padding:7px 14px}
+.dh .getapp{border:1px solid var(--line);border-radius:16px;padding:14px 16px;display:flex;align-items:center;gap:14px;box-shadow:0 6px 20px rgba(20,30,60,.06);background:var(--bg)}
+.dh .getapp p{margin:0;font-size:14px;line-height:1.35}
+.dh .getapp p small{display:block;color:var(--muted);font-size:14px}
+.dh .getapp a{font-weight:700;font-size:13px;padding:10px 13px;border-radius:10px;white-space:nowrap;text-decoration:none}
+.dh .getapp .ios{background:var(--black);color:var(--white)}
+.dh .getapp .web{border:1px solid var(--line);color:var(--ink)}
+body[data-page="preview"] .t5{margin-top:24px}
+body[data-page="preview"] .t5 .eyb{display:none}
+.ad{margin-top:40px}
+.ad .h{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px}
+.ad h2{font-size:30px;margin:0}
+.ad .n{color:var(--muted);font-weight:600}
+.ad .fl{display:flex;gap:8px;overflow-x:auto;padding:14px 0 18px;scrollbar-width:none}
+.ad .fl::-webkit-scrollbar{display:none}
+.ad .fl button{font:inherit;font-size:14px;font-weight:600;padding:8px 15px;border-radius:999px;border:1px solid var(--line);background:var(--bg);color:var(--ink);white-space:nowrap;cursor:pointer}
+.ad .fl button.on{background:var(--blue);border-color:var(--blue);color:var(--white);font-weight:700}
+.ad .grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.ad .dc{border:1px solid var(--line);border-radius:16px;padding:12px;display:flex;flex-direction:column;gap:8px;min-width:0;background:var(--bg)}
+.ad .dc .ph{height:150px;border-radius:12px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.ad .dc .ph img{width:100%;height:100%;object-fit:contain}
+.ad .dc .br{font-weight:800;font-size:15px;line-height:1.25;color:var(--ink);text-decoration:none}
+.ad .dc .of{font-size:13px;color:var(--muted)}
+.ad .dc .cp{display:flex;flex-wrap:wrap;gap:5px;font-size:12px;font-weight:700}
+.ad .dc .cp span{border-radius:999px;padding:2px 8px;border:1.5px solid}
+.ad .dc .cp .c{border-color:#2F9E44;color:#237A35}
+.ad .dc .cp .r{border-color:var(--blue);color:var(--blue)}
+.ad .dc .tot{display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid var(--line);padding-top:9px;margin-top:auto;gap:8px}
+.ad .dc .tot small{font-size:13px;color:var(--muted)}
+.ad .dc .tot b{font-size:15px}
+.ad .dc .act{display:flex;gap:8px}
+.ad .dc .add{flex:1;text-align:center;text-decoration:none;font-weight:700;font-size:14px;padding:10px;border-radius:10px;background:var(--blue);color:var(--white)}
+.ad .dc .shop{text-decoration:none;font-weight:700;font-size:14px;padding:10px 12px;border-radius:10px;border:1px solid var(--line);color:var(--ink)}
+.ad .note{margin-top:14px;font-size:13px;color:var(--muted)}
+.ad .empty{color:var(--muted);padding:20px 0}
+.morehome{margin-top:56px;padding-top:8px;border-top:1px solid var(--line)}
+@media (max-width:900px){
+  .dh{padding-top:22px}
+  .dh h1{font-size:32px}
+  .dh h1 .wk{display:block;margin:4px 0 0;font-size:15px}
+  .dh .getapp{width:100%;box-sizing:border-box;flex-wrap:wrap}
+  .ad .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .ad .dc{padding:10px}
+  .ad .dc .ph{height:110px}
+  .ad .dc .act{flex-direction:column}
+  .ad .dc .shop{text-align:center}
+  .ad h2{font-size:24px}
+}
