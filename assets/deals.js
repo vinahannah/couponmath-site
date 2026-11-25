@@ -34,13 +34,14 @@
   function card(d){
     var cps=(d.coupons_list||[]).map(function(c){return '<span>'+esc(c.description||'Coupon')+' '+money(c.value)+SC+'</span>';}).join('');
     // Option B (Nov 25): Earn as a blue badge on the photo; You pay on one line
-    var earn=d.rewards_earned>0?'<span class="eb">Earn '+money(d.rewards_earned)+'</span>':'';
+    // Nov 25 (option B): deal tags on one line at the top left of the photo; Earn is its own line under You pay
+    var earn=d.rewards_earned>0?'<div class="ern"><small>Earn</small><b>'+money(d.rewards_earned)+'</b></div>':'';
     var id=esc(d.id);
     return '<article class="dcard">'+
-      '<button type="button" class="ph" data-open="'+id+'" aria-label="'+esc(oneLine(d.brand))+' details">'+(photo(d)?'<img loading="lazy" src="'+esc(photo(d))+'" alt="">':'')+earn+'</button>'+
+      '<button type="button" class="ph" data-open="'+id+'" aria-label="'+esc(oneLine(d.brand))+' details">'+(photo(d)?'<img loading="lazy" src="'+esc(photo(d))+'" alt="">':'')+tagsHtml(d)+'</button>'+
       '<div><button type="button" class="br" data-open="'+id+'">'+esc(oneLine(d.brand))+'</button>'+(d.title?'<div class="of">'+esc(d.title)+'</div>':'')+'</div>'+
       (cps?'<div class="cp">'+cps+'</div>':'')+
-      '<div class="tot"><small>You pay</small><b>'+money(d.final_price)+'</b></div>'+
+      '<div class="tot"><small>You pay</small><b>'+money(d.final_price)+'</b></div>'+earn+
       '<button type="button" class="add" data-add="'+id+'">Add to Planner</button></article>';
   }
   function offerOf(p){return String(p.title||'').replace(/^Spend (\$[\d.]+) get (\$[\d.]+)$/i,'Spend $1, get $2 in Rewards');}
@@ -56,6 +57,20 @@
   }
 
   function tagTexts(d){if(!d.deal_tag)return[];if(d.deal_tag!=='Custom')return[d.deal_tag];return String(d.deal_tag_custom||'').split('\n').map(function(t){return t.trim();}).filter(Boolean);}
+  // Tags like the app: light color background, colored words; same order as the app (Top Pick, BOGO, Spend Deal, rest)
+  var BUILT={BOGO:'#F76707',Freebie:'#2E7D32',Moneymaker:'#E65100'};
+  function tagList(d){
+    if(!d.deal_tag)return[];
+    var t=[];
+    if(d.deal_tag!=='Custom')t=[{x:d.deal_tag,c:BUILT[d.deal_tag]||'#3B63E8'}];
+    else{var tx=String(d.deal_tag_custom||'').split('\n'),cs=String(d.deal_tag_color||'').split('\n');tx.forEach(function(v,i){v=v.trim();if(v)t.push({x:v,c:(/^\s*bogo\b/i.test(v)?'#F76707':(cs[i]||cs[0]||'#3B63E8').trim())});});}
+    function rk(v){return /^\W*top\s*picks?\W*$/i.test(v)?0:/\bbogo\b/i.test(v)?1:/^\W*spend\s*deals?\W*$/i.test(v)?2:3;}
+    return t.map(function(o,i){return {o:o,i:i};}).sort(function(a,b){return (rk(a.o.x)-rk(b.o.x))||(a.i-b.i);}).map(function(a){var o=a.o;if(/^\s*free\s*$/i.test(o.x))o.x='FREE';return o;});
+  }
+  function tagsHtml(d){
+    var t=tagList(d);if(!t.length)return'';
+    return '<span class="tg">'+t.map(function(o){var c=/^#[0-9a-f]{6}$/i.test(o.c)?o.c:'#3B63E8';var top=/^\W*top\s*picks?\W*$/i.test(o.x);return '<span style="color:'+c+';background:'+c+'22">'+(top?'★ ':'')+esc(o.x)+'</span>';}).join('')+'</span>';
+  }
   function matchQ(d,q){
     if(q==='__top')return tagTexts(d).some(function(t){return /^\W*top\s*picks?\W*$/i.test(t);});
     return Number(d.item_price)>0&&Number(d.final_price)<=5;
@@ -68,7 +83,7 @@
     cats.sort(function(a,b){var x=ORDER.indexOf(a),y=ORDER.indexOf(b);return (x<0?99:x)-(y<0?99:y);});
     var ch=$('chips');
     // Nov 25: Top picks and Under $5 after All (same rules as the app's quick filters)
-    var quick=[['__top','Top picks'],['__under5','Under $5']].filter(function(q){return pub.some(function(d){return matchQ(d,q[0]);});});
+    var quick=[['__top','★ Top picks'],['__under5','Under $5']].filter(function(q){return pub.some(function(d){return matchQ(d,q[0]);});});
     if(ch) ch.innerHTML='<button type="button" data-c="all" class="'+(cat==='all'?'on':'')+'">All</button>'+quick.map(function(q){return '<button type="button" data-c="'+q[0]+'" class="'+(cat===q[0]?'on':'')+'">'+q[1]+'</button>';}).join('')+cats.map(function(c){return '<button type="button" data-c="'+esc(c)+'" class="'+(cat===c?'on':'')+'">'+esc(label(c))+'</button>';}).join('');
     var isQ=cat==='__top'||cat==='__under5';
     var list=cat==='all'?pub:isQ?pub.filter(function(d){return matchQ(d,cat);}):pub.filter(function(d){return (d.category||'other')===cat;});
@@ -153,7 +168,7 @@
 
   function weekShort(w){var m=String(w||'').match(/^([A-Za-z]{3}) (\d+)\s*[–-]\s*([A-Za-z]{3}) (\d+)$/);return m?(m[1]===m[3]?m[1]+' '+m[2]+' – '+m[4]:w):w;}
   var now=new Date().toISOString();
-  var q=BASE+'deals?select=id,brand,title,deal_tag,deal_tag_custom,item_price,final_price,rewards_earned,coupons_list,image_url,category,week_label,store,sort_order,mix,published,notes,link_url'+
+  var q=BASE+'deals?select=id,brand,title,deal_tag,deal_tag_custom,deal_tag_color,item_price,final_price,rewards_earned,coupons_list,image_url,category,week_label,store,sort_order,mix,published,notes,link_url'+
     '&is_custom=eq.false&or=(published.eq.true,mix.not.is.null)&week_start=lte.'+encodeURIComponent(now)+'&expires_at=gt.'+encodeURIComponent(now)+'&order=sort_order.asc';
   var ad=$('allDeals');
   fetch(q,H).then(function(r){return r.json();}).then(function(rows){

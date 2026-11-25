@@ -207,6 +207,12 @@ html.cmlock,html.cmlock body{overflow:hidden}
 }
 /* Phone cards (Nov 25, option 1): room at the top of the photo for the Earn badge, so a tall photo sits under it */
 @media (max-width:900px){
-  .dcard .ph:has(.eb){padding-top:28px;box-sizing:border-box}
-  .dcard .ph:has(.eb) img{height:100%}
-}
+  }
+/* Nov 25 (option B): deal tags in one row at the top left of the photo (room kept above the picture); Earn line under You pay */
+.dcard .ph .tg{position:absolute;left:6px;right:6px;top:6px;display:flex;gap:4px;flex-wrap:nowrap;overflow:hidden;pointer-events:none}
+.dcard .ph .tg span{font-size:11px;font-weight:800;border-radius:6px;padding:2px 6px;white-space:nowrap}
+.dcard .ph:has(.tg){padding-top:28px;box-sizing:border-box}
+.dcard .ph:has(.tg) img{height:100%}
+.dcard .ern{display:flex;justify-content:space-between;align-items:baseline;margin-top:2px}
+.dcard .ern small{font-size:14px;color:var(--muted);font-weight:600}
+.dcard .ern b{font-size:16px;color:var(--blue)}
