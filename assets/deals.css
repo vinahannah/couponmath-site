@@ -132,3 +132,4 @@ body[data-page="preview"] main{padding-bottom:20px}
 .promo .mmd{position:absolute;top:24px;right:24px}
 .promo .mmd{top:14px;right:14px;padding:12px 20px}
 .promo .ptop{position:static}
+.promo .mmd{z-index:2}
