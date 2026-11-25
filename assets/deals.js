@@ -65,8 +65,8 @@
       var off=String(p.title||'').replace(/^Spend (\$[\d.]+) get (\$[\d.]+)$/i,'Spend $1, get $2 in Rewards');
       return '<article class="promo"><span class="tag">STORE PROMO</span><div class="pn">'+esc(p.mix.promoName||oneLine(p.brand))+'</div>'+
         '<div class="po">'+esc(off)+'</div><div class="pc">'+ids.length+' deals count toward it</div>'+
-        '<div class="pf"><div class="th">'+imgs.slice(0,3).map(function(u){return '<span><img loading="lazy" src="'+esc(u)+'" alt=""></span>';}).join('')+
-        (ids.length>3?'<span class="more">+'+(ids.length-3)+'</span>':'')+'</div>'+
+        '<div class="pf"><div class="th">'+imgs.slice(0,5).map(function(u){return '<span><img loading="lazy" src="'+esc(u)+'" alt=""></span>';}).join('')+
+        (ids.length>5?'<span class="more">+'+(ids.length-5)+'</span>':'')+'</div>'+
         '<a class="mm" href="/app/mix/'+encodeURIComponent(p.id)+'">Mix &amp; match ›</a></div></article>';
     }).join('')+'</div>';
     box.hidden=false;
@@ -77,7 +77,7 @@
     var list0=deals.filter(function(d){return d.published;});
     var cats=[];list0.forEach(function(d){var c=d.category||'other';if(cats.indexOf(c)<0)cats.push(c);});
     var list=cat==='all'?list0:list0.filter(function(d){return (d.category||'other')===cat;});
-    box.innerHTML='<div class="sh"><h2>All deals <span class="n">'+list0.length+'</span></h2></div>'+
+    box.innerHTML='<div class="sh"><h2>All deals</h2></div>'+
       '<div class="fl" role="toolbar" aria-label="Filter deals"><button type="button" data-c="all" class="'+(cat==='all'?'on':'')+'">All</button>'+
       cats.map(function(c){return '<button type="button" data-c="'+esc(c)+'" class="'+(cat===c?'on':'')+'">'+esc(label(c))+'</button>';}).join('')+'</div>'+
       '<div class="grid g4">'+list.map(function(d){return card(d);}).join('')+'</div>';
