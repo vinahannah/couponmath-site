@@ -60,14 +60,14 @@
     var box=$('promosx'); if(!box) return;
     var promos=deals.filter(function(d){return d.mix&&d.mix.live!==false&&d.mix.dealIds&&d.mix.dealIds.length;});
     if(!promos.length){box.hidden=true;return;}
-    box.innerHTML='<div class="sh"><h2>Store promos</h2></div><div class="grid g2">'+promos.map(function(p){
+    box.innerHTML='<div class="grid g2">'+promos.map(function(p){
       var ids=p.mix.dealIds, imgs=ids.map(function(id){return byId[id]&&byId[id].image_url;}).filter(Boolean);
       var off=String(p.title||'').replace(/^Spend (\$[\d.]+) get (\$[\d.]+)$/i,'Spend $1, get $2 in Rewards');
-      return '<article class="promo"><div class="ptop"><span class="tag">STORE PROMO</span><a class="mm mmd" href="/app/mix/'+encodeURIComponent(p.id)+'">Mix &amp; match ›</a></div><div class="pn">'+esc(p.mix.promoName||oneLine(p.brand))+'</div>'+
-        '<div class="po">'+esc(off)+'</div><div class="pc">'+ids.length+' deals count toward it</div>'+
-        '<div class="pf"><div class="th">'+imgs.slice(0,5).map(function(u,i){return '<span class="'+(i===4?'i5':'')+'"><img loading="lazy" src="'+esc(u)+'" alt=""></span>';}).join('')+
-        (ids.length>5?'<span class="more m5">+'+(ids.length-5)+'</span>':'')+(ids.length>4?'<span class="more m4">+'+(ids.length-4)+'</span>':'')+'</div></div>'+
-        '<a class="mm mmp" href="/app/mix/'+encodeURIComponent(p.id)+'">Mix &amp; match ›</a></article>';
+      return '<article class="promo"><div class="pi"><span class="tag">STORE PROMO</span><div class="pn">'+esc(p.mix.promoName||oneLine(p.brand))+'</div>'+
+        '<div class="po">'+esc(off)+' <span class="pc">· '+ids.length+' deals</span></div></div>'+
+        '<div class="pr"><div class="th">'+imgs.slice(0,3).map(function(u){return '<span><img loading="lazy" src="'+esc(u)+'" alt=""></span>';}).join('')+
+        (ids.length>3?'<span class="more">+'+(ids.length-3)+'</span>':'')+'</div>'+
+        '<a class="mm" href="/app/mix/'+encodeURIComponent(p.id)+'">Mix &amp; match ›</a></div></article>';
     }).join('')+'</div>';
     box.hidden=false;
   }
@@ -93,7 +93,7 @@
     deals.forEach(function(d){byId[d.id]=d;});
     var pub=deals.filter(function(d){return d.published;});
     if(pub.length){
-      var wk=$('dwk'); if(wk&&pub[0].week_label) wk.textContent=pub[0].week_label;
+      var wk=$('dwk'); if(wk&&pub[0].week_label) wk.textContent=' · '+pub[0].week_label;
       var st=$('dstore'); if(st&&pub[0].store) st.textContent=pub[0].store;
     }
     try{var row=res[1]&&res[1][0];drawTop5(row&&row.content?JSON.parse(row.content):null);}catch(e){}

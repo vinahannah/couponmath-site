@@ -1,70 +1,61 @@
-/* Deals-first test page (/preview). Filled by deals.js. */
-body[data-page="preview"] .wrap{max-width:1320px}
-body[data-page="preview"] main{padding-bottom:20px}
+/* Deals home page (couponmath.com). Filled by deals.js. */
+.dealsPage .wrap{max-width:1320px}
+.dealsPage main{padding-bottom:20px}
 
-/* Header */
-.dx{margin-top:22px;border-radius:22px;background:var(--stage1);padding:18px 24px;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;column-gap:24px}
-.dx h1{grid-column:1;grid-row:1;font-size:40px;line-height:1.1;letter-spacing:-.02em;margin:0}
-.dx .wk{grid-column:1;grid-row:2;font-size:16px;font-weight:600;color:var(--muted);margin-top:4px}
-.dx .store{grid-column:2;grid-row:1/3;display:flex;align-items:center;gap:12px;position:relative}
-.dx .store .lb{font-size:28px;font-weight:500;letter-spacing:-.01em;color:var(--soft)}
-.dx .store button{font:inherit;display:flex;align-items:center;gap:8px;background:var(--bg);border:0;border-radius:12px;padding:5px 12px;color:var(--ink);font-size:28px;font-weight:800;letter-spacing:-.01em;cursor:pointer;box-shadow:0 4px 14px rgba(20,30,60,.08)}
-.dx .store button svg{width:16px;height:16px}
-.dx .pop{position:absolute;right:0;top:calc(100% + 10px);width:280px;background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:12px 14px;font-size:14px;font-weight:500;line-height:1.4;box-shadow:0 10px 30px rgba(20,30,60,.14);z-index:20}
+/* Header: CVS Deals ⌄ / This week · dates */
+.dx{margin-top:22px}
+.dx .tt{position:relative;display:inline-block}
+.dx .tt button{font:inherit;display:flex;align-items:center;gap:8px;background:none;border:0;padding:0;color:var(--ink);cursor:pointer}
+.dx h1{font-size:36px;line-height:1.1;letter-spacing:-.02em;margin:0}
+.dx .tt svg{width:22px;height:22px}
+.dx .wk{font-size:17px;font-weight:600;color:var(--muted);margin-top:4px}
+.dx .pop{position:absolute;left:0;top:calc(100% + 10px);width:290px;background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:12px 14px;font-size:14px;font-weight:500;line-height:1.4;box-shadow:0 10px 30px rgba(20,30,60,.14);z-index:20}
 
 /* Section headings */
 .sh{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;margin-bottom:16px}
 .sh h2{font-size:28px;margin:0}
-.sh .parts{display:flex;gap:8px}
-.sh .parts button,.fl button{font:inherit;font-size:15px;font-weight:600;padding:8px 18px;border-radius:999px;border:1px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer;white-space:nowrap}
-.sh .parts button.on,.fl button.on{background:var(--blue);border-color:var(--blue);color:var(--white);font-weight:700}
-#top5x,#promosx,#allDeals{margin-top:34px}
+.fl button{font:inherit;font-size:15px;font-weight:600;padding:8px 18px;border-radius:999px;border:1px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer;white-space:nowrap}
+.fl button.on{background:var(--blue);border-color:var(--blue);color:var(--white);font-weight:700}
+#promosx{margin-top:18px}
+#allDeals{margin-top:28px}
 .secth{font-size:28px;margin:56px 0 0;padding-top:34px;border-top:1px solid var(--line)}
 .grid{display:grid;gap:16px}
-.g5{grid-template-columns:repeat(5,minmax(0,1fr))}
 .g4{grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
-.g2{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
 .fl{display:flex;gap:8px;overflow-x:auto;margin:-4px 0 18px;scrollbar-width:none}
 .fl::-webkit-scrollbar{display:none}
 
 /* Deal card */
 .dcard{border:1px solid var(--line);border-radius:18px;padding:14px;display:flex;flex-direction:column;gap:9px;min-width:0;background:var(--bg);position:relative}
-.dcard .num{position:absolute;top:12px;left:12px;width:28px;height:28px;border-radius:14px;background:var(--ink);color:var(--white);font-weight:800;font-size:14px;display:grid;place-items:center;z-index:1}
-.dcard .ph{height:170px;border-radius:10px;display:flex;align-items:center;justify-content:center;overflow:hidden}
-.g4 .dcard .ph{height:210px}
+.dcard .ph{height:210px;border-radius:10px;display:flex;align-items:center;justify-content:center;overflow:hidden}
 .dcard .ph img{width:100%;height:100%;object-fit:contain}
-.dcard .br{font-weight:800;font-size:16px;line-height:1.28;color:var(--ink);text-decoration:none}
-.g4 .dcard .br{font-size:18px}
-.dcard .of{font-size:14px;color:var(--muted);margin-top:3px}
-.g4 .dcard .of{font-size:15px}
+.dcard .br{font-weight:800;font-size:18px;line-height:1.28;color:var(--ink);text-decoration:none}
+.dcard .of{font-size:15px;color:var(--muted);margin-top:3px}
 .dcard .cp{display:flex;flex-wrap:wrap;gap:6px}
 .dcard .cp span{border:1.5px solid #2F9E44;color:#237A35;border-radius:999px;padding:3px 10px;font-size:13px;font-weight:700}
-.dcard .tot{display:flex;justify-content:space-between;align-items:baseline;gap:8px;border-top:1px solid var(--line);padding-top:11px;margin-top:auto;font-size:14px}
-.dcard .tot b{font-size:18px}
-.g4 .dcard .tot{font-size:16px}
-.g4 .dcard .tot b{font-size:21px}
+.dcard .tot{display:flex;justify-content:space-between;align-items:baseline;gap:8px;border-top:1px solid var(--line);padding-top:11px;margin-top:auto;font-size:16px}
+.dcard .tot b{font-size:21px}
 .dcard .tot .er,.dcard .tot .yp{white-space:nowrap}
 .dcard .er{color:var(--blue)}
 .dcard .er.none{color:var(--soft)}
 .dcard .add{text-align:center;text-decoration:none;font-weight:700;font-size:15px;padding:12px;border-radius:12px;background:var(--blue);color:var(--white)}
 
-/* Store promo */
-.promo{border:1.5px solid #B9D3FB;background:var(--stage1);border-radius:20px;padding:24px;position:relative;overflow:hidden}
-.promo::after{content:"";position:absolute;right:-40px;top:-40px;width:160px;height:160px;border-radius:80px;background:var(--stage2)}
-.promo>*{position:relative;z-index:1}
-.promo .tag{display:inline-block;font-size:13px;font-weight:800;letter-spacing:.08em;color:var(--blue);background:var(--stage2);padding:5px 10px;border-radius:7px}
-.promo .pn{font-size:30px;font-weight:800;color:var(--blue);margin-top:10px;line-height:1.15}
-.promo .po{font-size:20px;font-weight:700;color:var(--blue);margin-top:4px}
-.promo .pc{font-size:16px;color:var(--muted);margin-top:4px}
-.promo .pf{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px;margin-top:18px}
-.promo .th{display:flex;gap:8px}
-.promo .th span{width:64px;height:64px;border-radius:12px;background:var(--bg);display:flex;align-items:center;justify-content:center;overflow:hidden}
+/* Store promo: one short row on computers */
+.promo{border:1.5px solid #B9D3FB;background:var(--stage1);border-radius:18px;padding:14px 18px;display:flex;align-items:center;gap:18px}
+.promo .pi{flex:1;min-width:0}
+.promo .tag{font-size:11px;font-weight:800;letter-spacing:.08em;color:var(--blue)}
+.promo .pn{font-size:21px;font-weight:800;color:var(--blue);line-height:1.2}
+.promo .po{font-size:15px;font-weight:700;color:var(--blue)}
+.promo .pc{font-weight:500;color:var(--muted)}
+.promo .pr{display:flex;align-items:center;gap:14px}
+.promo .th{display:flex;gap:6px}
+.promo .th span{width:50px;height:50px;border-radius:10px;background:var(--bg);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;overflow:hidden}
 .promo .th img{width:100%;height:100%;object-fit:contain}
-.promo .th .more{background:var(--stage2);color:var(--blue);font-size:16px;font-weight:700}
-.promo .mm{text-decoration:none;background:var(--blue);color:var(--white);font-weight:700;font-size:17px;padding:14px 22px;border-radius:14px;white-space:nowrap}
+.promo .th .more{background:var(--stage2);border-color:var(--stage2);color:var(--blue);font-size:14px;font-weight:700}
+.promo .mm{text-decoration:none;background:var(--blue);color:var(--white);font-weight:700;font-size:15px;padding:12px 16px;border-radius:12px;white-space:nowrap}
 .empty{color:var(--muted);padding:20px 0}
 
-/* Get the app: left rail on very wide screens, light bar everywhere else */
+/* Get the app: left rail on very wide screens, light card everywhere else */
 .rail{display:none}
 .gbar{display:flex;position:fixed;right:20px;bottom:20px;z-index:30;align-items:center;gap:12px;background:var(--bg);border:1px solid var(--line);border-radius:18px;padding:10px 10px 10px 12px;box-shadow:0 12px 32px rgba(20,30,60,.16);max-width:400px}
 .gbar img{width:40px;height:40px;border-radius:10px;flex-shrink:0}
@@ -80,56 +71,35 @@ body[data-page="preview"] main{padding-bottom:20px}
   .rail small{display:block;font-size:11px;color:var(--muted)}
   .rail a{display:block;margin-top:10px;background:var(--black);color:var(--white);text-decoration:none;font-weight:700;font-size:13px;padding:10px 6px;border-radius:10px}
 }
-@media (max-width:1100px){
-  .g5{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (max-width:1180px){
   .g4{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .g2{grid-template-columns:minmax(0,1fr)}
 }
 
 /* Phones */
 @media (max-width:900px){
-  body[data-page="preview"] main .wrap{padding-left:14px;padding-right:14px}
-  .dx{grid-template-columns:auto minmax(0,1fr);padding:16px;row-gap:12px;border-radius:18px}
-  .dx h1{grid-column:1/3;font-size:30px}
-  .dx .store{grid-column:1;grid-row:2;gap:8px}
-  .dx .store .lb,.dx .store button,.dx .wk{font-size:17px}
-  .dx .store .lb{font-weight:600}
-  .dx .store button{padding:6px 10px;border-radius:10px}
-  .dx .store button svg{width:14px;height:14px}
-  .dx .wk{grid-column:2;grid-row:2;justify-self:end;margin:0}
-  .dx .pop{left:0;right:auto}
-  .sh h2,.secth{font-size:24px}
-  .g5,.g4{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-  .g2{grid-template-columns:minmax(0,1fr);gap:12px}
+  .dealsPage main .wrap{padding-left:14px;padding-right:14px}
+  .dx{margin-top:12px}
+  .dx h1{font-size:25px}
+  .dx .tt svg{width:16px;height:16px}
+  .dx .wk{font-size:14px;margin-top:2px}
+  #promosx{margin-top:12px}
+  .g4{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .g2{gap:10px}
+  .sh h2,.secth{font-size:22px}
   .dcard{padding:10px;border-radius:16px}
-  .dcard .ph,.g4 .dcard .ph{height:140px}
-  .dcard .br,.g4 .dcard .br{font-size:16px}
-  .dcard .of,.g4 .dcard .of{font-size:14px}
-  .dcard .tot,.g4 .dcard .tot{flex-direction:column;align-items:flex-start;gap:2px;font-size:15px}
-  .dcard .tot b,.g4 .dcard .tot b{font-size:19px}
+  .dcard .ph{height:140px}
+  .dcard .br{font-size:16px}
+  .dcard .of{font-size:14px}
+  .dcard .tot{flex-direction:column;align-items:flex-start;gap:2px;font-size:15px}
+  .dcard .tot b{font-size:19px}
   .dcard .tot .yp{order:-1}
-  .promo{padding:18px}
-  .promo .pn{font-size:24px}
-  .promo .po{font-size:17px}
-  .promo .pc{font-size:14px}
-  .promo .th span{width:52px;height:52px}
-  .promo .mm{flex:1 1 100%;text-align:center;box-sizing:border-box}
+  .promo{flex-direction:column;align-items:stretch;gap:8px;padding:12px 14px;border-radius:16px}
+  .promo .pn{font-size:17px}
+  .promo .po{font-size:13px}
+  .promo .pr{justify-content:space-between;gap:8px}
+  .promo .th span{width:40px;height:40px;border-radius:9px}
+  .promo .mm{font-size:14px;padding:10px 12px}
   .gbar{left:12px;right:12px;bottom:12px;max-width:none}
-  body[data-page="preview"] footer{padding-bottom:90px}
+  .dealsPage footer{padding-bottom:90px}
 }
-
-/* Promo: Mix & match top right on computers, full width under photos on phones */
-.promo .ptop{display:flex;align-items:center;justify-content:space-between;gap:12px}
-.promo .mmp{display:none}
-.promo .th .m4{display:none}
-@media (max-width:900px){
-  .promo .mmd{display:none}
-  .promo .mmp{display:block;margin-top:16px}
-  .promo .th .i5,.promo .th .m5{display:none}
-  .promo .th .m4{display:flex}
-}
-/* Keep the card's text where it was; button sits in the top right corner */
-.promo .ptop{display:block}
-.promo .mmd{position:absolute;top:24px;right:24px}
-.promo .mmd{top:14px;right:14px;padding:12px 20px}
-.promo .ptop{position:static}
-.promo .mmd{z-index:2}
