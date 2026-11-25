@@ -96,7 +96,7 @@
     var note=d.notes?'<div class="nt">'+esc(d.notes)+'</div>':'';
     var com=isLink(d.link_url)?'<div class="com">ⓘ Some links may earn a commission.</div>':'';
     openBox('<div class="cmhd"><span></span>'+X+'</div>'+
-      '<div class="dtop"><div class="dph">'+(photo(d)?'<img src="'+esc(photo(d))+'" alt="">':'')+'</div><div class="dnm"><div class="br">'+esc(oneLine(d.brand))+'</div>'+(d.title?'<div class="of">'+esc(d.title)+'</div>':'')+'</div></div>'+
+      '<div class="cmtop"><div class="cmph">'+(photo(d)?'<img src="'+esc(photo(d))+'" alt="">':'')+'</div><div class="dnm"><div class="br">'+esc(oneLine(d.brand))+'</div>'+(d.title?'<div class="of">'+esc(d.title)+'</div>':'')+'</div></div>'+
       note+'<div class="math">'+lines(d)+'<div class="ln yp"><span>You pay</span><b>'+money(d.final_price)+'</b></div>'+
       (d.rewards_earned>0?'<div class="ln er"><span>Earn</span><b>'+money(d.rewards_earned)+' Rewards</b></div>':'')+'</div>'+
       '<button type="button" class="cmbtn" data-add="'+esc(d.id)+'">Add to my planner</button>'+com,'deal');
@@ -110,9 +110,9 @@
     if(signedIn()){try{localStorage.setItem(PENDING,JSON.stringify({kind:'deal',dealId:id,at:Date.now()}));}catch(e){}track('home_add',{id:id,signed:1});location.href='/app/';return;}
     var cps=(d.coupons_list||[]).map(function(c){return '<div class="ln g"><span>'+esc(c.description||'Coupon')+'</span><b>-'+money(c.value)+'</b></div>';}).join('');
     openBox('<div class="cmhd"><span class="ey">PREVIEW OF YOUR PLANNER</span>'+X+'</div>'+
-      '<div class="pv"><div class="pvl"><div class="pvp">'+(photo(d)?'<img src="'+esc(photo(d))+'" alt="">':'')+'</div>'+
-      (d.rewards_earned>0?'<div class="pve"><small>Earn</small><b>'+money(d.rewards_earned)+'</b></div>':'')+'</div>'+
-      '<div class="pvr"><div class="br">'+esc(oneLine(d.brand))+'</div>'+(d.title?'<div class="of">'+esc(d.title)+'</div>':'')+
+      '<div class="cmpv"><div class="cmpvl"><div class="cmpvp">'+(photo(d)?'<img src="'+esc(photo(d))+'" alt="">':'')+'</div>'+
+      (d.rewards_earned>0?'<div class="cmpve"><small>Earn</small><b>'+money(d.rewards_earned)+'</b></div>':'')+'</div>'+
+      '<div class="cmpvr"><div class="br">'+esc(oneLine(d.brand))+'</div>'+(d.title?'<div class="of">'+esc(d.title)+'</div>':'')+
       '<div class="ln"><span>Price ⌄</span><b>'+money(d.item_price)+'</b></div>'+cps+
       '<div class="ln tt"><span>TOTAL</span><b>'+money(d.final_price)+'</b></div></div></div>'+
       '<button type="button" class="cmbtn" data-go="sign-up">Sign up and add deal</button>'+

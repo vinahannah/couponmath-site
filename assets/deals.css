@@ -127,9 +127,9 @@ html.cmlock,html.cmlock body{overflow:hidden}
 .cmx{font:inherit;width:32px;height:32px;border-radius:50%;border:1px solid var(--line);background:#FFFFFF;color:#8A92A6;font-size:15px;cursor:pointer;flex-shrink:0}
 .cmbox .br{font-weight:800;font-size:18px;line-height:1.25}
 .cmbox .of{font-size:15px;color:var(--muted);margin-top:2px}
-.cmbox .dtop{display:flex;gap:14px;margin-top:8px;align-items:center}
-.cmbox .dph{width:96px;height:96px;flex-shrink:0;border-radius:12px;overflow:hidden;display:flex;align-items:center;justify-content:center}
-.cmbox .dph img{width:100%;height:100%;object-fit:contain}
+.cmbox .cmtop{display:flex;gap:14px;margin-top:8px;align-items:center}
+.cmbox .cmph{width:96px;height:96px;flex-shrink:0;border-radius:12px;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.cmbox .cmph img{width:100%;height:100%;object-fit:contain}
 .cmbox .nt{margin-top:12px;background:#F5F7FB;border-radius:10px;padding:10px 12px;font-size:14px;line-height:1.4;white-space:pre-line}
 .cmbox .math{margin-top:12px;border:1px solid var(--line);border-radius:12px;padding:12px 14px}
 .cmbox .ln{display:flex;justify-content:space-between;gap:12px;font-size:15px;margin-top:4px}
@@ -142,18 +142,18 @@ html.cmlock,html.cmlock body{overflow:hidden}
 .cmbox .ln.er{color:#0071E3}
 .cmbtn{font:inherit;display:block;width:100%;margin-top:16px;border:0;cursor:pointer;background:#0071E3;color:#FFFFFF;font-weight:800;font-size:16px;padding:14px;border-radius:12px}
 .cmbox .com{text-align:center;font-size:13px;color:var(--muted);margin-top:10px}
-.cmbox .pv{display:flex;gap:12px;margin-top:14px;border:1px solid var(--line);border-radius:16px;padding:14px}
-.cmbox .pvl{width:84px;flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:8px}
-.cmbox .pvp{width:80px;height:68px;display:flex;align-items:center;justify-content:center}
-.cmbox .pvp img{max-width:100%;max-height:100%;object-fit:contain}
-.cmbox .pve{border:1px solid #B9D3FB;background:#E8F2FC;border-radius:10px;padding:4px 10px;text-align:center;color:#0071E3;line-height:1.15}
-.cmbox .pve small{display:block;font-size:11px}
-.cmbox .pve b{font-size:16px}
-.cmbox .pvr{flex:1;min-width:0}
-.cmbox .pvr .br{font-size:16px}
-.cmbox .pvr .of{font-size:14px}
-.cmbox .pvr .ln{font-size:14px}
-.cmbox .pvr .ln:nth-child(3){margin-top:8px}
+.cmbox .cmpv{text-align:left;display:flex;gap:12px;margin-top:14px;border:1px solid var(--line);border-radius:16px;padding:14px}
+.cmbox .cmpvl{width:84px;flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:8px}
+.cmbox .cmpvp{width:80px;height:68px;display:flex;align-items:center;justify-content:center}
+.cmbox .cmpvp img{max-width:100%;max-height:100%;object-fit:contain}
+.cmbox .cmpve{border:1px solid #B9D3FB;background:#E8F2FC;border-radius:10px;padding:4px 10px;text-align:center;color:#0071E3;line-height:1.15}
+.cmbox .cmpve small{display:block;font-size:11px}
+.cmbox .cmpve b{font-size:16px}
+.cmbox .cmpvr{flex:1;min-width:0}
+.cmbox .cmpvr .br{font-size:16px}
+.cmbox .cmpvr .of{font-size:14px}
+.cmbox .cmpvr .ln{font-size:14px}
+.cmbox .cmpvr .ln:nth-child(3){margin-top:8px}
 .cmbox .ln.tt{border-top:1px solid var(--line);margin-top:8px;padding-top:6px;align-items:baseline}
 .cmbox .ln.tt span{font-size:12px;font-weight:800;letter-spacing:.04em}
 .cmbox .ln.tt b{font-size:20px}
