@@ -106,7 +106,7 @@
     var d=byId[id]; if(!d) return;
     savePending(id);
     // Already signed in on this browser: straight to the app, which adds it
-    if(signedIn()){try{localStorage.setItem(PENDING,JSON.stringify({kind:'deal',dealId:id,at:Date.now()}));}catch(e){}track('home_add',{id:id,signed:1});location.href='/app/';return;}
+    if(signedIn()){try{localStorage.setItem(PENDING,JSON.stringify({kind:'deal',dealId:id,at:Date.now()}));}catch(e){}track('home_add',{id:id,signed:1});closeBox();var g=document.createElement('div');g.className='cmgo';g.innerHTML='<img src="/icon.png" alt=""><b>Adding to your Planner</b><small>Opening Coupon Math…</small><i></i>';document.body.appendChild(g);setTimeout(function(){location.href='/app/';},900);return;}
     var cps=(d.coupons_list||[]).map(function(c){return '<div class="ln g"><span>'+esc(c.description||'Coupon')+'</span><b>-'+money(c.value)+'</b></div>';}).join('');
     openBox('<div class="cmhd"><span class="ey">PREVIEW OF YOUR PLANNER</span>'+X+'</div>'+
       '<div class="cmpv"><div class="cmpvl"><div class="cmpvp">'+(photo(d)?'<img src="'+esc(photo(d))+'" alt="">':'')+'</div>'+

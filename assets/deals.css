@@ -186,5 +186,13 @@ html.cmlock,html.cmlock body{overflow:hidden}
 .cmbox .pc{display:inline-flex;align-items:center;gap:2px}
 .cmbox .pc svg{width:15px;height:15px;fill:none;stroke:#8A92A6;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
 .cmhd.mx{position:relative;justify-content:center;padding:10px 12px;border-bottom:1px solid var(--line);min-height:0}
-.cmhd.mx .mt{font-weight:800;font-size:17px;color:var(--ink)}
+.cmhd.mx .mt{font-weight:800;font-size:17px;color:#0071E3}
 .cmhd.mx .cmx{position:absolute;right:8px;top:50%;transform:translateY(-50%);border:0;width:36px;height:36px;font-size:22px;color:#8A92A6;background:none}
+
+/* Signed in already: a short "Adding to your Planner" screen before the app opens (Nov 25) */
+.cmgo{position:fixed;inset:0;z-index:120;background:rgba(243,245,249,.96);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;color:var(--ink);text-align:center;padding:24px}
+.cmgo img{width:64px;height:64px;border-radius:16px}
+.cmgo b{font-size:20px}
+.cmgo small{font-size:15px;color:var(--muted)}
+.cmgo i{width:26px;height:26px;border-radius:50%;border:3px solid #CFE0F7;border-top-color:#0071E3;animation:cmspin .8s linear infinite}
+@keyframes cmspin{to{transform:rotate(360deg)}}
