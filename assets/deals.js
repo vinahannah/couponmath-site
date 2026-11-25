@@ -33,13 +33,14 @@
   // Deal card (style 1): name, deal in gray, coupon tags, Earn left / You pay right
   function card(d){
     var cps=(d.coupons_list||[]).map(function(c){return '<span>'+esc(c.description||'Coupon')+' '+money(c.value)+SC+'</span>';}).join('');
-    var earn=d.rewards_earned>0?'<span class="er"><small>Earn</small> <b>'+money(d.rewards_earned)+'</b></span>':'<span class="er none"><small>Earn</small> <b>—</b></span>';
+    // Option B (Nov 25): Earn as a blue badge on the photo; You pay on one line
+    var earn=d.rewards_earned>0?'<span class="eb">Earn '+money(d.rewards_earned)+'</span>':'';
     var id=esc(d.id);
     return '<article class="dcard">'+
-      '<button type="button" class="ph" data-open="'+id+'" aria-label="'+esc(oneLine(d.brand))+' details">'+(photo(d)?'<img loading="lazy" src="'+esc(photo(d))+'" alt="">':'')+'</button>'+
+      '<button type="button" class="ph" data-open="'+id+'" aria-label="'+esc(oneLine(d.brand))+' details">'+(photo(d)?'<img loading="lazy" src="'+esc(photo(d))+'" alt="">':'')+earn+'</button>'+
       '<div><button type="button" class="br" data-open="'+id+'">'+esc(oneLine(d.brand))+'</button>'+(d.title?'<div class="of">'+esc(d.title)+'</div>':'')+'</div>'+
       (cps?'<div class="cp">'+cps+'</div>':'')+
-      '<div class="tot">'+earn+'<span class="yp"><small>You pay</small> <b>'+money(d.final_price)+'</b></span></div>'+
+      '<div class="tot"><small>You pay</small><b>'+money(d.final_price)+'</b></div>'+
       '<button type="button" class="add" data-add="'+id+'">Add to Planner</button></article>';
   }
   function offerOf(p){return String(p.title||'').replace(/^Spend (\$[\d.]+) get (\$[\d.]+)$/i,'Spend $1, get $2 in Rewards');}

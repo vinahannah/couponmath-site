@@ -109,13 +109,10 @@ body.dealsPage footer{background:#F3F5F9}
   .dcard .br{font-size:16px}
   .dcard .of{font-size:14px}
   /* Earn left, You pay right, small label over each amount (option A) */
-  /* Amounts on top (bigger), the words Earn / You pay under them (Nov 25) */
-  .dcard .tot{align-items:flex-end;gap:6px;padding-top:8px}
-  .dcard .tot .er,.dcard .tot .yp{display:flex;flex-direction:column-reverse;line-height:1.15}
-  .dcard .tot .yp{text-align:right;align-items:flex-end}
-  .dcard .tot small{font-size:12px;margin-top:1px}
-  .dcard .tot .yp small{color:var(--muted)}
+  .dcard .tot{padding-top:8px}
+  .dcard .tot small{font-size:13px}
   .dcard .tot b{font-size:20px}
+  .dcard .eb{top:6px;right:6px;font-size:12px;padding:3px 7px}
   /* Coupons closer to the deal title: tighter spacing in the card */
   .dcard{gap:5px}
   .dcard .of{margin-top:1px}
@@ -196,3 +193,15 @@ html.cmlock,html.cmlock body{overflow:hidden}
 .cmgo small{font-size:15px;color:var(--muted)}
 .cmgo i{width:26px;height:26px;border-radius:50%;border:3px solid #CFE0F7;border-top-color:#0071E3;animation:cmspin .8s linear infinite}
 @keyframes cmspin{to{transform:rotate(360deg)}}
+
+/* Deal card option B (Nov 25): "You pay" small gray left, price big right; Earn badge on the photo */
+.dcard .ph{position:relative}
+.dcard .tot{align-items:baseline}
+.dcard .tot small{font-size:14px;color:var(--muted);font-weight:600}
+.dcard .tot b{font-size:22px;font-weight:800}
+.dcard .eb{position:absolute;top:8px;right:8px;background:#0071E3;color:#FFFFFF;font-size:13px;font-weight:800;border-radius:8px;padding:4px 9px;line-height:1.2;white-space:nowrap}
+@media (max-width:900px){
+  .dcard .tot small{font-size:13px}
+  .dcard .tot b{font-size:20px}
+  .dcard .eb{top:6px;right:6px;font-size:12px;padding:3px 7px}
+}
