@@ -127,3 +127,6 @@ body[data-page="preview"] main{padding-bottom:20px}
   .promo .th .i5,.promo .th .m5{display:none}
   .promo .th .m4{display:flex}
 }
+/* Keep the card's text where it was; button sits in the top right corner */
+.promo .ptop{display:block}
+.promo .mmd{position:absolute;top:24px;right:24px}
