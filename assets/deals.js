@@ -55,6 +55,11 @@
       '<span class="mm">Mix &amp; match ›</span></article>';
   }
 
+  function tagTexts(d){if(!d.deal_tag)return[];if(d.deal_tag!=='Custom')return[d.deal_tag];return String(d.deal_tag_custom||'').split('\n').map(function(t){return t.trim();}).filter(Boolean);}
+  function matchQ(d,q){
+    if(q==='__top')return tagTexts(d).some(function(t){return /^\W*top\s*picks?\W*$/i.test(t);});
+    return Number(d.item_price)>0&&Number(d.final_price)<=5;
+  }
   function draw(){
     var box=$('allDeals'); if(!box) return;
     var pub=deals.filter(function(d){return d.published;});
@@ -62,9 +67,12 @@
     var cats=[];pub.forEach(function(d){var c=d.category||'other';if(cats.indexOf(c)<0)cats.push(c);});
     cats.sort(function(a,b){var x=ORDER.indexOf(a),y=ORDER.indexOf(b);return (x<0?99:x)-(y<0?99:y);});
     var ch=$('chips');
-    if(ch) ch.innerHTML='<button type="button" data-c="all" class="'+(cat==='all'?'on':'')+'">All</button>'+cats.map(function(c){return '<button type="button" data-c="'+esc(c)+'" class="'+(cat===c?'on':'')+'">'+esc(label(c))+'</button>';}).join('');
-    var list=cat==='all'?pub:pub.filter(function(d){return (d.category||'other')===cat;});
-    var shownPromos=cat==='all'?promos:promos.filter(function(p){return p.mix.dealIds.some(function(id){return byId[id]&&(byId[id].category||'other')===cat;});});
+    // Nov 25: Top picks and Under $5 after All (same rules as the app's quick filters)
+    var quick=[['__top','Top picks'],['__under5','Under $5']].filter(function(q){return pub.some(function(d){return matchQ(d,q[0]);});});
+    if(ch) ch.innerHTML='<button type="button" data-c="all" class="'+(cat==='all'?'on':'')+'">All</button>'+quick.map(function(q){return '<button type="button" data-c="'+q[0]+'" class="'+(cat===q[0]?'on':'')+'">'+q[1]+'</button>';}).join('')+cats.map(function(c){return '<button type="button" data-c="'+esc(c)+'" class="'+(cat===c?'on':'')+'">'+esc(label(c))+'</button>';}).join('');
+    var isQ=cat==='__top'||cat==='__under5';
+    var list=cat==='all'?pub:isQ?pub.filter(function(d){return matchQ(d,cat);}):pub.filter(function(d){return (d.category||'other')===cat;});
+    var shownPromos=cat==='all'?promos:isQ?[]:promos.filter(function(p){return p.mix.dealIds.some(function(id){return byId[id]&&(byId[id].category||'other')===cat;});});
     box.innerHTML='<div class="grid g4">'+shownPromos.map(promoCard).join('')+list.map(card).join('')+'</div>';
   }
   var ch0=$('chips');
@@ -145,7 +153,7 @@
 
   function weekShort(w){var m=String(w||'').match(/^([A-Za-z]{3}) (\d+)\s*[–-]\s*([A-Za-z]{3}) (\d+)$/);return m?(m[1]===m[3]?m[1]+' '+m[2]+' – '+m[4]:w):w;}
   var now=new Date().toISOString();
-  var q=BASE+'deals?select=id,brand,title,item_price,final_price,rewards_earned,coupons_list,image_url,category,week_label,store,sort_order,mix,published,notes,link_url'+
+  var q=BASE+'deals?select=id,brand,title,deal_tag,deal_tag_custom,item_price,final_price,rewards_earned,coupons_list,image_url,category,week_label,store,sort_order,mix,published,notes,link_url'+
     '&is_custom=eq.false&or=(published.eq.true,mix.not.is.null)&week_start=lte.'+encodeURIComponent(now)+'&expires_at=gt.'+encodeURIComponent(now)+'&order=sort_order.asc';
   var ad=$('allDeals');
   fetch(q,H).then(function(r){return r.json();}).then(function(rows){
