@@ -205,3 +205,8 @@ html.cmlock,html.cmlock body{overflow:hidden}
   .dcard .tot b{font-size:20px}
   .dcard .eb{top:6px;right:6px;font-size:12px;padding:3px 7px}
 }
+/* Phone cards (Nov 25, option 1): room at the top of the photo for the Earn badge, so a tall photo sits under it */
+@media (max-width:900px){
+  .dcard .ph:has(.eb){padding-top:28px;box-sizing:border-box}
+  .dcard .ph:has(.eb) img{height:100%}
+}
