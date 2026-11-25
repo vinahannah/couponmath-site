@@ -232,4 +232,4 @@ html.android .wbw{order:-1}
 
 /* Phone top bar: Sign in / up + menu only (Download is in the menu and the Get the app bar) (Nov 25) */
 @media (max-width:900px){.pn .dlp{display:none !important}}
-.pmenu a.pmdl{display:flex;align-items:center;justify-content:center;gap:8px;background:#000;color:#fff;border-radius:10px;padding:11px 12px;font-weight:700;font-size:15px;white-space:nowrap}.pmenu a.pmdl svg{width:18px;height:18px;margin-top:-2px;flex-shrink:0}
+.pmenu a.pmdl{display:flex;align-items:center;justify-content:center;gap:6px;width:fit-content;margin:4px auto 2px;background:#000;color:#fff;border-radius:9px;padding:7px 12px;font-weight:700;font-size:13px;white-space:nowrap}.pmenu a.pmdl svg{width:14px;height:14px;margin-top:-2px;flex-shrink:0}

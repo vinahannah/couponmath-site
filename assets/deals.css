@@ -36,7 +36,7 @@ body.dealsPage footer{background:#F3F5F9}
 .dcard .cp{padding-top:4px}
 .dcard .cp span{position:relative;border:1.5px dashed #2F9E44;color:#237A35;border-radius:999px;padding:3px 10px;font-size:13px;font-weight:700}
 /* Scissors sitting on the dashed edge, top right (Nov 25) */
-.dcard .cp .sc{position:absolute;right:12px;top:-8px;width:14px;height:14px;padding:0 1px;background:#FFFFFF;fill:none;stroke:#2F9E44;stroke-width:2;stroke-linecap:round}
+.dcard .cp .sc{position:absolute;right:12px;top:-8px;width:14px;height:14px;padding:0 1px;background:#FFFFFF;fill:none;stroke:#2F9E44;stroke-width:2;stroke-linecap:round;transform:scaleX(-1)}
 .dcard .tot{display:flex;justify-content:space-between;align-items:baseline;gap:8px;border-top:1px solid var(--line);padding-top:11px;margin-top:auto;font-size:16px}
 .dcard .tot b{font-size:21px}
 .dcard .tot .er,.dcard .tot .yp{white-space:nowrap}
@@ -109,12 +109,18 @@ body.dealsPage footer{background:#F3F5F9}
   .dcard .br{font-size:16px}
   .dcard .of{font-size:14px}
   /* Earn left, You pay right, small label over each amount (option A) */
-  .dcard .tot{align-items:flex-end;gap:6px}
-  .dcard .tot .er,.dcard .tot .yp{display:flex;flex-direction:column;line-height:1.15}
+  /* Amounts on top (bigger), the words Earn / You pay under them (Nov 25) */
+  .dcard .tot{align-items:flex-end;gap:6px;padding-top:8px}
+  .dcard .tot .er,.dcard .tot .yp{display:flex;flex-direction:column-reverse;line-height:1.15}
   .dcard .tot .yp{text-align:right;align-items:flex-end}
-  .dcard .tot small{font-size:12px}
+  .dcard .tot small{font-size:12px;margin-top:1px}
   .dcard .tot .yp small{color:var(--muted)}
-  .dcard .tot b{font-size:17px}
+  .dcard .tot b{font-size:20px}
+  /* Coupons closer to the deal title: tighter spacing in the card */
+  .dcard{gap:5px}
+  .dcard .of{margin-top:1px}
+  .dcard .cp{padding-top:6px}
+  .dcard .add{margin-top:4px}
   .gbar{left:12px;right:12px;bottom:12px;max-width:none}
   .dealsPage footer{padding-bottom:90px}
 }
@@ -179,4 +185,6 @@ html.cmlock,html.cmlock body{overflow:hidden}
 
 .cmbox .pc{display:inline-flex;align-items:center;gap:2px}
 .cmbox .pc svg{width:15px;height:15px;fill:none;stroke:#8A92A6;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
-.cmhd.mx{padding:8px 10px;border-bottom:0;min-height:0}
+.cmhd.mx{position:relative;justify-content:center;padding:10px 12px;border-bottom:1px solid var(--line);min-height:0}
+.cmhd.mx .mt{font-weight:800;font-size:17px;color:var(--ink)}
+.cmhd.mx .cmx{position:absolute;right:8px;top:50%;transform:translateY(-50%);border:0;width:36px;height:36px;font-size:22px;color:#8A92A6;background:none}

@@ -128,7 +128,7 @@
   // Mix & match: the app's screen in a window over the site
   function openMix(id){
     var p=byId[id]; if(!p) return;
-    openBox('<div class="cmhd mx"><span></span>'+X+'</div>'+
+    openBox('<div class="cmhd mx"><span class="mt">Mix &amp; match</span>'+X+'</div>'+
       '<div class="mxw"><div class="mxl">Loading…</div><iframe title="Mix &amp; match" src="/app/mix/'+encodeURIComponent(id)+'"></iframe></div>','mix');
     var f=root.querySelector('iframe'), l=root.querySelector('.mxl');
     if(f) f.addEventListener('load',function(){setTimeout(function(){if(l)l.style.display='none';},900);});
