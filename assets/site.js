@@ -99,6 +99,10 @@ pm.querySelectorAll('a[data-v]').forEach(function(a){a.classList.toggle('on',a.g
 document.querySelectorAll('[data-cp]').forEach(function(btn){btn.onclick=function(){var b=this,el=b.parentNode.querySelector('[data-em]'),t=el.textContent; function done(){b.classList.add('ok'); b.title='Copied'; setTimeout(function(){b.classList.remove('ok'); b.title='Copy'},1500)} function sel(){var r=document.createRange(); r.selectNodeContents(el); var g=getSelection(); g.removeAllRanges(); g.addRange(r)} try{navigator.clipboard.writeText(t).then(done,sel)}catch(e){sel()}}});
 ham.onclick=function(e){e.stopPropagation(); pm.hidden=!pm.hidden; ham.setAttribute('aria-expanded',String(!pm.hidden));};
 document.addEventListener('click',function(e){ if(!pm.hidden&&!pm.contains(e.target)) {pm.hidden=true; ham.setAttribute('aria-expanded','false');} });
+// Phone top bar keeps only Sign in / up + ☰ (Nov 25): the app download moves into the menu
+(function(){var andr=/Android/i.test(navigator.userAgent);var d=document.createElement('div');d.innerHTML=(andr?'<a href="/app/"><b>Use it on the web</b><small>Works in any browser</small></a>':'<a class="toStore" href="https://apps.apple.com/app/id6812436686" target="_blank" rel="noopener"><b>Download the app</b><small>Free on the App Store</small></a>')+'<div class="sep"></div>';while(d.lastChild)pm.insertBefore(d.lastChild,pm.firstChild);})();
+// Sign in / up from the menu: an older Add to Planner pick on this browser isn't added later
+document.querySelectorAll('a.si,a.sil').forEach(function(a){a.addEventListener('click',function(){try{localStorage.removeItem('@pending_add_v1');}catch(e){}});});
 document.querySelectorAll('.drop a,.brand').forEach(function(a){a.addEventListener('click',function(){ if(document.activeElement) document.activeElement.blur(); })});
 
 
@@ -150,6 +154,7 @@ var SRC=(function(){var q=(location.search.match(/[?&]src=([a-z]+)/i)||[])[1];va
   if(/tiktok/i.test(q||'')||/musical_ly|BytedanceWebview|TikTok/i.test(ua)||/tiktok\./i.test(ref))return 'tiktok';
   if(/instagram/i.test(q||'')||/Instagram/i.test(ua)||/instagram\./i.test(ref))return 'instagram';return 'other';})();
 function track(ev){if(ME&&ev!=='me')return;try{fetch("https://noylxdmcugembxnwpipb.supabase.co/rest/v1/site_events",{method:'POST',keepalive:true,headers:{apikey:"sb_publishable_Til6cvd0tAebF5CKhA9qWw_Lx4ygo6P",Authorization:"Bearer sb_publishable_Til6cvd0tAebF5CKhA9qWw_Lx4ygo6P",'Content-Type':'application/json',Prefer:'return=minimal'},body:JSON.stringify({event:ev,visitor:VISITOR,source:SRC})}).catch(function(){});}catch(e){}}
+window.cmTrack=function(ev){track(ev);};
 if(/[?&]me\b/.test(location.search)) track('me');
 if(PAGE==='home') track('view');
 (function(){var ph=document.getElementById('photo'); if(!ph) return; var taps=0,timer=null;
@@ -193,3 +198,5 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
   var q=document.createElement('span'); q.className='dlq';
   q.innerHTML='<img src="/media/qr-appstore.png" alt="QR code for Coupon Math on the App Store"><b>Scan to download</b><small>Point your iPhone camera at the code</small>';
   a.appendChild(q); a.addEventListener('mouseenter',function(){ track('qr_hover'); },{once:true}); }); })();
+// The App page always starts at the very top (Nov 25)
+if(PAGE==='take-a-look'&&!location.hash){try{history.scrollRestoration='manual';}catch(e){}window.scrollTo(0,0);}

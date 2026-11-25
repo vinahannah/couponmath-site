@@ -1,14 +1,22 @@
-// Deals-first test page (/preview): Top 5, store promos and every deal for the current week.
+// couponmath.com home: CVS Deals this week, category chips, store promos (first cards), then every deal.
+// Tapping a deal opens its details in a pop-up on the site; Add to Planner shows the sign-up sheet here,
+// and Mix & match opens in a window over the site, so nobody has to leave couponmath.com (Nov 25).
 (function(){
   var K="sb_publishable_Til6cvd0tAebF5CKhA9qWw_Lx4ygo6P";
   var BASE="https://noylxdmcugembxnwpipb.supabase.co/rest/v1/";
   var H={headers:{apikey:K,Authorization:'Bearer '+K}};
   var STORE_MSG='Deals currently available for CVS only. More stores will be added in the future.';
+  var PENDING='@pending_add_v1', AUTH='sb-noylxdmcugembxnwpipb-auth-token';
   function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
   function money(n){return '$'+Number(n||0).toFixed(2);}
-  function label(c){c=String(c||'other').replace(/_/g,' ');return c.charAt(0).toUpperCase()+c.slice(1);}
+  var CAT={beauty:'Beauty',oral_care:'Oral Care',hair:'Hair',skin_care:'Skin Care',personal_care:'Personal Care',household:'Household',health:'Health',baby:'Baby',grocery:'Grocery'};
+  var ORDER=Object.keys(CAT);
+  function label(c){if(CAT[c])return CAT[c];c=String(c||'other').replace(/_/g,' ');return c.replace(/\b\w/g,function(x){return x.toUpperCase();});}
   function oneLine(s){return String(s||'').replace(/\s*\n\s*/g,' ');}
   function $(id){return document.getElementById(id);}
+  function isLink(u){u=String(u||'').trim();return !!u&&!/\s/.test(u)&&/^(https?:\/\/)?[\w-]+(\.[\w-]+)+(\/|$|\?)/i.test(u);}
+  function signedIn(){try{var v=localStorage.getItem(AUTH);return !!(v&&JSON.parse(v).access_token);}catch(e){return false;}}
+  function track(name,props){try{if(window.cmTrack)window.cmTrack(name,props);}catch(e){}}
 
   // Store button: same message as the app
   var sb=$('storeBtn'), sp=$('storePop');
@@ -18,87 +26,139 @@
     document.addEventListener('click',function(){if(!sp.hidden){sp.hidden=true;sb.setAttribute('aria-expanded','false');}});
   }
 
-  // Deal card (style 1): name, deal in gray, coupon tags, Earn left, You pay right
-  function card(d,num){
-    var href='/app/deal/'+encodeURIComponent(d.id);
+  var deals=[], byId={}, cat='all';
+  function photo(d){return d&&(d.image_url||(d.image_urls&&d.image_urls[0]))||'';}
+
+  // Deal card (style 1): name, deal in gray, coupon tags, Earn left / You pay right
+  function card(d){
     var cps=(d.coupons_list||[]).map(function(c){return '<span>'+esc(c.description||'Coupon')+' '+money(c.value)+'</span>';}).join('');
     var earn=d.rewards_earned>0?'<span class="er">Earn <b>'+money(d.rewards_earned)+'</b></span>':'<span class="er none">Earn <b>—</b></span>';
-    return '<article class="dcard">'+(num?'<span class="num">'+num+'</span>':'')+
-      '<a class="ph" href="'+href+'" tabindex="-1" aria-hidden="true">'+(d.image_url?'<img loading="lazy" src="'+esc(d.image_url)+'" alt="">':'')+'</a>'+
-      '<div><a class="br" href="'+href+'">'+esc(oneLine(d.brand))+'</a>'+(d.title?'<div class="of">'+esc(d.title)+'</div>':'')+'</div>'+
+    var id=esc(d.id);
+    return '<article class="dcard">'+
+      '<button type="button" class="ph" data-open="'+id+'" aria-label="'+esc(oneLine(d.brand))+' details">'+(photo(d)?'<img loading="lazy" src="'+esc(photo(d))+'" alt="">':'')+'</button>'+
+      '<div><button type="button" class="br" data-open="'+id+'">'+esc(oneLine(d.brand))+'</button>'+(d.title?'<div class="of">'+esc(d.title)+'</div>':'')+'</div>'+
       (cps?'<div class="cp">'+cps+'</div>':'')+
       '<div class="tot">'+earn+'<span class="yp">You pay <b>'+money(d.final_price)+'</b></span></div>'+
-      '<a class="add" href="'+href+'">Add to Planner</a></article>';
+      '<button type="button" class="add" data-add="'+id+'">Add to Planner</button></article>';
+  }
+  function offerOf(p){return String(p.title||'').replace(/^Spend (\$[\d.]+) get (\$[\d.]+)$/i,'Spend $1, get $2 in Rewards');}
+  // Store promo: the app's card (circle top right, STORE PROMO tag), in the grid like a deal
+  function promoCard(p){
+    var ids=p.mix.dealIds, imgs=[];
+    ids.forEach(function(id){var u=photo(byId[id]);if(u&&imgs.indexOf(u)<0)imgs.push(u);});
+    var cells=imgs.slice(0,3).map(function(u){return '<span><img loading="lazy" src="'+esc(u)+'" alt=""></span>';});
+    if(imgs.length>3) cells.push('<span class="more">+ more</span>');
+    return '<article class="pcard" data-mix="'+esc(p.id)+'" tabindex="0" role="button" aria-label="'+esc(p.mix.promoName||oneLine(p.brand))+', Mix and match"><i class="blob"></i>'+
+      '<span class="tag">STORE PROMO</span><div class="pg n'+cells.length+'">'+cells.join('')+'</div>'+
+      '<div class="br">'+esc(p.mix.promoName||oneLine(p.brand))+'</div><div class="of">'+esc(offerOf(p))+'</div>'+
+      '<span class="mm">Mix &amp; match ›</span></article>';
   }
 
-  var now=new Date().toISOString();
-  var q=BASE+'deals?select=id,brand,title,item_price,final_price,rewards_earned,coupons_list,image_url,category,week_label,store,sort_order,mix,published'+
-    '&is_custom=eq.false&or=(published.eq.true,mix.not.is.null)&week_start=lte.'+encodeURIComponent(now)+'&expires_at=gt.'+encodeURIComponent(now)+'&order=sort_order.asc';
-  var deals=[], byId={}, cat='all';
-
-  function drawTop5(snap){
-    var box=$('top5x'); if(!box||!snap||!snap.weeks) return;
-    var t=Date.now(), w=null;
-    function has(p){return p&&p.deals&&p.deals.length;}
-    Object.keys(snap.weeks).forEach(function(k){var x=snap.weeks[k];if(new Date(x.start).getTime()<=t&&t<new Date(x.end).getTime()&&(has(x)||has(x.part2)))w=x;});
-    if(!w) return;
-    var parts=[w,w.part2].filter(has), cur=0;
-    function draw(){
-      var list=parts[cur].deals.slice(0,5).map(function(s,i){
-        var d=byId[s.id]; if(!d) d={id:s.id,brand:s.brand,title:s.title,image_url:s.imageUrl,final_price:(s.reg||0)-(s.coupons||0),rewards_earned:s.rewards,coupons_list:s.coupons>0?[{description:'Coupon',value:s.coupons}]:[]};
-        return card(d,i+1);
-      }).join('');
-      box.innerHTML='<div class="sh"><h2>Top 5 deals</h2>'+(parts.length>1?'<div class="parts">'+parts.map(function(_,i){return '<button type="button" data-part="'+i+'" class="'+(i===cur?'on':'')+'" aria-pressed="'+(i===cur)+'">Part '+(i+1)+'</button>';}).join('')+'</div>':'')+'</div>'+
-        '<div class="grid g5">'+list+'</div>';
-      box.hidden=false;
-    }
-    box.addEventListener('click',function(e){var b=e.target.closest('[data-part]');if(!b)return;cur=+b.getAttribute('data-part');draw();});
-    draw();
-  }
-
-  function drawPromos(){
-    var box=$('promosx'); if(!box) return;
-    var promos=deals.filter(function(d){return d.mix&&d.mix.live!==false&&d.mix.dealIds&&d.mix.dealIds.length;});
-    if(!promos.length){box.hidden=true;return;}
-    box.innerHTML='<div class="grid g2">'+promos.map(function(p){
-      var ids=p.mix.dealIds, imgs=ids.map(function(id){return byId[id]&&byId[id].image_url;}).filter(Boolean);
-      var off=String(p.title||'').replace(/^Spend (\$[\d.]+) get (\$[\d.]+)$/i,'Spend $1, get $2 in Rewards');
-      return '<article class="promo"><div class="pi"><span class="tag">STORE PROMO</span><div class="pn">'+esc(p.mix.promoName||oneLine(p.brand))+'</div>'+
-        '<div class="po">'+esc(off)+' <span class="pc">· '+ids.length+' deals</span></div></div>'+
-        '<div class="pr"><div class="th">'+imgs.slice(0,3).map(function(u){return '<span><img loading="lazy" src="'+esc(u)+'" alt=""></span>';}).join('')+
-        (ids.length>3?'<span class="more">+'+(ids.length-3)+'</span>':'')+'</div>'+
-        '<a class="mm" href="/app/mix/'+encodeURIComponent(p.id)+'">Mix &amp; match ›</a></div></article>';
-    }).join('')+'</div>';
-    box.hidden=false;
-  }
-
-  function drawAll(){
+  function draw(){
     var box=$('allDeals'); if(!box) return;
-    var list0=deals.filter(function(d){return d.published;});
-    var cats=[];list0.forEach(function(d){var c=d.category||'other';if(cats.indexOf(c)<0)cats.push(c);});
-    var list=cat==='all'?list0:list0.filter(function(d){return (d.category||'other')===cat;});
-    box.innerHTML='<div class="sh"><h2>All deals</h2></div>'+
-      '<div class="fl" role="toolbar" aria-label="Filter deals"><button type="button" data-c="all" class="'+(cat==='all'?'on':'')+'">All</button>'+
-      cats.map(function(c){return '<button type="button" data-c="'+esc(c)+'" class="'+(cat===c?'on':'')+'">'+esc(label(c))+'</button>';}).join('')+'</div>'+
-      '<div class="grid g4">'+list.map(function(d){return card(d);}).join('')+'</div>';
+    var pub=deals.filter(function(d){return d.published;});
+    var promos=deals.filter(function(d){return d.mix&&d.mix.live!==false&&d.mix.dealIds&&d.mix.dealIds.length;});
+    var cats=[];pub.forEach(function(d){var c=d.category||'other';if(cats.indexOf(c)<0)cats.push(c);});
+    cats.sort(function(a,b){var x=ORDER.indexOf(a),y=ORDER.indexOf(b);return (x<0?99:x)-(y<0?99:y);});
+    var ch=$('chips');
+    if(ch) ch.innerHTML='<button type="button" data-c="all" class="'+(cat==='all'?'on':'')+'">All</button>'+cats.map(function(c){return '<button type="button" data-c="'+esc(c)+'" class="'+(cat===c?'on':'')+'">'+esc(label(c))+'</button>';}).join('');
+    var list=cat==='all'?pub:pub.filter(function(d){return (d.category||'other')===cat;});
+    var shownPromos=cat==='all'?promos:promos.filter(function(p){return p.mix.dealIds.some(function(id){return byId[id]&&(byId[id].category||'other')===cat;});});
+    box.innerHTML='<div class="grid g4">'+shownPromos.map(promoCard).join('')+list.map(card).join('')+'</div>';
   }
-  var ad=$('allDeals');
-  if(ad) ad.addEventListener('click',function(e){var b=e.target.closest('[data-c]');if(!b)return;cat=b.getAttribute('data-c');drawAll();});
+  var ch0=$('chips');
+  if(ch0) ch0.addEventListener('click',function(e){var b=e.target.closest('[data-c]');if(!b)return;cat=b.getAttribute('data-c');draw();track('home_chip',{c:cat});});
 
-  Promise.all([
-    fetch(q,H).then(function(r){return r.json();}),
-    fetch(BASE+'app_content?key=eq.website_top5&select=content',H).then(function(r){return r.json();}).catch(function(){return [];})
-  ]).then(function(res){
-    deals=Array.isArray(res[0])?res[0]:[];
+  // ── Pop-ups ────────────────────────────────────────────────────────────
+  var root=document.createElement('div'); root.className='cmov'; root.hidden=true; document.body.appendChild(root);
+  var lastFocus=null;
+  function openBox(html,cls){
+    lastFocus=document.activeElement;
+    root.innerHTML='<div class="cmbox '+(cls||'')+'" role="dialog" aria-modal="true">'+html+'</div>';
+    root.hidden=false; document.documentElement.classList.add('cmlock');
+    var x=root.querySelector('[data-x]'); if(x) x.focus();
+  }
+  function closeBox(){root.hidden=true;root.innerHTML='';document.documentElement.classList.remove('cmlock');if(lastFocus&&lastFocus.focus)lastFocus.focus();}
+  root.addEventListener('click',function(e){
+    if(e.target===root||e.target.closest('[data-x]')){closeBox();return;}
+    var a=e.target.closest('[data-add]'); if(a){addDeal(a.getAttribute('data-add'));return;}
+    var g=e.target.closest('[data-go]'); if(g){go(g.getAttribute('data-go'));}
+  });
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!root.hidden)closeBox();});
+  var X='<button type="button" class="cmx" data-x aria-label="Close">✕</button>';
+
+  function lines(d){
+    var cps=(d.coupons_list||[]).map(function(c){return '<div class="ln g"><span>'+esc(c.description||'Coupon')+'</span><b>-'+money(c.value)+'</b></div>';}).join('');
+    return '<div class="ln"><span>Price</span><b>'+money(d.item_price)+'</b></div>'+cps;
+  }
+  function openDeal(id){
+    var d=byId[id]; if(!d) return;
+    var note=d.notes?'<div class="nt">'+esc(d.notes)+'</div>':'';
+    var com=isLink(d.link_url)?'<div class="com">ⓘ Some links may earn a commission.</div>':'';
+    openBox('<div class="cmhd"><span></span>'+X+'</div>'+
+      '<div class="dtop"><div class="dph">'+(photo(d)?'<img src="'+esc(photo(d))+'" alt="">':'')+'</div><div class="dnm"><div class="br">'+esc(oneLine(d.brand))+'</div>'+(d.title?'<div class="of">'+esc(d.title)+'</div>':'')+'</div></div>'+
+      note+'<div class="math">'+lines(d)+'<div class="ln yp"><span>You pay</span><b>'+money(d.final_price)+'</b></div>'+
+      (d.rewards_earned>0?'<div class="ln er"><span>Earn</span><b>'+money(d.rewards_earned)+' Rewards</b></div>':'')+'</div>'+
+      '<button type="button" class="cmbtn" data-add="'+esc(d.id)+'">Add to my planner</button>'+com,'deal');
+    track('home_deal_open',{id:d.id});
+  }
+  // The sign-up sheet: the deal as it will look in the Planner, then Sign up and add deal
+  function addDeal(id){
+    var d=byId[id]; if(!d) return;
+    savePending(id);
+    // Already signed in on this browser: straight to the app, which adds it
+    if(signedIn()){try{localStorage.setItem(PENDING,JSON.stringify({kind:'deal',dealId:id,at:Date.now()}));}catch(e){}track('home_add',{id:id,signed:1});location.href='/app/';return;}
+    var cps=(d.coupons_list||[]).map(function(c){return '<div class="ln g"><span>'+esc(c.description||'Coupon')+'</span><b>-'+money(c.value)+'</b></div>';}).join('');
+    openBox('<div class="cmhd"><span class="ey">PREVIEW OF YOUR PLANNER</span>'+X+'</div>'+
+      '<div class="pv"><div class="pvl"><div class="pvp">'+(photo(d)?'<img src="'+esc(photo(d))+'" alt="">':'')+'</div>'+
+      (d.rewards_earned>0?'<div class="pve"><small>Earn</small><b>'+money(d.rewards_earned)+'</b></div>':'')+'</div>'+
+      '<div class="pvr"><div class="br">'+esc(oneLine(d.brand))+'</div>'+(d.title?'<div class="of">'+esc(d.title)+'</div>':'')+
+      '<div class="ln"><span>Price ⌄</span><b>'+money(d.item_price)+'</b></div>'+cps+
+      '<div class="ln tt"><span>TOTAL</span><b>'+money(d.final_price)+'</b></div></div></div>'+
+      '<button type="button" class="cmbtn" data-go="sign-up">Sign up and add deal</button>'+
+      '<div class="alt">Already have an account? <button type="button" data-go="sign-in">Sign in</button></div>','sheet');
+    track('home_add',{id:id});
+  }
+  var pendingId=null;
+  function savePending(id){pendingId=id;}
+  function go(to){
+    try{if(pendingId)localStorage.setItem(PENDING,JSON.stringify({kind:'deal',dealId:pendingId,at:Date.now()}));}catch(e){}
+    track('home_sheet_go',{to:to});
+    location.href='/app/'+to;
+  }
+  // Mix & match: the app's screen in a window over the site
+  function openMix(id){
+    var p=byId[id]; if(!p) return;
+    openBox('<div class="cmhd mx"><span class="mt">'+esc(p.mix.promoName||oneLine(p.brand))+'<small>'+esc(offerOf(p))+'</small></span>'+X+'</div>'+
+      '<div class="mxw"><div class="mxl">Loading…</div><iframe title="Mix &amp; match" src="/app/mix/'+encodeURIComponent(id)+'"></iframe></div>','mix');
+    var f=root.querySelector('iframe'), l=root.querySelector('.mxl');
+    if(f) f.addEventListener('load',function(){setTimeout(function(){if(l)l.style.display='none';},900);});
+    track('home_mix_open',{id:id});
+  }
+  document.addEventListener('click',function(e){
+    if(!root.hidden&&root.contains(e.target)) return;
+    var o=e.target.closest('[data-open]'); if(o){openDeal(o.getAttribute('data-open'));return;}
+    var a=e.target.closest('.dcard [data-add]'); if(a){addDeal(a.getAttribute('data-add'));return;}
+    var m=e.target.closest('[data-mix]'); if(m){openMix(m.getAttribute('data-mix'));}
+  });
+  document.addEventListener('keydown',function(e){if((e.key==='Enter'||e.key===' ')&&e.target.matches&&e.target.matches('[data-mix]')){e.preventDefault();openMix(e.target.getAttribute('data-mix'));}});
+
+  function weekShort(w){var m=String(w||'').match(/^([A-Za-z]{3}) (\d+)\s*[–-]\s*([A-Za-z]{3}) (\d+)$/);return m?(m[1]===m[3]?m[1]+' '+m[2]+' – '+m[4]:w):w;}
+  var now=new Date().toISOString();
+  var q=BASE+'deals?select=id,brand,title,item_price,final_price,rewards_earned,coupons_list,image_url,category,week_label,store,sort_order,mix,published,notes,link_url'+
+    '&is_custom=eq.false&or=(published.eq.true,mix.not.is.null)&week_start=lte.'+encodeURIComponent(now)+'&expires_at=gt.'+encodeURIComponent(now)+'&order=sort_order.asc';
+  var ad=$('allDeals');
+  fetch(q,H).then(function(r){return r.json();}).then(function(rows){
+    deals=Array.isArray(rows)?rows:[];
     deals.forEach(function(d){byId[d.id]=d;});
     var pub=deals.filter(function(d){return d.published;});
     if(pub.length){
-      var wk=$('dwk'); if(wk&&pub[0].week_label) wk.textContent=' · '+pub[0].week_label;
+      var wl=pub[0].week_label||'';
+      if($('dwk')) $('dwk').textContent=wl;
+      if($('dwks')) $('dwks').textContent=weekShort(wl);
       var st=$('dstore'); if(st&&pub[0].store) st.textContent=pub[0].store;
     }
-    try{var row=res[1]&&res[1][0];drawTop5(row&&row.content?JSON.parse(row.content):null);}catch(e){}
-    drawPromos();
     if(!pub.length){if(ad)ad.innerHTML='<div class="empty">This week\'s deals are coming soon.</div>';return;}
-    drawAll();
+    draw();
   }).catch(function(){if(ad)ad.innerHTML='<div class="empty">Deals couldn\'t load. Try again in a moment.</div>';});
 })();

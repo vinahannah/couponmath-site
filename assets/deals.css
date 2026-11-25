@@ -2,35 +2,36 @@
 .dealsPage .wrap{max-width:1320px}
 .dealsPage main{padding-bottom:20px}
 
-/* Header: CVS Deals ⌄ / This week · dates */
-.dx{margin-top:22px}
-.dx .tt{position:relative;display:inline-block}
-.dx .tt button{font:inherit;display:flex;align-items:center;gap:8px;background:none;border:0;padding:0;color:var(--ink);cursor:pointer}
-.dx h1{font-size:36px;line-height:1.1;letter-spacing:-.02em;margin:0}
-.dx .tt svg{width:22px;height:22px}
-.dx .wk{font-size:17px;font-weight:600;color:var(--muted);margin-top:4px}
-.dx .pop{position:absolute;left:0;top:calc(100% + 10px);width:290px;background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:12px 14px;font-size:14px;font-weight:500;line-height:1.4;box-shadow:0 10px 30px rgba(20,30,60,.14);z-index:20}
+/* Light gray page, white cards (Nov 25, option 1b) */
+body.dealsPage{background:#F3F5F9}
+body.dealsPage .nav{background:#FFFFFF}
+body.dealsPage footer{background:#F3F5F9}
 
-/* Section headings */
-.sh{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;margin-bottom:16px}
-.sh h2{font-size:28px;margin:0}
-.fl button{font:inherit;font-size:15px;font-weight:600;padding:8px 18px;border-radius:999px;border:1px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer;white-space:nowrap}
-.fl button.on{background:var(--blue);border-color:var(--blue);color:var(--white);font-weight:700}
-#promosx{margin-top:18px}
-#allDeals{margin-top:28px}
+/* Header: CVS Deals this week ⌄ (left) · dates (right), chips under it */
+.dx{margin-top:24px}
+.dxr{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.dx .tt{position:relative;display:inline-block;min-width:0}
+.dx .tt button{font:inherit;display:flex;align-items:center;gap:8px;background:none;border:0;padding:0;color:var(--ink);cursor:pointer}
+.dx h1{font-size:34px;line-height:1.1;letter-spacing:-.02em;margin:0;font-weight:800;white-space:nowrap}
+.dx .tt svg{width:22px;height:22px;flex-shrink:0}
+.dx .wk{font-size:22px;font-weight:800;color:var(--ink);white-space:nowrap}
+.dx .wk .short{display:none}
+.dx .pop{position:absolute;left:0;top:calc(100% + 10px);width:290px;background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:12px 14px;font-size:14px;font-weight:500;line-height:1.4;box-shadow:0 10px 30px rgba(20,30,60,.14);z-index:20}
+.fl{display:flex;gap:8px;overflow-x:auto;margin:16px 0 0;padding-bottom:2px;scrollbar-width:none}
+.fl::-webkit-scrollbar{display:none}
+.fl button{font:inherit;font-size:15px;font-weight:700;padding:8px 18px;border-radius:999px;border:1px solid #DDE1EA;background:#FFFFFF;color:#3B4152;cursor:pointer;white-space:nowrap}
+.fl button.on{background:var(--ink);border-color:var(--ink);color:#FFFFFF}
+#allDeals{margin-top:18px}
 .secth{font-size:28px;margin:56px 0 0;padding-top:34px;border-top:1px solid var(--line)}
 .grid{display:grid;gap:16px}
 .g4{grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
-.g2{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
-.fl{display:flex;gap:8px;overflow-x:auto;margin:-4px 0 18px;scrollbar-width:none}
-.fl::-webkit-scrollbar{display:none}
 
 /* Deal card */
 .dcard{border:1px solid var(--line);border-radius:18px;padding:14px;display:flex;flex-direction:column;gap:9px;min-width:0;background:var(--bg);position:relative}
-.dcard .ph{height:210px;border-radius:10px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.dcard .ph{height:210px;border-radius:10px;display:flex;align-items:center;justify-content:center;overflow:hidden;background:none;border:0;padding:0;cursor:pointer;width:100%}
 .dcard .ph img{width:100%;height:100%;object-fit:contain}
-.dcard .br{font-weight:800;font-size:18px;line-height:1.28;color:var(--ink);text-decoration:none}
-.dcard .of{font-size:15px;color:var(--muted);margin-top:3px}
+.dcard .br,.pcard .br{font:inherit;font-weight:800;font-size:18px;line-height:1.28;color:var(--ink);text-decoration:none;background:none;border:0;padding:0;text-align:left;cursor:pointer}
+.dcard .of,.pcard .of{font-size:15px;color:var(--muted);margin-top:3px}
 .dcard .cp{display:flex;flex-wrap:wrap;gap:6px}
 .dcard .cp span{border:1.5px solid #2F9E44;color:#237A35;border-radius:999px;padding:3px 10px;font-size:13px;font-weight:700}
 .dcard .tot{display:flex;justify-content:space-between;align-items:baseline;gap:8px;border-top:1px solid var(--line);padding-top:11px;margin-top:auto;font-size:16px}
@@ -38,21 +39,23 @@
 .dcard .tot .er,.dcard .tot .yp{white-space:nowrap}
 .dcard .er{color:var(--blue)}
 .dcard .er.none{color:var(--soft)}
-.dcard .add{text-align:center;text-decoration:none;font-weight:700;font-size:15px;padding:12px;border-radius:12px;background:var(--blue);color:var(--white)}
+.dcard .add{font:inherit;border:0;cursor:pointer;text-align:center;font-weight:700;font-size:15px;padding:12px;border-radius:12px;background:var(--blue);color:var(--white)}
 
-/* Store promo: one short row on computers */
-.promo{border:1.5px solid #B9D3FB;background:var(--stage1);border-radius:18px;padding:14px 18px;display:flex;align-items:center;gap:18px}
-.promo .pi{flex:1;min-width:0}
-.promo .tag{font-size:11px;font-weight:800;letter-spacing:.08em;color:var(--blue)}
-.promo .pn{font-size:21px;font-weight:800;color:var(--blue);line-height:1.2}
-.promo .po{font-size:15px;font-weight:700;color:var(--blue)}
-.promo .pc{font-weight:500;color:var(--muted)}
-.promo .pr{display:flex;align-items:center;gap:14px}
-.promo .th{display:flex;gap:6px}
-.promo .th span{width:50px;height:50px;border-radius:10px;background:var(--bg);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;overflow:hidden}
-.promo .th img{width:100%;height:100%;object-fit:contain}
-.promo .th .more{background:var(--stage2);border-color:var(--stage2);color:var(--blue);font-size:14px;font-weight:700}
-.promo .mm{text-decoration:none;background:var(--blue);color:var(--white);font-weight:700;font-size:15px;padding:12px 16px;border-radius:12px;white-space:nowrap}
+/* Store promo: the app's card (light blue, circle top right, STORE PROMO tag), first in the grid */
+.pcard{position:relative;overflow:hidden;border:1.5px solid #B5D5F5;background:#F2F8FF;border-radius:18px;padding:14px;display:flex;flex-direction:column;gap:8px;min-width:0;cursor:pointer}
+.pcard>*{position:relative}
+.pcard .blob{position:absolute;right:-34px;top:-44px;width:140px;height:140px;border-radius:50%;background:rgba(0,113,227,.07)}
+.pcard .tag{align-self:flex-start;background:#DCEBFF;border-radius:7px;padding:3px 7px;font-size:11px;font-weight:800;letter-spacing:.06em;color:#0071E3}
+.pcard .pg{height:210px;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:6px}
+.pcard .pg.n1{grid-template-columns:1fr;grid-template-rows:1fr}
+.pcard .pg.n2{grid-template-rows:1fr}
+.pcard .pg.n3 span:first-child{grid-row:span 2}
+.pcard .pg span{background:#FFFFFF;border-radius:10px;display:flex;align-items:center;justify-content:center;overflow:hidden;min-height:0}
+.pcard .pg img{width:100%;height:100%;object-fit:contain}
+.pcard .pg .more{background:#DCEBFF;color:#0071E3;font-weight:800;font-size:15px}
+.pcard .br{color:#0071E3;cursor:pointer}
+.pcard .mm{margin-top:auto;text-align:center;font-weight:800;font-size:15px;padding:12px;border-radius:12px;background:#0071E3;color:#FFFFFF}
+.pcard:hover .mm{filter:brightness(1.06)}
 .empty{color:var(--muted);padding:20px 0}
 
 /* Get the app: left rail on very wide screens, light card everywhere else */
@@ -73,19 +76,29 @@
 }
 @media (max-width:1180px){
   .g4{grid-template-columns:repeat(3,minmax(0,1fr))}
-  .g2{grid-template-columns:minmax(0,1fr)}
 }
 
 /* Phones */
 @media (max-width:900px){
   .dealsPage main .wrap{padding-left:14px;padding-right:14px}
-  .dx{margin-top:12px}
-  .dx h1{font-size:25px}
+  .dx{margin-top:14px}
+  .dxr{gap:8px}
+  .dx h1{font-size:21px}
+  .dx .tt button{gap:3px}
   .dx .tt svg{width:16px;height:16px}
-  .dx .wk{font-size:14px;margin-top:2px}
-  #promosx{margin-top:12px}
+  .dx .wk{font-size:14px}
+  .dx .wk .full{display:none}
+  .dx .wk .short{display:inline}
+  .fl{margin-top:12px;margin-left:-14px;margin-right:-14px;padding-left:14px;padding-right:14px}
+  .fl button{font-size:13px;padding:7px 13px}
+  #allDeals{margin-top:14px}
+  .pcard{padding:10px;border-radius:16px;gap:6px}
+  .pcard .pg{height:140px;gap:5px}
+  .pcard .br{font-size:16px}
+  .pcard .of{font-size:14px}
+  .pcard .mm{font-size:14px;padding:10px}
+  .pcard .blob{width:110px;height:110px;right:-30px;top:-40px}
   .g4{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-  .g2{gap:10px}
   .sh h2,.secth{font-size:22px}
   .dcard{padding:10px;border-radius:16px}
   .dcard .ph{height:140px}
@@ -94,12 +107,64 @@
   .dcard .tot{flex-direction:column;align-items:flex-start;gap:2px;font-size:15px}
   .dcard .tot b{font-size:19px}
   .dcard .tot .yp{order:-1}
-  .promo{flex-direction:column;align-items:stretch;gap:8px;padding:12px 14px;border-radius:16px}
-  .promo .pn{font-size:17px}
-  .promo .po{font-size:13px}
-  .promo .pr{justify-content:space-between;gap:8px}
-  .promo .th span{width:40px;height:40px;border-radius:9px}
-  .promo .mm{font-size:14px;padding:10px 12px}
   .gbar{left:12px;right:12px;bottom:12px;max-width:none}
   .dealsPage footer{padding-bottom:90px}
+}
+
+/* Pop-ups on the site: deal details, sign-up sheet, Mix & match window (Nov 25) */
+html.cmlock,html.cmlock body{overflow:hidden}
+.cmov{position:fixed;inset:0;z-index:100;background:rgba(20,30,60,.45);display:flex;align-items:center;justify-content:center;padding:20px}
+.cmov[hidden]{display:none}
+.cmbox{background:#FFFFFF;border-radius:20px;box-shadow:0 20px 60px rgba(0,0,0,.25);width:100%;max-height:calc(100vh - 40px);overflow:auto;padding:18px 20px 20px;color:var(--ink)}
+.cmbox.deal{max-width:400px}
+.cmbox.sheet{max-width:480px;padding:22px 26px 24px}
+.cmbox.mix{max-width:480px;height:min(760px,calc(100vh - 40px));padding:0;display:flex;flex-direction:column;overflow:hidden}
+.cmhd{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:28px}
+.cmhd .ey{font-size:12px;font-weight:800;letter-spacing:.06em;color:#0071E3}
+.cmhd.mx{padding:14px 16px;border-bottom:1px solid var(--line)}
+.cmhd .mt{font-weight:800;font-size:17px;color:#0071E3;line-height:1.2}
+.cmhd .mt small{display:block;font-size:14px;font-weight:500;color:var(--muted)}
+.cmx{font:inherit;width:32px;height:32px;border-radius:50%;border:1px solid var(--line);background:#FFFFFF;color:#8A92A6;font-size:15px;cursor:pointer;flex-shrink:0}
+.cmbox .br{font-weight:800;font-size:18px;line-height:1.25}
+.cmbox .of{font-size:15px;color:var(--muted);margin-top:2px}
+.cmbox .dtop{display:flex;gap:14px;margin-top:8px;align-items:center}
+.cmbox .dph{width:96px;height:96px;flex-shrink:0;border-radius:12px;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.cmbox .dph img{width:100%;height:100%;object-fit:contain}
+.cmbox .nt{margin-top:12px;background:#F5F7FB;border-radius:10px;padding:10px 12px;font-size:14px;line-height:1.4;white-space:pre-line}
+.cmbox .math{margin-top:12px;border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.cmbox .ln{display:flex;justify-content:space-between;gap:12px;font-size:15px;margin-top:4px}
+.cmbox .ln:first-child{margin-top:0}
+.cmbox .ln span{min-width:0}
+.cmbox .ln b{white-space:nowrap}
+.cmbox .ln.g{color:#2F9E44}
+.cmbox .ln.yp{border-top:1px solid var(--line);padding-top:8px;margin-top:8px;font-weight:800}
+.cmbox .ln.yp b{font-size:19px}
+.cmbox .ln.er{color:#0071E3}
+.cmbtn{font:inherit;display:block;width:100%;margin-top:16px;border:0;cursor:pointer;background:#0071E3;color:#FFFFFF;font-weight:800;font-size:16px;padding:14px;border-radius:12px}
+.cmbox .com{text-align:center;font-size:13px;color:var(--muted);margin-top:10px}
+.cmbox .pv{display:flex;gap:12px;margin-top:14px;border:1px solid var(--line);border-radius:16px;padding:14px}
+.cmbox .pvl{width:84px;flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:8px}
+.cmbox .pvp{width:80px;height:68px;display:flex;align-items:center;justify-content:center}
+.cmbox .pvp img{max-width:100%;max-height:100%;object-fit:contain}
+.cmbox .pve{border:1px solid #B9D3FB;background:#E8F2FC;border-radius:10px;padding:4px 10px;text-align:center;color:#0071E3;line-height:1.15}
+.cmbox .pve small{display:block;font-size:11px}
+.cmbox .pve b{font-size:16px}
+.cmbox .pvr{flex:1;min-width:0}
+.cmbox .pvr .br{font-size:16px}
+.cmbox .pvr .of{font-size:14px}
+.cmbox .pvr .ln{font-size:14px}
+.cmbox .pvr .ln:nth-child(3){margin-top:8px}
+.cmbox .ln.tt{border-top:1px solid var(--line);margin-top:8px;padding-top:6px;align-items:baseline}
+.cmbox .ln.tt span{font-size:12px;font-weight:800;letter-spacing:.04em}
+.cmbox .ln.tt b{font-size:20px}
+.cmbox .alt{text-align:center;font-size:15px;color:var(--muted);margin-top:12px}
+.cmbox .alt button{font:inherit;background:none;border:0;padding:0;color:#0071E3;font-weight:800;cursor:pointer}
+.mxw{position:relative;flex:1;min-height:0}
+.mxw iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.mxl{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:#FFFFFF;color:var(--muted);font-size:15px;z-index:1}
+@media (max-width:900px){
+  .cmov{align-items:flex-end;padding:0}
+  .cmbox.deal,.cmbox.sheet{max-width:none;border-radius:22px 22px 0 0;max-height:90vh;padding:16px 16px calc(18px + env(safe-area-inset-bottom))}
+  .cmbox.mix{max-width:none;width:calc(100% - 24px);height:calc(100% - 56px);margin:auto;border-radius:20px}
+  .cmov:has(.cmbox.mix){align-items:center;padding:12px}
 }

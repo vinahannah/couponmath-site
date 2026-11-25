@@ -55,7 +55,7 @@
 
 /* Home: the top part fills the first screen; "See it in action ⌄" at its bottom */
 html{scroll-behavior:smooth}
-body[data-page=home] .hgrid{position:relative;min-height:calc(100svh - 64px);box-sizing:border-box;padding-bottom:84px;align-content:center;align-items:center}
+body[data-page=home] .hgrid,body[data-page=take-a-look] .hgrid{position:relative;min-height:calc(100svh - 64px);box-sizing:border-box;padding-bottom:84px;align-content:center;align-items:center}
 .seecue{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);display:flex;flex-direction:row;align-items:center;gap:8px;color:#1A1B2E;font-weight:800;font-size:16px;text-decoration:none;z-index:2;white-space:nowrap}
 .seecue span{width:32px;height:32px;border-radius:50%;background:#fff;border:1.5px solid #D0D5DD;color:#4A5068;display:flex;align-items:center;justify-content:center;animation:seebob 1.8s ease-in-out infinite}
 @keyframes seebob{0%,100%{transform:translateY(0)}50%{transform:translateY(4px)}}

@@ -229,3 +229,6 @@ html.android .wbw{order:-1}
 .dlq::after{content:"";position:absolute;left:0;right:0;top:-14px;height:14px}
 .dlq img{width:130px;height:130px;display:block;margin:0 auto}.dlq b{display:block;font-size:15px;margin-top:6px}.dlq small{display:block;font-size:12.5px;font-weight:500;color:var(--muted);margin-top:2px}
 @media (hover:hover) and (pointer:fine){.dl:hover .dlq,.dl:focus-visible .dlq{display:block}}
+
+/* Phone top bar: Sign in / up + menu only (Download is in the menu and the Get the app bar) (Nov 25) */
+@media (max-width:900px){.pn .dlp{display:none !important}}
